@@ -947,10 +947,10 @@ diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
  # String (text and binary) types and functions.
  
 -basestring = future.utils.string_types
-+basestring = basestring
++basestring = str
  pystr = str
 -unicode = future.utils.text_type
-+unicode = unicode
++unicode = str
  
  # This tries to help pylance get the types right.
 -str = builtins.str; globals()["str"] = future.utils.text_type
@@ -983,7 +983,7 @@ diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
  ################################################################################
  # Chance the default for subprocess.Popen.
 -if PY2:
-+if PY2 and not sys.platform == 'horizon':
++if not sys.platform == 'horizon':
      import subprocess
      class Popen(subprocess.Popen):
          def __init__(self, *args, **kwargs):
