@@ -46,6 +46,10 @@ unzip -qq renpy-$RENPY_VER-sdk.zip -d renpy_sdk
 rm renpy-$RENPY_VER-sdk.zip
 
 dkp-pacman -S --noconfirm switch-sdl2
+dkp-pacman -S --noconfirm switch-sdl2_gfx
+dkp-pacman -S --noconfirm switch-sdl2_image
+dkp-pacman -S --noconfirm switch-sdl2_mixer
+dkp-pacman -S --noconfirm switch-sdl2_ttf
 
 #rm -rf raw
 #unzip -qq rawproject.zip -d raw
