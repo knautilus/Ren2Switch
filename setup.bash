@@ -6,8 +6,8 @@ export PYGAME_SDL2_VER=2.1.0
 
 
 apt-get -y update
-apt-get -y install python2.7 python-pip p7zip-full cython libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
-pip2 install future six typing requests ecdsa pefile==2019.4.18 Cython==0.29.36
+apt-get -y install python3 python3-pip p7zip-full cython libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
+pip install future six typing requests ecdsa pefile==2019.4.18 Cython==0.29.36
 
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
@@ -31,7 +31,7 @@ curl -LOC - https://www.renpy.org/dl/$RENPY_VER/renpy-$RENPY_VER-source.tar.bz2
 
 
 rm -rf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER pygame_sdl2-source
-tar -xvzf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
+tar -xzvf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
 mv pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER pygame_sdl2-source
 rm pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
 
