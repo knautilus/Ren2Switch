@@ -45,6 +45,8 @@ rm -rf renpy-$RENPY_VER-sdk renpy_sdk
 unzip -qq renpy-$RENPY_VER-sdk.zip -d renpy_sdk
 rm renpy-$RENPY_VER-sdk.zip
 
+dkp-pacman -S --noconfirm sdl2
+
 #rm -rf raw
 #unzip -qq rawproject.zip -d raw
 #rm rawproject.zip
