@@ -974,7 +974,7 @@ diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
 +    else:
 +        return ''.join(s)
 +
-+chr = unichr
++chr = chr
  
  ################################################################################
  # Dictionary views.
