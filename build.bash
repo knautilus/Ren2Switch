@@ -3,26 +3,26 @@ set -e
 export DEVKITPRO=/opt/devkitpro
 pushd pygame_sdl2-source
 rm -rf gen gen-static
-python setup.py || true
-PYGAME_SDL2_STATIC=1 python setup.py || true
+python2 setup.py || true
+PYGAME_SDL2_STATIC=1 python2 setup.py || true
 popd
 
 pushd renpy-source/module
 rm -rf gen gen-static
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python setup.py || true
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python setup.py || true
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python2 setup.py || true
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python2 setup.py || true
 popd
 
 
 pushd pygame_sdl2-source
-python setup.py build
-python setup.py install_headers
-python setup.py install
+python2 setup.py build
+python2 setup.py install_headers
+python2 setup.py install
 popd
 
 pushd renpy-source/module
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python setup.py build
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python setup.py install
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python2 setup.py build
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python2 setup.py install
 popd
 
 
@@ -84,7 +84,7 @@ cp -r renpy_clear/renpy private/renpy
 cp -r renpy_clear/lib/python2.7/ private/lib/python2.7/
 cp renpy_clear/renpy.py private/main.py
 rm -rf private/renpy/common
-python generate_private.py
+python2 generate_private.py
 rm -rf private
 
 
