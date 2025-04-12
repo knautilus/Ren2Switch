@@ -9,7 +9,6 @@ popd
 
 pushd renpy-source/module
 rm -rf gen gen-static
-python3 setup.py || true
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py || true
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python3 setup.py || true
 popd

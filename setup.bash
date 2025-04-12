@@ -4,6 +4,7 @@ export DEVKITPRO=/opt/devkitpro
 export RENPY_VER=7.6.3
 export PYGAME_SDL2_VER=2.1.0
 
+
 apt-get -y update
 apt-get -y install python3 python3-pip p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
 apt-get -y install python3-setuptools
@@ -44,8 +45,6 @@ rm renpy-$RENPY_VER-source.tar.bz2
 rm -rf renpy-$RENPY_VER-sdk renpy_sdk
 unzip -qq renpy-$RENPY_VER-sdk.zip -d renpy_sdk
 rm renpy-$RENPY_VER-sdk.zip
-
-#dkp-pacman -S --noconfirm switch-sdl2
 
 #rm -rf raw
 #unzip -qq rawproject.zip -d raw
