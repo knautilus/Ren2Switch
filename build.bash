@@ -3,16 +3,12 @@ set -e
 export DEVKITPRO=/opt/devkitpro
 pushd pygame_sdl2-source
 rm -rf gen gen-static
-python3 setup.py build
-python3 setup.py install
 python3 setup.py || true
 PYGAME_SDL2_STATIC=1 python3 setup.py || true
 popd
 
 pushd renpy-source/module
 rm -rf gen gen-static
-python3 setup.py build
-python3 setup.py install
 python3 setup.py || true
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py || true
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python3 setup.py || true
@@ -86,7 +82,7 @@ rm -rf private
 mkdir private
 mkdir private/lib
 cp -r renpy_clear/renpy private/renpy
-cp -r renpy_clear/lib/python2.7/ private/lib/python2.7/
+#cp -r renpy_clear/lib/python2.7/ private/lib/python2.7/
 cp renpy_clear/renpy.py private/main.py
 rm -rf private/renpy/common
 python3 generate_private.py
