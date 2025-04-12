@@ -58,7 +58,7 @@ popd
 popd
 
 mkdir -p ./raw/switch/exefs/main
-mv ./switch/build/renpy-switch.nso ./raw/switch/exefs/main
+mv ./switch/build/ ./raw/switch/exefs/main
 rm -rf switch include source pygame_sdl2-source
 
 
