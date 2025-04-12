@@ -33,7 +33,7 @@ curl -LOC - https://www.renpy.org/dl/$RENPY_VER/renpy-$RENPY_VER-source.tar.bz2
 
 
 rm -rf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER pygame_sdl2-source
-tar -xzvf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
+tar -xf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
 mv pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER pygame_sdl2-source
 rm pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
 
