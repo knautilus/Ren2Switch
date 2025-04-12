@@ -28,9 +28,9 @@ set(OPTIMIZATION_FLAGS
     -Ofast
 )
 
-#set(INCLUDES
-#    ${DEVKITPRO}/portlibs/switch/include/python2.7
-#)
+set(INCLUDES
+    ${DEVKITPRO}/portlibs/switch/include/python2.7
+)
 
 set(SOURCES
     source/main.c
@@ -125,7 +125,7 @@ endif()
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
-    #${DEVKITPRO}/portlibs/switch/lib/libpython2.7.a
+    ${DEVKITPRO}/portlibs/switch/lib/libpython2.7.a
     ${DEVKITPRO}/portlibs/switch/lib/librenpy-switch-modules.a
     m
     PkgConfig::EGL
