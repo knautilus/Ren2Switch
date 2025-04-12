@@ -92,8 +92,7 @@ rm -rf private
 
 
 mkdir -p ./raw/switch/romfs/Contents/renpy
-mkdir -p ./raw/lib/renpy/common
-mkdir -p ./raw/renpy_clear
+mkdir -p ./raw/lib
 #mkdir -p ./raw/android/assets/renpy/common
 cp -r ./renpy_clear/renpy/common ./raw/switch/romfs/Contents/renpy/
 #cp -r ./renpy_clear/renpy/common ./raw/android/assets/renpy/
@@ -101,10 +100,10 @@ cp -r ./renpy_clear/renpy/common ./raw/switch/romfs/Contents/renpy/
 cp ./renpy_clear/renpy.py ./raw/switch/romfs/Contents/
 #unzip -qq ./raw/lib.zip -d ./raw/lib/
 #rm ./raw/lib.zip
-cp -r ./renpy_clear/renpy/ ./raw/lib/
+cp -r ./renpy_clear/renpy ./raw/lib/
 rm -rf ./raw/lib/renpy/common/
 7z a -tzip ./raw/switch/romfs/Contents/lib.zip ./raw/lib/*
 rm -rf ./raw/lib
 #rm ./renpy_clear/*.txt
 rm -rf ./renpy_clear/game
-mv ./renpy_clear/ ./raw/renpy_clear/
+mv ./renpy_clear/ ./raw/
