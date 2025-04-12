@@ -81,7 +81,7 @@ rm -rf private
 mkdir private
 mkdir private/lib
 cp -r renpy_clear/renpy private/renpy
-#cp -r renpy_clear/lib/python2.7/ private/lib/python2.7/
+cp -r renpy_clear/lib/python2.7/ private/lib/python2.7/
 cp renpy_clear/renpy.py private/main.py
 rm -rf private/renpy/common
 python3 generate_private.py
