@@ -1,24 +1,24 @@
 set -e
 
 export DEVKITPRO=/opt/devkitpro
-export RENPY_VER=7.6.3
+export RENPY_VER=7.7.3
 export PYGAME_SDL2_VER=2.1.0
 
 apt-get -y update
 apt-get -y install python3 python3-pip p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
 apt-get -y install python3-setuptools
-pip install future six typing requests ecdsa pefile==2019.4.18
+pip install future six typing requests ecdsa pefile==2023.2.7
 pip install Cython==0.29.37
 
 #curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 #curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
-#curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libfribidi-1.0.12-1-any.pkg.tar.xz
+curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 #dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
-#dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
+dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 #tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
 
 #rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
-#rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
+rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 #rm python27-switch.tar.gz
 
 #/bin/bash -c 'sed -i'"'"'.bak'"'"' '"'"'s/set(CMAKE_EXE_LINKER_FLAGS_INIT "/set(CMAKE_EXE_LINKER_FLAGS_INIT "-fPIC /'"'"' $DEVKITPRO/switch.cmake'
