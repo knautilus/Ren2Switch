@@ -44,7 +44,7 @@ popd
 
 tar -czvf $PREFIXARCHIVE -C $LOCAL_PREFIX .
 tar -xzvf renpy-switch-modules.tar.gz -C $DEVKITPRO/portlibs/switch
-#rm renpy-switch-modules.tar.gz
+rm renpy-switch-modules.tar.gz
 rm -rf build-switch
 
 source /opt/devkitpro/switchvars.sh
