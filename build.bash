@@ -100,8 +100,8 @@ cp -r ./renpy_clear/renpy/common ./raw/switch/romfs/Contents/renpy/
 cp ./renpy_clear/renpy.py ./raw/switch/romfs/Contents/
 #unzip -qq ./raw/lib.zip -d ./raw/lib/
 #rm ./raw/lib.zip
-cp -r ./renpy_clear/lib/python2.7 ./raw/lib
-cp -r ./renpy_clear/renpy ./raw/lib/
+cp -r ./renpy_clear/lib/python2.7/. ./raw/lib
+cp -r ./renpy_clear/renpy ./raw/lib
 rm -rf ./raw/lib/renpy/common/
 7z a -tzip ./raw/switch/romfs/Contents/lib.zip ./raw/lib/*
 rm -rf ./raw/lib
