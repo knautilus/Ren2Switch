@@ -983,7 +983,7 @@ diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
  ################################################################################
  # Chance the default for subprocess.Popen.
 -if PY2:
-+if not sys.platform == 'horizon':
++if PY2 and not sys.platform == 'horizon':
      import subprocess
      class Popen(subprocess.Popen):
          def __init__(self, *args, **kwargs):
@@ -1864,6 +1864,6 @@ diff -Naur b/renpy.py a/renpy.py
 +        main()
 +    except:
 +        if sys.platform == 'horizon':
-+            with open("save://otrh.log", "w") as f:
++            with open("save://exception.log", "w") as f:
 +                import traceback
 +                f.write(traceback.format_exc())
