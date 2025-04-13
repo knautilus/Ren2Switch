@@ -57,8 +57,8 @@ make
 popd
 popd
 
-mkdir -p ./raw/switch/exefs/main
-mv ./switch/build/ ./raw/switch/exefs/main
+mkdir -p ./raw/switch/exefs/
+mv ./switch/ ./raw/switch/exefs/
 rm -rf switch include source pygame_sdl2-source
 
 
