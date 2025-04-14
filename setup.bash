@@ -4,9 +4,9 @@ export DEVKITPRO=/opt/devkitpro
 export RENPY_VER=7.6.3
 export PYGAME_SDL2_VER=2.1.0
 
-sudo apt update
-sudo apt install build-essential checkinstall
-sudo apt install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+apt -y update
+apt -y install build-essential checkinstall
+apt -y install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 
 #apt -y update
 #apt -y install software-properties-common
@@ -20,7 +20,7 @@ tar -xvf Python-2.7.18.tgz
 pushd Python-2.7.18
 ./configure --enable-optimizations
 make
-sudo make install
+make install
 python2 --version
 popd
 
