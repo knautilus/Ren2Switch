@@ -10,7 +10,16 @@ apt -y install software-properties-common
 apt -y update
 sed -i "/^# deb.*universe/ s/^# //" /etc/apt/sources.list
 apt -y update
-apt-get install python=2.7.16
+wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
+tar -xvf Python-2.7.18.tgz
+
+pushd Python-2.7.18
+./configure --enable-optimizations
+make
+sudo make install
+python2 --version
+popd
+
 sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 sudo python2 get-pip.py
 apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
