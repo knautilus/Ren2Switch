@@ -5,9 +5,11 @@ export RENPY_VER=7.6.3
 export PYGAME_SDL2_VER=2.1.0
 
 
-apt-get -y update
+apt -y update
+apt install software-properties-common
+apt -y update
 add-apt-repository universe
-apt update
+apt -y update
 apt-get install python=2.7.16
 sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 sudo python2 get-pip.py
