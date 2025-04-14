@@ -30,7 +30,7 @@ python2 get-pip.py
 pip2 --version 
 
 apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
-pip2 install future six typing requests ecdsa pefile==2023.2.7 Cython==0.29.36 setuptools==0.7.8
+pip2 install future six typing requests ecdsa pefile==2021.5.13 Cython==0.29.36 setuptools==0.7.8
 
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
