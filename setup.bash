@@ -8,7 +8,7 @@ export PYGAME_SDL2_VER=2.1.0
 apt -y update
 apt -y install software-properties-common
 apt -y update
-add-apt-repository universe
+sed -i "/^# deb.*universe/ s/^# //" /etc/apt/sources.list
 apt -y update
 apt-get install python=2.7.16
 sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
