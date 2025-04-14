@@ -6,7 +6,7 @@ export PYGAME_SDL2_VER=2.1.0
 
 
 apt -y update
-apt install software-properties-common
+apt -y install software-properties-common
 apt -y update
 add-apt-repository universe
 apt -y update
