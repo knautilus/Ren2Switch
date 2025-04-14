@@ -4,7 +4,8 @@ export DEVKITPRO=/opt/devkitpro
 export RENPY_VER=7.6.3
 export PYGAME_SDL2_VER=2.1.0
 
-apt -y update
+apt-get -y update
+apt-get -y upgrade
 apt -y install build-essential checkinstall
 apt -y install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 
@@ -17,12 +18,12 @@ apt -y install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev lib
 wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
 tar -xvf Python-2.7.18.tgz
 
-pushd Python-2.7.18
+cd Python-2.7.18
 ./configure --enable-optimizations
 make
 make install
 python2 --version
-popd
+cd ../
 
 curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 python2 get-pip.py
