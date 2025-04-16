@@ -9,21 +9,15 @@ apt-get -y upgrade
 apt -y install build-essential checkinstall
 apt -y install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 
-#apt -y update
-#apt -y install software-properties-common
-#apt -y update
-#sed -i "/^# deb.*universe/ s/^# //" /etc/apt/sources.list
-#apt -y update
-
 wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
 tar -xvf Python-2.7.18.tgz
 
-cd Python-2.7.18
+pushd Python-2.7.18
 ./configure --enable-optimizations
 make
 make install
 python2 --version
-cd ../
+popd
 
 curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 python2 get-pip.py
