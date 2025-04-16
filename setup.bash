@@ -4,12 +4,28 @@ export DEVKITPRO=/opt/devkitpro
 export RENPY_VER=7.6.3
 export PYGAME_SDL2_VER=2.1.0
 
-
 apt-get -y update
-apt-get -y install python3 python3-pip p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
-apt-get -y install python3-setuptools
-pip install future six typing requests ecdsa pefile==2023.2.7
-pip install Cython==0.29.37
+apt-get -y upgrade
+apt -y install build-essential checkinstall
+apt -y install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+
+wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
+tar -xvf Python-2.7.18.tgz
+
+pushd Python-2.7.18
+./configure --enable-optimizations
+make
+make install
+python2 --version
+popd
+
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+python2 get-pip.py
+pip2 --version 
+
+apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
+pip2 uninstall distribute
+pip2 install future six typing requests ecdsa pefile==2019.4.18 Cython==0.29.36 setuptools==0.9.8
 
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
@@ -45,6 +61,7 @@ rm renpy-$RENPY_VER-source.tar.bz2
 rm -rf renpy-$RENPY_VER-sdk renpy_sdk
 unzip -qq renpy-$RENPY_VER-sdk.zip -d renpy_sdk
 rm renpy-$RENPY_VER-sdk.zip
+cp -rf subprocess.pyo renpy_sdk/renpy-$RENPY_VER-sdk/lib/python2.7
 
 #rm -rf raw
 #unzip -qq rawproject.zip -d raw
