@@ -24,7 +24,7 @@ dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 #tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
 
 curl -LOC - https://github.com/knautilus/DevkitProPython38/releases/download/v1.0/python38-switch.zip
-unzip -qq python38-switch.zip -d $DEVKITPRO/portlibs/switch
+dkp-pacman -U --noconfirm python38-switch.zip
 rm python38-switch.zip
 
 #rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
