@@ -16,10 +16,10 @@ apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-d
 pip3 uninstall distribute
 pip3 install future six typing requests ecdsa pefile Cython setuptools
 
-curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+#curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 #curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+#dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 #tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
 
@@ -28,7 +28,7 @@ pushd switch-libpython
 makepkg -si
 popd
 
-rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+#rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 #rm python27-switch.tar.gz
 
