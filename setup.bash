@@ -1,7 +1,7 @@
 set -e
 
 export DEVKITPRO=/opt/devkitpro
-export RENPY_VER=7.6.3
+export RENPY_VER=8.3.4
 export PYGAME_SDL2_VER=2.1.0
 
 apt-get -y update
@@ -10,26 +10,27 @@ apt-get -y upgrade
 apt -y install build-essential checkinstall
 apt -y install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 
-apt -y install python2 python2-dev
-
-curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
-python2 get-pip.py
-pip2 --version 
+apt -y install python3 python3-dev
 
 apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
-pip2 uninstall distribute
-pip2 install future six typing requests ecdsa pefile==2019.4.18 Cython==0.29.36 setuptools==0.9.8
+pip3 uninstall distribute
+pip3 install future six typing requests ecdsa pefile Cython setuptools
 
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
-curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
+#curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
+#tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
+
+git clone https://github.com/nx-python/switch-libpython
+pushd switch-libpython
+makepkg -si
+popd
 
 rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-rm python27-switch.tar.gz
+#rm python27-switch.tar.gz
 
 /bin/bash -c 'sed -i'"'"'.bak'"'"' '"'"'s/set(CMAKE_EXE_LINKER_FLAGS_INIT "/set(CMAKE_EXE_LINKER_FLAGS_INIT "-fPIC /'"'"' $DEVKITPRO/switch.cmake'
 
@@ -54,7 +55,7 @@ rm renpy-$RENPY_VER-source.tar.bz2
 rm -rf renpy-$RENPY_VER-sdk renpy_sdk
 unzip -qq renpy-$RENPY_VER-sdk.zip -d renpy_sdk
 rm renpy-$RENPY_VER-sdk.zip
-cp -rf subprocess.pyo renpy_sdk/renpy-$RENPY_VER-sdk/lib/python2.7
+cp -rf subprocess.pyo renpy_sdk/renpy-$RENPY_VER-sdk/lib/python3.11
 
 #rm -rf raw
 #unzip -qq rawproject.zip -d raw
