@@ -23,10 +23,9 @@ curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libf
 dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 #tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
 
-git clone https://github.com/nx-python/switch-libpython
-pushd switch-libpython
-makepkg -si
-popd
+curl -LOC - https://github.com/knautilus/DevkitProPython38/releases/download/v1.0/python38-switch.zip
+unzip -qq python38-switch.zip -d $DEVKITPRO/portlibs/switch
+rm python38-switch.zip
 
 #rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
