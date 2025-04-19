@@ -2,27 +2,27 @@ set -e
 
 export DEVKITPRO=/opt/devkitpro
 pushd pygame_sdl2-source
-rm -rf gen gen-static
-python2 setup.py || true
-PYGAME_SDL2_STATIC=1 python2 setup.py || true
+rm -rf gen3 gen3-static
+python3 setup.py || true
+PYGAME_SDL2_STATIC=1 python3 setup.py || true
 popd
 
 pushd renpy-source/module
-rm -rf gen gen-static
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python2 setup.py || true
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python2 setup.py || true
+rm -rf gen3 gen3-static
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py || true
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python3 setup.py || true
 popd
 
 
 pushd pygame_sdl2-source
-python2 setup.py build
-python2 setup.py install_headers
-python2 setup.py install
+python3 setup.py build
+python3 setup.py install_headers
+python3 setup.py install
 popd
 
 pushd renpy-source/module
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python2 setup.py build
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python2 setup.py install
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py build
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py install
 popd
 
 
@@ -83,10 +83,10 @@ rm -rf private
 mkdir private
 mkdir private/lib
 cp -r renpy_clear/renpy private/renpy
-cp -r renpy_clear/lib/python2.7/ private/lib/
+cp -r renpy_clear/lib/python3.9/ private/lib/
 cp renpy_clear/renpy.py private/main.py
 rm -rf private/renpy/common
-python2 generate_private.py
+python3 generate_private.py
 rm -rf private
 
 
@@ -100,7 +100,7 @@ cp -r ./renpy_clear/renpy/common ./raw/switch/romfs/Contents/renpy/
 cp ./renpy_clear/renpy.py ./raw/switch/romfs/Contents/
 #unzip -qq ./raw/lib.zip -d ./raw/lib/
 #rm ./raw/lib.zip
-cp -r ./renpy_clear/lib/python2.7/. ./raw/lib
+cp -r ./renpy_clear/lib/python3.9/. ./raw/lib
 cp -r ./renpy_clear/renpy ./raw/lib
 rm -rf ./raw/lib/renpy/common/
 7z a -tzip ./raw/switch/romfs/Contents/lib.zip ./raw/lib/*
