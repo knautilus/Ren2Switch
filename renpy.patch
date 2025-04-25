@@ -12,7 +12,7 @@ diff -Naur b/module/ffmedia.c a/module/ffmedia.c
  /* Should a mono channel be split into two equal stero channels (true) or
   * should the energy be split onto two stereo channels with 1/2 the energy
   * (false).
-@@ -289,11 +285,7 @@
+@@ -294,11 +290,7 @@
  		}
  
  		if (sqe->pixels) {
@@ -24,7 +24,7 @@ diff -Naur b/module/ffmedia.c a/module/ffmedia.c
  		}
  		av_free(sqe);
  	}
-@@ -867,16 +859,7 @@
+@@ -872,16 +864,7 @@
  	    rv->pitch += ROW_ALIGNMENT - (rv->pitch % ROW_ALIGNMENT);
  	}
  
@@ -41,7 +41,7 @@ diff -Naur b/module/ffmedia.c a/module/ffmedia.c
  	rv->format = sample->format;
  	rv->next = NULL;
  	rv->pts = pts;
-@@ -986,11 +969,7 @@
+@@ -991,11 +974,7 @@
  			ms->surface_queue_size -= 1;
  
  			if (sqe->pixels) {
@@ -106,7 +106,7 @@ diff -Naur b/renpy/__init__.py a/renpy/__init__.py
  
  # A flag that's set to true if the game directory is bundled inside a mac app.
  macapp = False
-@@ -420,7 +421,8 @@
+@@ -418,7 +419,8 @@
      import renpy.curry
      import renpy.color
      import renpy.easy
@@ -116,7 +116,7 @@ diff -Naur b/renpy/__init__.py a/renpy/__init__.py
      import renpy.execution
      import renpy.lexer
      import renpy.loadsave
-@@ -617,6 +619,11 @@
+@@ -618,6 +620,11 @@
      returned.
      """
  
@@ -156,227 +156,6 @@ diff -Naur b/renpy/ast.py a/renpy/ast.py
  import renpy
  
  import hashlib
-diff -Naur b/renpy/audio/androidhw.py a/renpy/audio/androidhw.py
---- b/renpy/audio/androidhw.py	2023-06-08 02:55:48.000000000 +0300
-+++ a/renpy/audio/androidhw.py	1970-01-01 03:00:00.000000000 +0300
-@@ -1,217 +0,0 @@
--# Copyright 2004-2023 Tom Rothamel <pytom@bishoujo.us>
--#
--# Permission is hereby granted, free of charge, to any person
--# obtaining a copy of this software and associated documentation files
--# (the "Software"), to deal in the Software without restriction,
--# including without limitation the rights to use, copy, modify, merge,
--# publish, distribute, sublicense, and/or sell copies of the Software,
--# and to permit persons to whom the Software is furnished to do so,
--# subject to the following conditions:
--#
--# The above copyright notice and this permission notice shall be
--# included in all copies or substantial portions of the Software.
--#
--# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
--# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
--# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
--# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
--# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
--# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
--# WITH THE SOFTWARE OR OTHER DEALINGS IN THE SOFTWARE.
--
--from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
--from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
--
--
--
--import renpy
--import jnius # type: ignore
--
--from renpy.audio.audio import MusicContext
--
--VideoPlayer = jnius.autoclass("org.renpy.android.VideoPlayer")
--
--
--class AndroidVideoChannel(object):
--
--    def __init__(self, name, file_prefix="", file_suffix="", default_loop=None):
--
--        # A list of queued filenames.
--        self.queue = [ ]
--
--        # The filename that's currently playing.
--        self.filename = None
--
--        # The videoplayer that's currently playing.
--        self.player = None
--
--        # The name assigned to this channel. This is used to look up
--        # information about the channel in the MusicContext object.
--        self.name = name
--
--        # The name of the mixer this channel uses. Set below, as there's
--        # no good default.
--        self.mixer = None
--
--        # The time the music in this channel was last changed.
--        self.last_changed = 0
--
--        # The callback that is called if the queue becomes empty.
--        self.callback = None
--
--        # Ignored.
--        self.synchro_start = False
--        self.wait_stop = False
--        self.loop = [ ]
--
--        # A prefix and suffix that are used to create the full filenames.
--        self.file_prefix = file_prefix
--        self.file_suffix = file_suffix
--
--        if default_loop is None:
--            # By default, should we loop the music?
--            self.default_loop = True
--            # Was this set explicitly?
--            self.default_loop_set = False
--
--        else:
--            self.default_loop = default_loop
--            self.default_loop_set = True
--
--    def get_context(self):
--        """
--        Returns the MusicContext corresponding to this channel, taken from
--        the context object. Allocates a MusicContext if none exists.
--        """
--
--        mcd = renpy.game.context().music
--
--        rv = mcd.get(self.name)
--        if rv is None:
--            rv = mcd[self.name] = MusicContext()
--
--        return rv
--
--    context = property(get_context)
--
--    def copy_context(self):
--        """
--        Copies the MusicContext associated with this channel, updates the
--        ExecutionContext to point to the copy, and returns the copy.
--        """
--
--        mcd = renpy.game.context().music
--
--        ctx = self.get_context().copy()
--        mcd[self.name] = ctx
--        return ctx
--
--    def start(self):
--        """
--        Starts playing the first video in the queue.
--        """
--
--        if not self.queue:
--            return
--
--        filename = self.queue.pop(0)
--
--        with renpy.loader.load(filename, directory="audio") as f:
--            real_fn = f.name
--            base = getattr(f, "base", -1)
--            length = getattr(f, "length", -1)
--
--        self.filename = filename
--        self.player = VideoPlayer(real_fn, base, length)
--
--    def stop(self):
--
--        if self.player is not None:
--            self.player.stop()
--            self.player = None
--
--        self.filename = None
--
--    def get_playing(self):
--
--        if self.player is None:
--            return None
--
--        if self.player.isPlaying():
--            return self.filename
--
--    def periodic(self):
--
--        # This should be set from something that checks to see if our
--        # mixer is muted.
--        force_stop = self.context.force_stop
--
--        if force_stop:
--            self.dequeue()
--            self.stop()
--            return
--
--        if self.get_playing():
--            return
--
--        if self.queue:
--            self.start()
--
--    def dequeue(self, even_tight=False):
--        """
--        Clears the queued music, except for a first item that has
--        not been started.
--        """
--
--        if self.get_playing():
--            self.queue = [ ]
--        else:
--            self.queue = self.queue[:1]
--
--    def interact(self):
--        """
--        Called (mostly) once per interaction.
--        """
--
--        self.periodic()
--
--    def fadeout(self, secs):
--        """
--        Causes the playing music to be faded out for the given number
--        of seconds. Also clears any queued music.
--        """
--
--        self.stop()
--        self.queue = [ ]
--
--    def enqueue(self, filenames, loop=True, synchro_start=False, fadein=0, tight=None, relative_volume=1.0):
--        self.queue.extend(filenames)
--
--    def set_volume(self, volume):
--        pass
--
--    def get_pos(self):
--        pass
--
--    def set_pan(self, pan, delay):
--        pass
--
--    def set_secondary_volume(self, volume, delay):
--        pass
--
--    def pause(self):
--        if self.player is not None:
--            self.player.pause()
--
--    def unpause(self):
--        if self.player is not None:
--            self.player.unpause()
--
--    def reload(self):
--        return
--
--    def read_video(self):
--        return None
--
--    def video_ready(self):
--        return 1
 diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
 --- b/renpy/audio/audio.py	2023-06-08 02:55:48.000000000 +0300
 +++ a/renpy/audio/audio.py	2023-08-22 03:40:53.817637195 +0300
@@ -390,42 +169,7 @@ diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
  import time
  import pygame_sdl2 # @UnusedImport
  import os
-@@ -790,20 +787,6 @@
-         return renpysound.video_ready(self.number)
- 
- 
--# Use unconditional imports so these files get compiled during the build
--# process.
--
--
--try:
--    from renpy.audio.androidhw import AndroidVideoChannel
--except Exception:
--    pass
--
--try:
--    from renpy.audio.ioshw import IOSVideoChannel
--except Exception:
--    pass
--
- # A list of channels we know about.
- all_channels = [ ]
- 
-@@ -880,12 +863,7 @@
-     if not force and not renpy.game.context().init_phase and (" " not in name):
-         raise Exception("Can't register channel outside of init phase.")
- 
--    if renpy.android and renpy.config.hw_video and name == "movie":
--        c = AndroidVideoChannel(name, default_loop=loop, file_prefix=file_prefix, file_suffix=file_suffix)
--    elif renpy.ios and renpy.config.hw_video and name == "movie":
--        c = IOSVideoChannel(name, default_loop=loop, file_prefix=file_prefix, file_suffix=file_suffix)
--    else:
--        c = Channel(name, loop, stop_on_mute, tight, file_prefix, file_suffix, buffer_queue, movie=movie, framedrop=framedrop)
-+    c = Channel(name, loop, stop_on_mute, tight, file_prefix, file_suffix, buffer_queue, movie=movie, framedrop=framedrop)
- 
-     c.mixer = mixer
- 
-@@ -1053,6 +1031,9 @@
+@@ -1098,6 +1095,9 @@
  
  def quit(): # @ReservedAssignment
  
@@ -435,7 +179,7 @@ diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
      global periodic_thread_quit
  
      global pcm_ok
-@@ -1219,7 +1200,7 @@
+@@ -1245,7 +1245,7 @@
              exc = periodic_exc
              periodic_exc = None
  
@@ -444,206 +188,6 @@ diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
  
          run_periodic = True
          periodic_condition.notify()
-diff -Naur b/renpy/audio/ioshw.py a/renpy/audio/ioshw.py
---- b/renpy/audio/ioshw.py	2023-06-08 02:55:48.000000000 +0300
-+++ a/renpy/audio/ioshw.py	1970-01-01 03:00:00.000000000 +0300
-@@ -1,196 +0,0 @@
--from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
--from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
--
--
--
--import renpy
--import pyobjus # type: ignore
--
--from renpy.audio.audio import MusicContext
--
--VideoPlayer = pyobjus.autoclass("VideoPlayer")
--
--
--class IOSVideoChannel(object):
--
--    def __init__(self, name, file_prefix="", file_suffix="", default_loop=None):
--
--        # A list of queued filenames.
--        self.queue = [ ]
--
--        # The filename that's currently playing.
--        self.filename = None
--
--        # The videoplayer that's currently playing.
--        self.player = None
--
--        # The name assigned to this channel. This is used to look up
--        # information about the channel in the MusicContext object.
--        self.name = name
--
--        # The name of the mixer this channel uses. Set below, as there's
--        # no good default.
--        self.mixer = None
--
--        # The time the music in this channel was last changed.
--        self.last_changed = 0
--
--        # The callback that is called if the queue becomes empty.
--        self.callback = None
--
--        # Ignored.
--        self.synchro_start = False
--        self.wait_stop = False
--        self.loop = [ ]
--
--        # A prefix and suffix that are used to create the full filenames.
--        self.file_prefix = file_prefix
--        self.file_suffix = file_suffix
--
--        if default_loop is None:
--            # By default, should we loop the music?
--            self.default_loop = True
--            # Was this set explicitly?
--            self.default_loop_set = False
--
--        else:
--            self.default_loop = default_loop
--            self.default_loop_set = True
--
--    def get_context(self):
--        """
--        Returns the MusicContext corresponding to this channel, taken from
--        the context object. Allocates a MusicContext if none exists.
--        """
--
--        mcd = renpy.game.context().music
--
--        rv = mcd.get(self.name)
--        if rv is None:
--            rv = mcd[self.name] = MusicContext()
--
--        return rv
--
--    context = property(get_context)
--
--    def copy_context(self):
--        """
--        Copies the MusicContext associated with this channel, updates the
--        ExecutionContext to point to the copy, and returns the copy.
--        """
--
--        mcd = renpy.game.context().music
--
--        ctx = self.get_context().copy()
--        mcd[self.name] = ctx
--        return ctx
--
--    def start(self):
--        """
--        Starts playing the first video in the queue.
--        """
--
--        if not self.queue:
--            return
--
--        filename = self.queue.pop(0)
--        with renpy.loader.load(filename, directory="audio") as f:
--            real_fn = f.name
--
--        self.filename = filename
--        self.player = VideoPlayer.alloc().initWithFile_(real_fn)
--
--    def stop(self):
--
--        if self.player is not None:
--            self.player.stop()
--            self.player = None
--
--        self.filename = None
--
--    def get_playing(self):
--
--        if self.player is None:
--            return None
--
--        if self.player.isPlaying():
--            return self.filename
--
--    def periodic(self):
--
--        # This should be set from something that checks to see if our
--        # mixer is muted.
--        force_stop = self.context.force_stop
--
--        if force_stop:
--            self.dequeue()
--            self.stop()
--            return
--
--        if self.player:
--            self.player.periodic()
--
--        if self.get_playing():
--            return
--
--        if self.queue:
--            self.start()
--
--    def dequeue(self, even_tight=False):
--        """
--        Clears the queued music, except for a first item that has
--        not been started.
--        """
--
--        if self.get_playing():
--            self.queue = [ ]
--        else:
--            self.queue = self.queue[:1]
--
--    def interact(self):
--        """
--        Called (mostly) once per interaction.
--        """
--
--        self.periodic()
--
--    def fadeout(self, secs):
--        """
--        Causes the playing music to be faded out for the given number
--        of seconds. Also clears any queued music.
--        """
--
--        self.stop()
--        self.queue = [ ]
--
--    def enqueue(self, filenames, loop=True, synchro_start=False, fadein=0, tight=None, relative_volume=1.0):
--        self.queue.extend(filenames)
--
--    def pause(self):
--        if self.player is not None:
--            self.player.pause()
--
--    def unpause(self):
--        if self.player is not None:
--            self.player.unpause()
--
--    def set_volume(self, volume):
--        pass
--
--    def get_pos(self):
--        pass
--
--    def set_pan(self, pan, delay):
--        pass
--
--    def set_secondary_volume(self, volume, delay):
--        pass
--
--    def reload(self):
--        return
--
--    def read_video(self):
--        return None
--
--    def video_ready(self):
--        return 1
 diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
 --- b/renpy/bootstrap.py	2023-05-06 04:20:29.000000000 +0300
 +++ a/renpy/bootstrap.py	2023-09-01 00:40:04.344179857 +0300
@@ -656,7 +200,7 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
  import os
  import sys
  import subprocess
-@@ -231,6 +229,11 @@
+@@ -302,6 +300,11 @@
      if args.command == "run" and not renpy.mobile:
          import renpy.display.presplash # @Reimport
          renpy.display.presplash.start(basedir, gamedir)
@@ -668,14 +212,15 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
  
      # Ditto for the Ren'Py module.
      try:
-@@ -266,11 +269,14 @@
+@@ -351,10 +354,14 @@
+                 renpy.config.gamedir = gamedir
+                 renpy.config.args = [ ] # type: ignore
  
-                 if renpy.android:
-                     renpy.config.logdir = os.environ['ANDROID_PUBLIC']
-+                elif renpy.switch:
-+                    renpy.config.logdir = "save:/Logs/"
-                 else:
-                     renpy.config.logdir = basedir
+-                 renpy.config.logdir = renpy.__main__.path_to_logdir(basedir)
++                 if renpy.switch:
++                     renpy.config.logdir = "save:/Logs/"
++                 else:
++                     renpy.config.logdir = renpy.__main__.path_to_logdir(basedir)
  
                  if not os.path.exists(renpy.config.logdir):
                      os.makedirs(renpy.config.logdir, 0o777)
@@ -683,7 +228,7 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
  
                  renpy.main.main()
  
-@@ -281,6 +287,11 @@
+@@ -365,6 +372,11 @@
  
              except renpy.game.UtterRestartException:
  
@@ -695,7 +240,7 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
                  # On an UtterRestart, reload Ren'Py.
                  renpy.reload_all()
  
-@@ -289,7 +300,17 @@
+@@ -373,7 +385,17 @@
              except renpy.game.QuitException as e:
                  exit_status = e.status
  
@@ -713,7 +258,7 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
                      if hasattr(sys, "renpy_executable"):
                          subprocess.Popen([sys.renpy_executable] + sys.argv[1:]) # type: ignore
                      else:
-@@ -308,6 +329,10 @@
+@@ -392,6 +414,10 @@
  
      finally:
  
@@ -724,7 +269,7 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
          if "RENPY_SHUTDOWN_TRACE" in os.environ:
              enable_trace(int(os.environ["RENPY_SHUTDOWN_TRACE"]))
  
-@@ -322,5 +347,5 @@
+@@ -409,5 +435,5 @@
  
          # Prevent subprocess from throwing errors while trying to run it's
          # __del__ method during shutdown.
