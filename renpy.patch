@@ -269,7 +269,7 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
          if "RENPY_SHUTDOWN_TRACE" in os.environ:
              enable_trace(int(os.environ["RENPY_SHUTDOWN_TRACE"]))
  
-@@ -409,5 +435,5 @@
+@@ -409,7 +435,7 @@
  
          # Prevent subprocess from throwing errors while trying to run it's
          # __del__ method during shutdown.
@@ -293,7 +293,7 @@ diff -Naur b/renpy/character.py a/renpy/character.py
 diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
 --- b/renpy/common/00keymap.rpy	2023-04-12 06:37:21.000000000 +0300
 +++ a/renpy/common/00keymap.rpy	2023-09-04 23:17:53.465141998 +0300
-@@ -156,31 +156,29 @@
+@@ -156,32 +156,29 @@
          image_load_log = [ 'K_F4' ],
          profile_once = [ 'K_F8' ],
          memory_profile = [ 'K_F7' ],
@@ -321,6 +321,7 @@ diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
          "pad_start_press" : [ "game_menu", ],
  
          "pad_y_press" : [ "hide_windows", ],
+-        "pad_x_press" : [ "button_alternate" ],
 +        "pad_x_press" : [ "toggle_skip", ],
 +        "pad_b_press" : [ "dismiss", "button_select", "bar_activate", "bar_deactivate" ],
 +        "pad_a_press" : [ "rollback", ],
@@ -386,15 +387,18 @@ diff -Naur b/renpy/common/00updater.rpy a/renpy/common/00updater.rpy
  
      def urlopen(url):
          import requests
-@@ -1050,7 +1049,7 @@
-                     raise UpdateError(_("Could not verify update signature."))
- 
-                 if "monkeypatch" in self.updates:
--                    future.utils.exec_(self.updates["monkeypatch"], globals(), globals())
-+                    exec(self.updates["monkeypatch"], globals(), globals())
+@@ -1054,9 +1053,9 @@
+             if "RENPY_TEST_MONKEYPATCH" in os.environ:
+                 with open(os.environ["RENPY_TEST_MONKEYPATCH"], "r") as f:
+                     monkeypatch = f.read()
+-                    future.utils.exec_(monkeypatch, globals(), globals())
++                    exec(monkeypatch, globals(), globals())
+             elif verified and "monkeypatch" in self.updates:
+-                future.utils.exec_(self.updates["monkeypatch"], globals(), globals())
++                exec(self.updates["monkeypatch"], globals(), globals())
  
          def add_dlc_state(self, name):
-             url = urlparse.urljoin(self.url, self.updates[name]["json_url"])
+ 
 diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
 --- b/renpy/compat/__init__.py	2023-06-08 02:56:04.000000000 +0300
 +++ a/renpy/compat/__init__.py	2023-08-03 16:54:30.048632700 +0300
