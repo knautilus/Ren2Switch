@@ -331,7 +331,7 @@ diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
 -
 -        "pad_righttrigger_pos" : [ "dismiss", "button_select", "bar_activate", "bar_deactivate" ],
 -        "pad_a_press" : [ "dismiss", "button_select", "bar_activate", "bar_deactivate"],
--        "pad_b_press" : [ "button_alternate" ],
+-        "pad_b_press" : [ "game_menu" ],
 +        "pad_leftstick_press" : [ "quick_save", ],
 +        "pad_rightstick_press" : [ "quick_load", ],
  
@@ -538,7 +538,7 @@ diff -Naur b/renpy/config.py a/renpy/config.py
  
  import collections
  import os
-@@ -319,7 +317,7 @@
+@@ -322,7 +320,7 @@
  all_character_callbacks = [ ]
  
  # Should autsave be enabled?
@@ -547,7 +547,7 @@ diff -Naur b/renpy/config.py a/renpy/config.py
  
  # The number of autosave slots we have.
  autosave_slots = 10
-@@ -569,10 +567,10 @@
+@@ -575,10 +573,10 @@
  adjust_view_size = None
  
  # True if we should autosave when a choice occurs.
@@ -560,7 +560,7 @@ diff -Naur b/renpy/config.py a/renpy/config.py
  
  # A list of channels we should emphasize the audio on.
  emphasize_audio_channels = [ 'voice' ]
-@@ -675,7 +673,7 @@
+@@ -684,7 +682,7 @@
  dynamic_images = True
  
  # Should Ren'Py save when the mobile app may terminate?
@@ -569,7 +569,7 @@ diff -Naur b/renpy/config.py a/renpy/config.py
  
  # Should Ren'Py quit on mobile background?
  quit_on_mobile_background = False
-@@ -1029,7 +1027,7 @@
+@@ -1041,7 +1039,7 @@
  keep_side_render_order = True
  
  # Should this game enable and require gl2?
