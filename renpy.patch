@@ -125,8 +125,8 @@ diff -Naur b/renpy/__init__.py a/renpy/__init__.py
 +        _otrhlibnx.restartprogram()
 +        return
 +
-     if mobile:
-         raise Exception("Reloading is not supported on mobile platforms.")
+     # if mobile:
+     #     raise Exception("Reloading is not supported on mobile platforms.")
  
 diff -Naur b/renpy/arguments.py a/renpy/arguments.py
 --- b/renpy/arguments.py	2023-02-15 08:18:38.000000000 +0300
@@ -216,11 +216,11 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
                  renpy.config.gamedir = gamedir
                  renpy.config.args = [ ] # type: ignore
  
--                 renpy.config.logdir = renpy.__main__.path_to_logdir(basedir)
-+                 if renpy.switch:
-+                     renpy.config.logdir = "save:/Logs/"
-+                 else:
-+                     renpy.config.logdir = renpy.__main__.path_to_logdir(basedir)
+-                renpy.config.logdir = renpy.__main__.path_to_logdir(basedir)
++                if renpy.switch:
++                    renpy.config.logdir = "save:/Logs/"
++                else:
++                    renpy.config.logdir = renpy.__main__.path_to_logdir(basedir)
  
                  if not os.path.exists(renpy.config.logdir):
                      os.makedirs(renpy.config.logdir, 0o777)
@@ -288,21 +288,10 @@ diff -Naur b/renpy/character.py a/renpy/character.py
  import renpy
  
  import re
-diff -Naur b/renpy/common/00compat.rpy a/renpy/common/00compat.rpy
---- b/renpy/common/00compat.rpy	2023-05-29 08:50:24.000000000 +0300
-+++ a/renpy/common/00compat.rpy	2023-08-22 03:41:31.797627760 +0300
-@@ -208,7 +208,6 @@
-         if version <= (7, 3, 5):
-             config.side_image_requires_attributes = False
-             config.window_functions_set_auto = False
--            config.hw_video = True
-             config.who_what_sub_compat = 0
- 
-         if version <= (7, 4, 0):
 diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
 --- b/renpy/common/00keymap.rpy	2023-04-12 06:37:21.000000000 +0300
 +++ a/renpy/common/00keymap.rpy	2023-09-04 23:17:53.465141998 +0300
-@@ -152,31 +152,30 @@
+@@ -157,31 +157,30 @@
          profile_once = [ 'K_F8' ],
          memory_profile = [ 'K_F7' ],
  
@@ -346,7 +335,7 @@ diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
  
          "pad_dpleft_press" : [ "focus_left", "bar_left", "viewport_leftarrow" ],
          "pad_leftx_neg" : [ "focus_left", "bar_left", "viewport_leftarrow" ],
-@@ -445,6 +444,8 @@
+@@ -461,6 +460,8 @@
          performance = ToggleScreen("_performance"),
          accessibility = ToggleScreen("_accessibility"),
          bubble_editor = bubble.ToggleShown(),
