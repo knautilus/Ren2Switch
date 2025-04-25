@@ -276,6 +276,8 @@ diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
 -        if not renpy.emscripten:
 +        if not (renpy.emscripten):
              subprocess.Popen.__del__ = popen_del # type: ignore
+ 
+         if renpy.android:
 diff -Naur b/renpy/character.py a/renpy/character.py
 --- b/renpy/character.py	2023-05-22 17:50:43.000000000 +0300
 +++ a/renpy/character.py	2023-08-02 03:58:31.428415300 +0300
@@ -291,13 +293,12 @@ diff -Naur b/renpy/character.py a/renpy/character.py
 diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
 --- b/renpy/common/00keymap.rpy	2023-04-12 06:37:21.000000000 +0300
 +++ a/renpy/common/00keymap.rpy	2023-09-04 23:17:53.465141998 +0300
-@@ -157,31 +157,30 @@
+@@ -156,31 +156,29 @@
+         image_load_log = [ 'K_F4' ],
          profile_once = [ 'K_F8' ],
          memory_profile = [ 'K_F7' ],
- 
 +        quick_save = [ 'K_F5' ],
 +        quick_load = [ 'K_F6' ]
-+
      )
  
      config.default_keymap = { k : _list(v) for k, v in config.keymap.items() }
@@ -335,7 +336,7 @@ diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
  
          "pad_dpleft_press" : [ "focus_left", "bar_left", "viewport_leftarrow" ],
          "pad_leftx_neg" : [ "focus_left", "bar_left", "viewport_leftarrow" ],
-@@ -461,6 +460,8 @@
+@@ -461,6 +459,8 @@
          performance = ToggleScreen("_performance"),
          accessibility = ToggleScreen("_accessibility"),
          bubble_editor = bubble.ToggleShown(),
@@ -347,7 +348,7 @@ diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
 diff -Naur b/renpy/common/00sync.rpy a/renpy/common/00sync.rpy
 --- b/renpy/common/00sync.rpy	2023-05-29 19:21:17.000000000 +0300
 +++ a/renpy/common/00sync.rpy	2023-08-03 17:47:11.636260700 +0300
-@@ -315,7 +315,7 @@
+@@ -219,7 +219,7 @@
  
      def upload():
  
@@ -356,7 +357,7 @@ diff -Naur b/renpy/common/00sync.rpy a/renpy/common/00sync.rpy
              return
  
          if not renpy.call_screen("sync_confirm"):
-@@ -404,7 +404,7 @@
+@@ -308,7 +308,7 @@
  
      def download():
  
@@ -368,7 +369,7 @@ diff -Naur b/renpy/common/00sync.rpy a/renpy/common/00sync.rpy
 diff -Naur b/renpy/common/00updater.rpy a/renpy/common/00updater.rpy
 --- b/renpy/common/00updater.rpy	2023-02-14 07:50:20.000000000 +0300
 +++ a/renpy/common/00updater.rpy	2023-08-03 14:22:05.624752900 +0300
-@@ -28,7 +28,7 @@
+@@ -31,7 +31,7 @@
      import threading
      import traceback
      import os
@@ -377,7 +378,7 @@ diff -Naur b/renpy/common/00updater.rpy a/renpy/common/00updater.rpy
      import json
      import subprocess
      import hashlib
-@@ -38,7 +38,6 @@
+@@ -41,7 +41,6 @@
      import zlib
      import codecs
      import io
@@ -385,7 +386,7 @@ diff -Naur b/renpy/common/00updater.rpy a/renpy/common/00updater.rpy
  
      def urlopen(url):
          import requests
-@@ -783,7 +782,7 @@
+@@ -1050,7 +1049,7 @@
                      raise UpdateError(_("Could not verify update signature."))
  
                  if "monkeypatch" in self.updates:
