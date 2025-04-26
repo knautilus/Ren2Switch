@@ -1005,7 +1005,7 @@ diff -Naur b/renpy/log.py a/renpy/log.py
              return False
  
          if self.developer and not renpy.config.developer:
-@@ -158,6 +159,19 @@
+@@ -163,6 +164,19 @@
          Formats `s` with args, and writes it to the logfile.
          """
  
@@ -1037,16 +1037,16 @@ diff -Naur b/renpy/main.py a/renpy/main.py
  import os
  import sys
  import time
-@@ -374,6 +372,8 @@
-     # Note the game directory.
+@@ -361,6 +359,8 @@
      game.basepath = renpy.config.gamedir
-     renpy.config.searchpath = [ renpy.config.gamedir ]
+     renpy.config.commondir = renpy.__main__.path_to_common(renpy.config.renpy_base) # E1101 @UndefinedVariable
+     renpy.config.searchpath = renpy.__main__.predefined_searchpath(renpy.config.commondir) # E1101 @UndefinedVariable
 +    if renpy.switch:
 +        renpy.config.searchpath = [ renpy.config.gamedir, "save://" ]
  
-     # Find the common directory.
-     commondir = renpy.__main__.path_to_common(renpy.config.renpy_base) # E1101 @UndefinedVariable
-@@ -501,7 +501,8 @@
+     # Load Ren'Py extensions.
+     for dir in [ renpy.config.renpy_base ] + renpy.config.searchpath: # @ReservedAssignment
+@@ -479,7 +479,8 @@
              renpy.game.script.load_script()
  
          print(time.time() - start)
