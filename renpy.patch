@@ -1119,11 +1119,11 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
  
  # A suffix used to disambguate temporary files being written by multiple
 @@ -96,6 +99,9 @@
-             import emscripten # type: ignore
-             emscripten.syncfs()
+         import emscripten # type: ignore
+         emscripten.syncfs()
  
-+        if renpy.switch:
-+            _otrhlibnx.commitsave()
++    if renpy.switch:
++        _otrhlibnx.commitsave()
 +
  
  class FileLocation(object):
