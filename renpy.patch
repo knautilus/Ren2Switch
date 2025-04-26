@@ -116,7 +116,7 @@ diff -Naur b/renpy/__init__.py a/renpy/__init__.py
      import renpy.execution
      import renpy.lexer
      import renpy.loadsave
-@@ -618,6 +620,11 @@
+@@ -622,6 +624,11 @@
      returned.
      """
  
@@ -169,7 +169,7 @@ diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
  import time
  import pygame_sdl2 # @UnusedImport
  import os
-@@ -1098,6 +1095,9 @@
+@@ -1106,6 +1103,9 @@
  
  def quit(): # @ReservedAssignment
  
@@ -179,7 +179,7 @@ diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
      global periodic_thread_quit
  
      global pcm_ok
-@@ -1245,7 +1245,7 @@
+@@ -1253,7 +1253,7 @@
              exc = periodic_exc
              periodic_exc = None
  
@@ -346,6 +346,18 @@ diff -Naur b/renpy/common/00keymap.rpy a/renpy/common/00keymap.rpy
          )
  
      config.underlay = [ _default_keymap ]
+diff -Naur b/renpy/common/00style.rpy a/renpy/common/00style.rpy
+--- b/renpy/common/00style.rpy	2023-02-14 07:50:20.000000000 +0300
++++ a/renpy/common/00style.rpy	2023-08-03 14:22:05.624752900 +0300
+@@ -173,7 +173,7 @@
+         adjust_spacing True
+         emoji_font "TwemojiCOLRv0.ttf"
+         prefer_emoji True
+-        shaper ("harfbuzz" if (not PY2) else "freetype")
++        shaper "freetype"
+ 
+         # Window properties
+         background None
 diff -Naur b/renpy/common/00sync.rpy a/renpy/common/00sync.rpy
 --- b/renpy/common/00sync.rpy	2023-05-29 19:21:17.000000000 +0300
 +++ a/renpy/common/00sync.rpy	2023-08-03 17:47:11.636260700 +0300
@@ -600,7 +612,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
  import sys
  import os
  import time
-@@ -1002,6 +1000,10 @@
+@@ -1003,6 +1001,10 @@
          # Kill off the presplash.
          renpy.display.presplash.end()
  
@@ -611,7 +623,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
          # Initialize audio.
          pygame.display.hint("SDL_APP_NAME", (renpy.config.name or "Ren'Py Game").encode("utf-8"))
          pygame.display.hint("SDL_AUDIO_DEVICE_APP_NAME", (renpy.config.name or "Ren'Py Game").encode("utf-8"))
-@@ -1200,7 +1202,7 @@
+@@ -1201,7 +1203,7 @@
  
          renpy.config.renderer = renderer
  
@@ -620,7 +632,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
              renderers = [ "gles" ]
          elif renpy.windows:
              renderers = [ "gl", "angle", "gles" ]
-@@ -1222,7 +1224,7 @@
+@@ -1225,7 +1227,7 @@
              renderer = "auto"
  
          # Software renderer is the last hope for PC .
@@ -629,7 +641,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
              renderers = renderers + [ "sw" ]
  
          if renderer in renderers:
-@@ -1423,7 +1425,7 @@
+@@ -1426,7 +1428,7 @@
          if not self.started:
              return
  
@@ -638,7 +650,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
              self.bgscreenshot_event.clear()
              self.bgscreenshot_needed = True
  
-@@ -2024,7 +2026,8 @@
+@@ -2027,7 +2029,8 @@
                  System = autoclass("java.lang.System")
                  System.exit(0)
  
@@ -842,7 +854,7 @@ diff -Naur b/renpy/loader.py a/renpy/loader.py
  import renpy
  import os
  import os.path
-@@ -56,8 +54,12 @@
+@@ -60,8 +58,12 @@
      This always returns a path, but the path may or may not be writable.
      """
  
@@ -857,7 +869,7 @@ diff -Naur b/renpy/loader.py a/renpy/loader.py
  
      try:
          if not os.path.exists(dn):
-@@ -422,7 +424,8 @@
+@@ -426,7 +428,8 @@
          else:
              files = game_files # @UnusedVariable
  
@@ -867,7 +879,7 @@ diff -Naur b/renpy/loader.py a/renpy/loader.py
          for j in walkdir(i):
              add(i, j, files, seen)
  
-@@ -756,6 +759,8 @@
+@@ -760,6 +763,8 @@
  
      for d in renpy.config.searchpath:
          fn = os.path.join(renpy.config.basedir, d, name)
@@ -1164,6 +1176,17 @@ diff -Naur b/renpy/test/testmouse.py a/renpy/test/testmouse.py
  import pygame_sdl2 as pygame
  
  # The overridden positioning of the mouse.
+diff -Naur b/renpy/text/__init__.py a/renpy/text/__init__.py
+--- b/renpy/text/__init__.py	2023-04-25 07:17:21.000000000 +0300
++++ a/renpy/text/__init__.py	2023-08-02 03:57:41.387784100 +0300
+@@ -34,7 +34,6 @@
+     from . import extras
+     from . import font
+     from . import ftfont
+-    from . import hbfont
+     from . import shader
+     from . import text
+     from . import textsupport
 diff -Naur b/renpy/text/text.py a/renpy/text/text.py
 --- b/renpy/text/text.py	2023-04-25 07:17:21.000000000 +0300
 +++ a/renpy/text/text.py	2023-08-02 03:57:41.387784100 +0300
@@ -1231,3 +1254,27 @@ diff -Naur b/renpy.py a/renpy.py
 +            with open("save://exception.log", "w") as f:
 +                import traceback
 +                f.write(traceback.format_exc())
+diff -Naur b/module/setup.py a/module/setup.py
+--- b/module/setup.py	2023-06-08 04:21:52.000000000 +0300
++++ a/module/setup.py	2023-09-01 00:08:00.794406391 +0300
+@@ -86,7 +86,6 @@
+ include("libswscale/swscale.h", directory="ffmpeg", optional=True) or include("libswscale/swscale.h") # type: ignore
+ include("GL/glew.h")
+ include("pygame_sdl2/pygame_sdl2.h", directory="python{}.{}".format(sys.version_info.major, sys.version_info.minor))
+-include("hb.h", directory="harfbuzz")
+ 
+ library("SDL2")
+ library("png")
+@@ -210,12 +209,6 @@
+     [ "ftsupport.c", "ttgsubtable.c" ],
+     libs=sdl + [ 'freetype', 'z', 'm' ])
+ 
+-if not (PY2 and emscripten):
+-
+-    cython(
+-        "renpy.text.hbfont",
+-        [ "ftsupport.c" ],
+-        libs=sdl + [ 'harfbuzz', 'freetype', 'z', 'm' ])
+ 
+ generate_all_cython()
+ find_unnecessary_gen()
