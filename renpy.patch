@@ -1118,7 +1118,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
  disk_lock = threading.RLock()
  
  # A suffix used to disambguate temporary files being written by multiple
-@@ -51,6 +54,7 @@
+@@ -103,6 +106,7 @@
      """
  
      def __init__(self, directory):
@@ -1133,9 +1133,9 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
 +        if renpy.switch:
 +            _otrhlibnx.commitsave()
 +
-     def scan(self):
-         """
-         Scan for files that are added or removed.
+ 
+ class FileLocation(object):
+     """
 @@ -191,7 +198,7 @@
  
              for pfn in [ self.persistent + ".new", self.persistent ]:
@@ -1237,18 +1237,6 @@ diff -Naur b/renpy/text/text.py a/renpy/text/text.py
  import math
  
  import pygame_sdl2
-diff -Naur b/renpy/ui.py a/renpy/ui.py
---- b/renpy/ui.py	2023-05-29 19:21:17.000000000 +0300
-+++ a/renpy/ui.py	2023-08-02 03:57:33.958207000 +0300
-@@ -29,8 +29,6 @@
- from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
- from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
- 
--from typing import Optional
--
- import sys
- 
- import renpy
 diff -Naur b/renpy.py a/renpy.py
 --- b/renpy.py	2023-06-08 04:21:52.000000000 +0300
 +++ a/renpy.py	2023-09-01 00:08:00.794406391 +0300
@@ -1262,17 +1250,17 @@ diff -Naur b/renpy.py a/renpy.py
      # A list of candidate game directory names.
      candidates = [ name ]
  
-@@ -87,6 +90,9 @@
+@@ -86,6 +89,9 @@
+         The absolute path to the Ren'Py base directory, the directory
          containing this file.
      """
- 
 +    if sys.platform == 'horizon':
 +        return "romfs:/Contents/renpy/common"
 +
-     return renpy_base + "/renpy/common"
+     path = renpy_base + "/renpy/common"
  
- 
-@@ -120,6 +126,9 @@
+     if os.path.isdir(path):
+@@ -123,6 +129,9 @@
          except Exception:
              return False
  
@@ -1282,8 +1270,8 @@ diff -Naur b/renpy.py a/renpy.py
      # Android.
      if renpy.android:
          paths = [
-@@ -208,6 +217,9 @@
-     Returns the absolute path to thew Ren'Py base directory.
+@@ -211,6 +220,9 @@
+     Returns the absolute path to the Ren'Py base directory.
      """
  
 +    if sys.platform == 'horizon':
@@ -1292,7 +1280,7 @@ diff -Naur b/renpy.py a/renpy.py
      renpy_base = os.path.dirname(os.path.abspath(__file__))
      renpy_base = os.path.abspath(renpy_base)
  
-@@ -244,4 +256,10 @@
+@@ -302,4 +314,10 @@
  
  
  if __name__ == "__main__":
