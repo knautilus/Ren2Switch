@@ -68,9 +68,18 @@ static PyMethodDef myMethods[] = {
     { NULL, NULL, 0, NULL }
 };
 
+static struct PyModuleDef cModPyDem =
+{
+    PyModuleDef_HEAD_INIT,
+    "_otrhlibnx", /* name of module */
+    "",          /* module documentation, may be NULL */
+    -1,          /* size of per-interpreter state of the module, or -1 if the module keeps state in global variables. */
+    myMethods
+};
+
 PyMODINIT_FUNC init_otrh_libnx(void)
 {
-    Py_InitModule("_otrhlibnx", myMethods);
+    return PyModule_Create(&cModPyDem);
 }
 
 PyMODINIT_FUNC initpygame_sdl2_color();
@@ -217,7 +226,7 @@ void userAppInit()
         if (count > 1) {
             pselShowUserSelector(&userID, &settings);
         } else {
-            size_t loadedUsers;
+            s32 loadedUsers;
             AccountUid account_ids[count];
             accountListAllUsers(account_ids, count, &loadedUsers);
             userID = account_ids[0];
@@ -389,11 +398,11 @@ int main(int argc, char* argv[])
 
     fclose(sysconfigdata_file);
     Py_InitializeEx(0);
-    Py_SetPythonHome("romfs:/Contents/lib.zip");
+    Py_SetPythonHome(L"romfs:/Contents/lib.zip");
     PyImport_ExtendInittab(builtins);
 
-    char* pyargs[] = {
-        "romfs:/Contents/renpy.py",
+    wchar_t* pyargs[] = {
+        L"romfs:/Contents/renpy.py",
         NULL,
     };
 
