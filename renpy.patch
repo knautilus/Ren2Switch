@@ -1118,15 +1118,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
  disk_lock = threading.RLock()
  
  # A suffix used to disambguate temporary files being written by multiple
-@@ -103,6 +106,7 @@
-     """
- 
-     def __init__(self, directory):
-+        self.locations = [ ]
-         self.directory = directory
- 
-         # Make the save directory.
-@@ -96,6 +100,9 @@
+@@ -96,6 +99,9 @@
              import emscripten # type: ignore
              emscripten.syncfs()
  
@@ -1136,6 +1128,14 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
  
  class FileLocation(object):
      """
+@@ -103,6 +109,7 @@
+     """
+ 
+     def __init__(self, directory):
++        self.locations = [ ]
+         self.directory = directory
+ 
+         # Make the save directory.
 @@ -191,7 +198,7 @@
  
              for pfn in [ self.persistent + ".new", self.persistent ]:
