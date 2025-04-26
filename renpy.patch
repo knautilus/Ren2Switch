@@ -669,9 +669,9 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
 +            import _otrhlibnx
 +            _otrhlibnx.disableboost()
 +
-         # If we are on the web browser, start preloading the browser cache.
-         if renpy.emscripten and renpy.game.preferences.web_cache_preload:
-             emscripten.run_script("loadCache()")
+         # Initialize audio.
+         pygame.display.hint("SDL_APP_NAME", (renpy.config.name or "Ren'Py Game").encode("utf-8"))
+         pygame.display.hint("SDL_AUDIO_DEVICE_APP_NAME", (renpy.config.name or "Ren'Py Game").encode("utf-8"))
 @@ -1200,7 +1202,7 @@
  
          renpy.config.renderer = renderer
@@ -682,7 +682,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
          elif renpy.windows:
              renderers = [ "gl", "angle", "gles" ]
 @@ -1222,7 +1224,7 @@
-             renderers = [ "sw" ]
+             renderer = "auto"
  
          # Software renderer is the last hope for PC and mac.
 -        if not (renpy.android or renpy.ios or renpy.emscripten):
@@ -707,7 +707,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
 +            if not renpy.switch:
 +                sys.exit(0)
  
-         renpy.exports.free_memory()
+         print("Freeing memory.")
  
 diff -Naur b/renpy/display/presplash.py a/renpy/display/presplash.py
 --- b/renpy/display/presplash.py	2023-02-14 07:45:56.000000000 +0300
@@ -756,28 +756,6 @@ diff -Naur b/renpy/display/transform.py a/renpy/display/transform.py
  # This file contains displayables that move, zoom, rotate, or otherwise
  # transform displayables. (As well as displayables that support them.)
  import math
-diff -Naur b/renpy/display/video.py a/renpy/display/video.py
---- b/renpy/display/video.py	2023-06-02 05:27:56.000000000 +0300
-+++ a/renpy/display/video.py	2023-08-22 03:42:00.867619970 +0300
-@@ -496,9 +496,6 @@
- 
-         self.group = group
- 
--        if (self.channel == "movie") and (renpy.config.hw_video) and renpy.mobile:
--            raise Exception("Movie(channel='movie') doesn't work on mobile when config.hw_video is true. (Use a different channel argument.)")
--
-     def _handles_event(self, event):
-         return event == "show"
- 
-@@ -695,7 +692,7 @@
- 
-         return False
- 
--    elif fullscreen and not ((renpy.android or renpy.ios) and renpy.config.hw_video):
-+    elif fullscreen:
- 
-         c = renpy.audio.audio.get_channel("movie")
- 
 diff -Naur b/renpy/easy.py a/renpy/easy.py
 --- b/renpy/easy.py	2023-02-14 07:45:56.000000000 +0300
 +++ a/renpy/easy.py	2023-08-02 03:58:39.473396500 +0300
@@ -802,7 +780,7 @@ diff -Naur b/renpy/execution.py a/renpy/execution.py
  import sys
  import time
  
-@@ -628,7 +626,7 @@
+@@ -631,7 +629,7 @@
                      except renpy.game.CONTROL_EXCEPTIONS as ce:
                          raise ce
                      except Exception:
