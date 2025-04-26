@@ -402,32 +402,7 @@ diff -Naur b/renpy/common/00updater.rpy a/renpy/common/00updater.rpy
 diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
 --- b/renpy/compat/__init__.py	2023-06-08 02:56:04.000000000 +0300
 +++ a/renpy/compat/__init__.py	2023-08-03 16:54:30.048632700 +0300
-@@ -58,8 +58,6 @@
- 
- from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
- 
--import future.standard_library
--import future.utils
- import builtins
- 
- import io
-@@ -69,14 +67,9 @@
- python_open = open
- 
- ################################################################################
--# Alias the Python 3 standard library.
--
--future.standard_library.install_aliases()
--
--################################################################################
- # Determine if this is Python2.
- 
--PY2 = future.utils.PY2
-+PY2 = False
- 
- ################################################################################
- # Make open mimic Python 3.
-@@ -104,9 +97,50 @@
+@@ -104,9 +104,50 @@
  strict_error = codecs.lookup_error("strict")
  codecs.register_error("python_strict", strict_error)
  
@@ -481,43 +456,7 @@ diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
  
  import renpy
  renpy.update_path()
-@@ -114,24 +148,29 @@
- ################################################################################
- # String (text and binary) types and functions.
- 
--basestring = future.utils.string_types
-+basestring = basestring
- pystr = str
--unicode = future.utils.text_type
-+unicode = unicode
- 
- # This tries to help pylance get the types right.
--str = builtins.str; globals()["str"] = future.utils.text_type
-+str = builtins.str; globals()["str"] = unicode
- 
- 
--bord = future.utils.bord
-+bord = ord
- 
- if PY2:
-     bchr = chr # type: ignore
- else:
-     def bchr(i): # type: (int) -> bytes
-         return bytes([i])
--tobytes = future.utils.tobytes
- 
--from future.builtins import chr
-+def tobytes(s):
-+    if isinstance(s, unicode):
-+        return s.encode('latin-1')
-+    else:
-+        return ''.join(s)
-+
-+chr = unichr
- 
- ################################################################################
- # Dictionary views.
-@@ -181,7 +220,7 @@
+@@ -181,7 +222,7 @@
  
  ################################################################################
  # Chance the default for subprocess.Popen.
