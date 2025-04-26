@@ -73,9 +73,9 @@ cp -rf subprocess.pyo renpy_sdk/renpy-$RENPY_VER-sdk/lib/python3.9
 pushd renpy-source
 patch -p1 < ../renpy.patch
 pushd module
-rm -rf gen gen-static
+rm -rf gen3 gen3-static
 popd
 popd
 pushd pygame_sdl2-source
-rm -rf gen gen-static
+rm -rf gen3 gen3-static
 popd
