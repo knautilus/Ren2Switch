@@ -684,12 +684,12 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
 @@ -1222,7 +1224,7 @@
              renderer = "auto"
  
-         # Software renderer is the last hope for PC and mac.
+         # Software renderer is the last hope for PC .
 -        if not (renpy.android or renpy.ios or renpy.emscripten):
 +        if not (renpy.android or renpy.ios or renpy.emscripten or renpy.switch):
              renderers = renderers + [ "sw" ]
  
-         if renderer == "sw":
+         if renderer in renderers:
 @@ -1423,7 +1425,7 @@
          if not self.started:
              return
@@ -902,7 +902,7 @@ diff -Naur b/renpy/loader.py a/renpy/loader.py
 -
  import renpy
  import os
- import sys
+ import os.path
 @@ -56,8 +54,12 @@
      This always returns a path, but the path may or may not be writable.
      """
@@ -951,15 +951,7 @@ diff -Naur b/renpy/loadsave.py a/renpy/loadsave.py
  import io
  import zipfile
  import re
-@@ -36,6 +32,7 @@
- import shutil
- import os
- import sys
-+import time
- 
- import renpy
- from json import dumps as json_dumps
-@@ -416,27 +413,27 @@
+@@ -420,20 +416,20 @@
          t, e, tb = sys.exc_info()
  
          if mutate_flag:
@@ -984,15 +976,7 @@ diff -Naur b/renpy/loadsave.py a/renpy/loadsave.py
  
      if mutate_flag and renpy.revertable.mutate_flag:
          raise SaveAbort()
- 
-     screenshot = renpy.game.interface.get_screenshot()
- 
--    json = { "_save_name" : extra_info, "_renpy_version" : list(renpy.version_tuple), "_version" : renpy.config.version }
-+    json = { "_save_name" : extra_info, "_renpy_version" : list(renpy.version_tuple), "_version" : renpy.config.version, "savetime": int(time.time()) }
- 
-     for i in renpy.config.save_json_callbacks:
-         i(json)
-@@ -598,7 +595,7 @@
+@@ -611,7 +607,7 @@
  
      autosave_not_running.clear()
  
