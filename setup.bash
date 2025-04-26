@@ -17,3 +17,66 @@ pip3 uninstall distribute
 pip3 install future six typing requests ecdsa pefile Cython setuptools
 
 python3 --version
+
+#curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+#curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
+curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libfribidi-1.0.12-1-any.pkg.tar.xz
+#dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
+#tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
+
+curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
+unzip -qq -n devkitpro-pkgbuild-helpers-2.2.3-1-any.zip -d $DEVKITPRO
+rm devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
+
+curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/python39-switch.zip
+unzip -qq python39-switch.zip -d $DEVKITPRO/portlibs/switch
+rm python39-switch.zip
+
+#rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
+#rm python27-switch.tar.gz
+
+/bin/bash -c 'sed -i'"'"'.bak'"'"' '"'"'s/set(CMAKE_EXE_LINKER_FLAGS_INIT "/set(CMAKE_EXE_LINKER_FLAGS_INIT "-fPIC /'"'"' $DEVKITPRO/switch.cmake'
+
+
+curl -LOC - https://www.renpy.org/dl/$RENPY_VER/pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
+curl -LOC - https://www.renpy.org/dl/$RENPY_VER/renpy-$RENPY_VER-sdk.zip
+curl -LOC - https://www.renpy.org/dl/$RENPY_VER/renpy-$RENPY_VER-source.tar.bz2
+#curl -LOC - https://www.renpy.org/dl/$RENPY_VER/android-native-symbols.zip
+#curl -LOC - https://dl.otorh.in/github/rawproject.zip
+
+
+rm -rf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER pygame_sdl2-source
+tar -xf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
+mv pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER pygame_sdl2-source
+rm pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
+
+rm -rf renpy-$RENPY_VER-source renpy-source
+tar -xf renpy-$RENPY_VER-source.tar.bz2
+mv renpy-$RENPY_VER-source renpy-source
+rm renpy-$RENPY_VER-source.tar.bz2
+
+rm -rf renpy-$RENPY_VER-sdk renpy_sdk
+unzip -qq renpy-$RENPY_VER-sdk.zip -d renpy_sdk
+rm renpy-$RENPY_VER-sdk.zip
+cp -rf subprocess.pyo renpy_sdk/renpy-$RENPY_VER-sdk/lib/python3.9
+
+#rm -rf raw
+#unzip -qq rawproject.zip -d raw
+#rm rawproject.zip
+
+#rm -rf android-native-symbols renpy_androidlib ./raw/android/lib
+#unzip -qq android-native-symbols.zip -d ./raw/android/lib
+#rm -rf ./raw/android/lib/x86_64/
+#rm android-native-symbols.zip
+
+pushd renpy-source
+patch -p1 < ../renpy.patch
+pushd module
+rm -rf gen3 gen3-static
+popd
+popd
+pushd pygame_sdl2-source
+rm -rf gen3 gen3-static
+popd
