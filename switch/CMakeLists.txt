@@ -29,7 +29,7 @@ set(OPTIMIZATION_FLAGS
 )
 
 set(INCLUDES
-    ${DEVKITPRO}/portlibs/switch/include/python3.8
+    ${DEVKITPRO}/portlibs/switch/include/python3.9
 )
 
 set(SOURCES
@@ -125,7 +125,7 @@ endif()
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
-    ${DEVKITPRO}/portlibs/switch/lib/libpython3.8.a
+    ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
     ${DEVKITPRO}/portlibs/switch/lib/librenpy-switch-modules.a
     m
     PkgConfig::EGL
