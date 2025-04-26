@@ -533,7 +533,7 @@ diff -Naur b/renpy/config.py a/renpy/config.py
  from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
  from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
  
--from typing import Optional, List
+-from typing import Optional, List, Callable
 -
  
  import collections
@@ -1126,7 +1126,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
          self.directory = directory
  
          # Make the save directory.
-@@ -102,6 +106,9 @@
+@@ -96,6 +100,9 @@
              import emscripten # type: ignore
              emscripten.syncfs()
  
@@ -1136,7 +1136,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
      def scan(self):
          """
          Scan for files that are added or removed.
-@@ -141,7 +148,7 @@
+@@ -191,7 +198,7 @@
  
              for pfn in [ self.persistent + ".new", self.persistent ]:
                  if os.path.exists(pfn):
@@ -1145,7 +1145,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
  
                      if mtime != self.persistent_mtime:
                          data = renpy.persistent.load(pfn)
-@@ -192,6 +199,12 @@
+@@ -242,6 +249,12 @@
  
          Returns None if the slot is empty.
          """
@@ -1158,7 +1158,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
  
          return self.mtimes.get(slotname, None)
  
-@@ -593,6 +606,9 @@
+@@ -670,6 +683,9 @@
  
  
  def quit(): # @ReservedAssignment
@@ -1168,7 +1168,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
      global quit_scan_thread
  
      with scan_thread_condition:
-@@ -624,6 +640,9 @@
+@@ -701,6 +717,9 @@
      for i in renpy.config.extra_savedirs:
          location.add(FileLocation(i))
  
@@ -1181,7 +1181,7 @@ diff -Naur b/renpy/savelocation.py a/renpy/savelocation.py
 diff -Naur b/renpy/script.py a/renpy/script.py
 --- b/renpy/script.py	2023-02-01 09:37:45.000000000 +0300
 +++ a/renpy/script.py	2023-08-03 19:00:48.351515100 +0300
-@@ -694,7 +694,7 @@
+@@ -763,7 +763,7 @@
  
                  pickle_data_after_static_transforms = dumps((data, stmts))
  
