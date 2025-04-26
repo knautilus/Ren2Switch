@@ -601,7 +601,7 @@ diff -Naur b/renpy/display/behavior.py a/renpy/display/behavior.py
  
  import json
  import math
-@@ -1716,6 +1715,9 @@
+@@ -1796,6 +1795,9 @@
              self.edit_text = ""
              raw_text = ev.text
  
@@ -611,7 +611,7 @@ diff -Naur b/renpy/display/behavior.py a/renpy/display/behavior.py
          elif ev.type == pygame.KEYDOWN:
  
              if ev.unicode and ord(ev.unicode[0]) >= 32:
-@@ -2027,7 +2029,7 @@
+@@ -2162,7 +2164,7 @@
              self.animation_warper = None
  
              if not instantly:
@@ -620,7 +620,7 @@ diff -Naur b/renpy/display/behavior.py a/renpy/display/behavior.py
  
      def periodic(self, st):
  
-@@ -2042,15 +2044,20 @@
+@@ -2185,15 +2187,20 @@
  
          value = self.animation_target - self.animation_amplitude * (1.0 - done)
  
@@ -652,7 +652,7 @@ diff -Naur b/renpy/display/behavior.py a/renpy/display/behavior.py
 diff -Naur b/renpy/display/core.py a/renpy/display/core.py
 --- b/renpy/display/core.py	2023-06-08 02:56:13.000000000 +0300
 +++ a/renpy/display/core.py	2023-08-31 14:03:02.815623147 +0300
-@@ -25,8 +25,6 @@
+@@ -22,8 +22,6 @@
  from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
  from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
  
@@ -661,7 +661,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
  import sys
  import os
  import time
-@@ -2417,6 +2415,10 @@
+@@ -1002,6 +1000,10 @@
          # Kill off the presplash.
          renpy.display.presplash.end()
  
@@ -672,7 +672,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
          # If we are on the web browser, start preloading the browser cache.
          if renpy.emscripten and renpy.game.preferences.web_cache_preload:
              emscripten.run_script("loadCache()")
-@@ -2595,7 +2597,7 @@
+@@ -1200,7 +1202,7 @@
  
          renpy.config.renderer = renderer
  
@@ -681,7 +681,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
              renderers = [ "gles" ]
          elif renpy.windows:
              renderers = [ "gl", "angle", "gles" ]
-@@ -2627,7 +2629,7 @@
+@@ -1222,7 +1224,7 @@
              renderers = [ "sw" ]
  
          # Software renderer is the last hope for PC and mac.
@@ -690,7 +690,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
              renderers = renderers + [ "sw" ]
  
          if self.safe_mode:
-@@ -2821,7 +2823,7 @@
+@@ -1423,7 +1425,7 @@
          if not self.started:
              return
  
@@ -699,7 +699,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
              self.bgscreenshot_event.clear()
              self.bgscreenshot_needed = True
  
-@@ -3391,7 +3393,8 @@
+@@ -2024,7 +2026,8 @@
                  System = autoclass("java.lang.System")
                  System.exit(0)
  
@@ -712,7 +712,7 @@ diff -Naur b/renpy/display/core.py a/renpy/display/core.py
 diff -Naur b/renpy/display/presplash.py a/renpy/display/presplash.py
 --- b/renpy/display/presplash.py	2023-02-14 07:45:56.000000000 +0300
 +++ a/renpy/display/presplash.py	2023-08-02 04:14:30.314534200 +0300
-@@ -236,3 +236,19 @@
+@@ -259,3 +259,19 @@
          emscripten.run_script(r"""progress(%d, %d);""" % (done, total))
  
      emscripten.sleep(0)
