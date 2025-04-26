@@ -13,7 +13,7 @@ project(renpy-switch)
 
 set(SWITCH_APP_NAME "Ren'Py")
 set(SWITCH_AUTHOR   "renpytom")
-set(SWITCH_VERSION  "8.3.4")
+set(SWITCH_VERSION  "8.3.7")
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RelWithDebInfo)

@@ -46,20 +46,20 @@ tar -xf renpy-switch-modules.tar.gz -C $DEVKITPRO/portlibs/switch
 rm renpy-switch-modules.tar.gz
 rm -rf build-switch
 
-source /opt/devkitpro/switchvars.sh
+#source /opt/devkitpro/switchvars.sh
 
-pushd switch
-rm -rf build
-mkdir build
-pushd build
-cmake ..
-make
-popd
-popd
+#pushd switch
+#rm -rf build
+#mkdir build
+#pushd build
+#cmake ..
+#make
+#popd
+#popd
 
-mkdir -p ./raw/switch/exefs
-mv ./switch/build/renpy-switch.nso ./raw/switch/exefs/main
-rm -rf switch include source pygame_sdl2-source
+#mkdir -p ./raw/switch/exefs
+#mv ./switch/build/renpy-switch.nso ./raw/switch/exefs/main
+#rm -rf switch include source pygame_sdl2-source
 
 
 rm -rf renpy_clear
