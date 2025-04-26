@@ -1265,7 +1265,7 @@ diff -Naur b/module/setup.py a/module/setup.py
  
  library("SDL2")
  library("png")
-@@ -210,12 +209,6 @@
+@@ -201,12 +200,6 @@
      [ "ftsupport.c", "ttgsubtable.c" ],
      libs=sdl + [ 'freetype', 'z', 'm' ])
  
