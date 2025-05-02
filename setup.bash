@@ -24,7 +24,7 @@ curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libf
 #curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/switch-libpython-3.8.0-1-any.pkg.tar.zst
 #dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-dkp-pacman -U --noconfirm switch-libpython-3.8.0-1-any.pkg.tar.zst
+#dkp-pacman -U --noconfirm switch-libpython-3.8.0-1-any.pkg.tar.zst
 #tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
 
 curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
