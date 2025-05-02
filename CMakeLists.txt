@@ -188,7 +188,7 @@ endif()
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
-    ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
+    ${DEVKITPRO}/portlibs/switch/lib/libpython3.8m.a
     ${DEVKITPRO}/portlibs/switch/lib/libfribidi.a
     m
     PkgConfig::EGL
