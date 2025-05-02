@@ -21,10 +21,10 @@ python3 --version
 #curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 #curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/python39-3.9.2-1-x86_64.pkg.tar.zst
+curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/switch-libpython-3.8.0-1-any.pkg.tar.zst
 #dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-dkp-pacman -U --noconfirm python39-3.9.2-1-x86_64.pkg.tar.zst
+dkp-pacman -U --noconfirm switch-libpython-3.8.0-1-any.pkg.tar.zst
 #tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
 
 curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
@@ -37,7 +37,7 @@ rm devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
 
 #rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
 rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-rm python39-3.9.2-1-x86_64.pkg.tar.zst
+rm switch-libpython-3.8.0-1-any.pkg.tar.zst
 #rm python27-switch.tar.gz
 
 /bin/bash -c 'sed -i'"'"'.bak'"'"' '"'"'s/set(CMAKE_EXE_LINKER_FLAGS_INIT "/set(CMAKE_EXE_LINKER_FLAGS_INIT "-fPIC /'"'"' $DEVKITPRO/switch.cmake'
