@@ -11,8 +11,7 @@ AccountUid userID={0};
         ob = PyModule_Create(&moduledef);
 
 #define MOD_IMPORT(name) \
-        PyObject* ob = PyImport_ImportModule(name); \
-        if (ob == NULL) show_error_and_exit("Could not import" name ".");
+        if (PyImport_ImportModule(name) == NULL) show_error_and_exit("Could not import" name ".");
 
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
