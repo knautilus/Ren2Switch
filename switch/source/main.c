@@ -5,6 +5,11 @@
 u64 cur_progid = 0;
 AccountUid userID={0};
 
+#define MOD_DEF(ob, name, doc, methods) \
+        static struct PyModuleDef moduledef = { \
+          PyModuleDef_HEAD_INIT, name, doc, -1, methods, }; \
+        ob = PyModule_Create(&moduledef);
+
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
     u64 total_size = 0;
@@ -68,22 +73,31 @@ static PyMethodDef myMethods[] = {
     { NULL, NULL, 0, NULL }
 };
 
-static struct PyModuleDef cModPyDem =
-{
-    PyModuleDef_HEAD_INIT,
-    "_otrhlibnx", /* name of module */
-    "",          /* module documentation, may be NULL */
-    -1,          /* size of per-interpreter state of the module, or -1 if the module keeps state in global variables. */
-    myMethods
+static PyMethodDef noMethods[] = {
+    { NULL, NULL, 0, NULL }
 };
 
 PyMODINIT_FUNC PyInit__otrh_libnx(void)
 {
-    return PyModule_Create(&cModPyDem);
+    PyObject *m;
+    MOD_DEF(m, "_otrhlibnx", "", myMethods)
+    return m;
 }
 
-PyMODINIT_FUNC PyInit_pygame_sdl2_color(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_controller(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_color(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.color", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_controller(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.controller", "", noMethods)
+    return m;
+}
+
 PyMODINIT_FUNC PyInit_pygame_sdl2_display(void);
 PyMODINIT_FUNC PyInit_pygame_sdl2_draw(void);
 PyMODINIT_FUNC PyInit_pygame_sdl2_error(void);
