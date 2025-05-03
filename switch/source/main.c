@@ -10,9 +10,12 @@ AccountUid userID={0};
           PyModuleDef_HEAD_INIT, name, doc, -1, methods, }; \
         ob = PyModule_Create(&moduledef);
 
-#define MOD_IMPORT(name) \
-        static PyObject* ob = PyImport_ImportModule(name); \
-        if (ob == NULL) show_error_and_exit("Could not import" name ".");
+static PyObject* moduleImport(const char *name)
+{
+    PyObject* ob = PyImport_ImportModule(name);
+    if (ob == NULL) show_error_and_exit("Could not import" name ".");
+    return ob;
+}
 
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
@@ -339,66 +342,66 @@ int main(int argc, char* argv[])
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
     PyImport_ExtendInittab(builtins);
     Py_InitializeEx(0);
-    MOD_IMPORT("pygame_sdl2.color");
-    MOD_IMPORT("pygame_sdl2.controller");
-    MOD_IMPORT("pygame_sdl2.display");
-    MOD_IMPORT("pygame_sdl2.draw");
-    MOD_IMPORT("pygame_sdl2.error");
-    MOD_IMPORT("pygame_sdl2.event");
-    MOD_IMPORT("pygame_sdl2.gfxdraw");
-    MOD_IMPORT("pygame_sdl2.image");
-    MOD_IMPORT("pygame_sdl2.joystick");
-    MOD_IMPORT("pygame_sdl2.key");
-    MOD_IMPORT("pygame_sdl2.locals");
-    MOD_IMPORT("pygame_sdl2.mouse");
-    MOD_IMPORT("pygame_sdl2.power");
-    MOD_IMPORT("pygame_sdl2.pygame_time");
-    MOD_IMPORT("pygame_sdl2.rect");
-    MOD_IMPORT("pygame_sdl2.render");
-    MOD_IMPORT("pygame_sdl2.rwobject");
-    MOD_IMPORT("pygame_sdl2.scrap");
-    MOD_IMPORT("pygame_sdl2.surface");
-    MOD_IMPORT("pygame_sdl2.transform");
-    MOD_IMPORT("_renpy");
-    MOD_IMPORT("_renpybidi");
-    MOD_IMPORT("renpy.audio.renpysound");
-    MOD_IMPORT("renpy.display.accelerator");
-    MOD_IMPORT("renpy.display.matrix");
-    MOD_IMPORT("renpy.display.render");
-    MOD_IMPORT("renpy.gl.gldraw");
-    MOD_IMPORT("renpy.gl.glenviron_shader");
-    MOD_IMPORT("renpy.gl.glrtt_copy");
-    MOD_IMPORT("renpy.gl.glrtt_fbo");
-    MOD_IMPORT("renpy.gl.gltexture");
-    MOD_IMPORT("renpy.pydict");
-    MOD_IMPORT("renpy.style");
-    MOD_IMPORT("renpy.styledata.style_activate_functions");
-    MOD_IMPORT("renpy.styledata.style_functions");
-    MOD_IMPORT("renpy.styledata.style_hover_functions");
-    MOD_IMPORT("renpy.styledata.style_idle_functions");
-    MOD_IMPORT("renpy.styledata.style_insensitive_functions");
-    MOD_IMPORT("renpy.styledata.style_selected_activate_functions");
-    MOD_IMPORT("renpy.styledata.style_selected_functions");
-    MOD_IMPORT("renpy.styledata.style_selected_hover_functions");
-    MOD_IMPORT("renpy.styledata.style_selected_idle_functions");
-    MOD_IMPORT("renpy.styledata.style_selected_insensitive_functions");
-    MOD_IMPORT("renpy.styledata.styleclass");
-    MOD_IMPORT("renpy.styledata.stylesets");
-    MOD_IMPORT("renpy.text.ftfont");
-    MOD_IMPORT("renpy.text.textsupport");
-    MOD_IMPORT("renpy.text.texwrap");
-    MOD_IMPORT("renpy.gl2.gl2draw");
-    MOD_IMPORT("renpy.gl2.gl2mesh");
-    MOD_IMPORT("renpy.gl2.gl2mesh2");
-    MOD_IMPORT("renpy.gl2.gl2mesh3");
-    MOD_IMPORT("renpy.gl2.gl2model");
-    MOD_IMPORT("renpy.gl2.gl2polygon");
-    MOD_IMPORT("renpy.gl2.gl2shader");
-    MOD_IMPORT("renpy.gl2.gl2texture");
-    MOD_IMPORT("renpy.uguu.gl");
-    MOD_IMPORT("renpy.uguu.uguu");
-    MOD_IMPORT("renpy.lexersupport");
-    MOD_IMPORT("renpy.display.quaternion");
+    moduleImport("pygame_sdl2.color");
+    moduleImport("pygame_sdl2.controller");
+    moduleImport("pygame_sdl2.display");
+    moduleImport("pygame_sdl2.draw");
+    moduleImport("pygame_sdl2.error");
+    moduleImport("pygame_sdl2.event");
+    moduleImport("pygame_sdl2.gfxdraw");
+    moduleImport("pygame_sdl2.image");
+    moduleImport("pygame_sdl2.joystick");
+    moduleImport("pygame_sdl2.key");
+    moduleImport("pygame_sdl2.locals");
+    moduleImport("pygame_sdl2.mouse");
+    moduleImport("pygame_sdl2.power");
+    moduleImport("pygame_sdl2.pygame_time");
+    moduleImport("pygame_sdl2.rect");
+    moduleImport("pygame_sdl2.render");
+    moduleImport("pygame_sdl2.rwobject");
+    moduleImport("pygame_sdl2.scrap");
+    moduleImport("pygame_sdl2.surface");
+    moduleImport("pygame_sdl2.transform");
+    moduleImport("_renpy");
+    moduleImport("_renpybidi");
+    moduleImport("renpy.audio.renpysound");
+    moduleImport("renpy.display.accelerator");
+    moduleImport("renpy.display.matrix");
+    moduleImport("renpy.display.render");
+    moduleImport("renpy.gl.gldraw");
+    moduleImport("renpy.gl.glenviron_shader");
+    moduleImport("renpy.gl.glrtt_copy");
+    moduleImport("renpy.gl.glrtt_fbo");
+    moduleImport("renpy.gl.gltexture");
+    moduleImport("renpy.pydict");
+    moduleImport("renpy.style");
+    moduleImport("renpy.styledata.style_activate_functions");
+    moduleImport("renpy.styledata.style_functions");
+    moduleImport("renpy.styledata.style_hover_functions");
+    moduleImport("renpy.styledata.style_idle_functions");
+    moduleImport("renpy.styledata.style_insensitive_functions");
+    moduleImport("renpy.styledata.style_selected_activate_functions");
+    moduleImport("renpy.styledata.style_selected_functions");
+    moduleImport("renpy.styledata.style_selected_hover_functions");
+    moduleImport("renpy.styledata.style_selected_idle_functions");
+    moduleImport("renpy.styledata.style_selected_insensitive_functions");
+    moduleImport("renpy.styledata.styleclass");
+    moduleImport("renpy.styledata.stylesets");
+    moduleImport("renpy.text.ftfont");
+    moduleImport("renpy.text.textsupport");
+    moduleImport("renpy.text.texwrap");
+    moduleImport("renpy.gl2.gl2draw");
+    moduleImport("renpy.gl2.gl2mesh");
+    moduleImport("renpy.gl2.gl2mesh2");
+    moduleImport("renpy.gl2.gl2mesh3");
+    moduleImport("renpy.gl2.gl2model");
+    moduleImport("renpy.gl2.gl2polygon");
+    moduleImport("renpy.gl2.gl2shader");
+    moduleImport("renpy.gl2.gl2texture");
+    moduleImport("renpy.uguu.gl");
+    moduleImport("renpy.uguu.uguu");
+    moduleImport("renpy.lexersupport");
+    moduleImport("renpy.display.quaternion");
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
