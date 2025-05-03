@@ -98,69 +98,424 @@ PyMODINIT_FUNC PyInit_pygame_sdl2_controller(void)
     return m;
 }
 
-PyMODINIT_FUNC PyInit_pygame_sdl2_display(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_draw(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_error(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_event(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_gfxdraw(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_image(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_joystick(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_key(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_locals(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_mouse(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_power(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_pygame_time(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_rect(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_render(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_rwobject(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_scrap(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_surface(void);
-PyMODINIT_FUNC PyInit_pygame_sdl2_transform(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_display(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.display", "", noMethods)
+    return m;
+}
 
-PyMODINIT_FUNC PyInit__renpy(void);
-PyMODINIT_FUNC PyInit__renpybidi(void);
-PyMODINIT_FUNC PyInit_renpy_audio_renpysound(void);
-PyMODINIT_FUNC PyInit_renpy_display_accelerator(void);
-PyMODINIT_FUNC PyInit_renpy_display_render(void);
-PyMODINIT_FUNC PyInit_renpy_display_matrix(void);
-PyMODINIT_FUNC PyInit_renpy_gl_gl(void);
-PyMODINIT_FUNC PyInit_renpy_gl_gldraw(void);
-PyMODINIT_FUNC PyInit_renpy_gl_glenviron_shader(void);
-PyMODINIT_FUNC PyInit_renpy_gl_glrtt_copy(void);
-PyMODINIT_FUNC PyInit_renpy_gl_glrtt_fbo(void);
-PyMODINIT_FUNC PyInit_renpy_gl_gltexture(void);
-PyMODINIT_FUNC PyInit_renpy_pydict(void);
-PyMODINIT_FUNC PyInit_renpy_style(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_activate_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_hover_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_idle_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_insensitive_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_activate_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_hover_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_idle_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_insensitive_functions(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_styleclass(void);
-PyMODINIT_FUNC PyInit_renpy_styledata_stylesets(void);
-PyMODINIT_FUNC PyInit_renpy_text_ftfont(void);
-PyMODINIT_FUNC PyInit_renpy_text_textsupport(void);
-PyMODINIT_FUNC PyInit_renpy_text_texwrap(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_draw(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.draw", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_error(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.error", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_event(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.event", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_gfxdraw(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.gfxdraw", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_image(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.image", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_joystick(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.joystick", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_key(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.key", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_locals(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.locals", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_mouse(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.mouse", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_power(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.power", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_pygame_time(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.time", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_rect(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.rect", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_render(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.render", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_rwobject(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.rwobject", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_scrap(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.scrap", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_surface(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.surface", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_transform(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "pygame_sdl2.transform", "", noMethods)
+    return m;
+}
+
+
+PyMODINIT_FUNC PyInit__renpy(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "_renpy", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit__renpybidi(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "_renpybidi", "", noMethods)
+    return m;
+}
+
+
+PyMODINIT_FUNC PyInit_renpy_audio_renpysound(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.audio.renpysound", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_display_accelerator(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.display.accelerator", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_display_render(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.display.render", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_display_matrix(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.display.matrix", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl_gl(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl.gl", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl_gldraw(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl.gldraw", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl_glenviron_shader(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl.glenviron_shader", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl_glrtt_copy(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl.glrtt_copy", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl_glrtt_fbo(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl.glrtt_fbo", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl_gltexture(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl.gltexture", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_pydict(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.pydict", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_style(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.style", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_activate_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_activate_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_hover_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_hover_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_idle_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_idle_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_insensitive_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_insensitive_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_activate_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_selected_activate_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_selected_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_hover_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_selected_hover_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_idle_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_selected_idle_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_insensitive_functions(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.style_selected_insensitive_functions", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_styleclass(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.styleclass", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_styledata_stylesets(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.styledata.stylesets", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_text_ftfont(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.text.ftfont", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_text_textsupport(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.text.textsupport", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_text_texwrap(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.text.texwrap", "", noMethods)
+    return m;
+}
+
 
 // PyMODINIT_FUNC PyInit_renpy_compat_dictviews(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2draw(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh2(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh3(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2model(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2polygon(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2shader(void);
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2texture(void);
-PyMODINIT_FUNC PyInit_renpy_uguu_gl(void);
-PyMODINIT_FUNC PyInit_renpy_uguu_uguu(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2draw(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2draw", "", noMethods)
+    return m;
+}
 
-PyMODINIT_FUNC PyInit_renpy_lexersupport(void);
-PyMODINIT_FUNC PyInit_renpy_display_quaternion(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2mesh", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh2(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2mesh2", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh3(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2mesh3", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2model(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2model", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2polygon(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2polygon", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2shader(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2shader", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2texture(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.gl2.gl2texture", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_uguu_gl(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.uguu.gl", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_uguu_uguu(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.uguu.uguu", "", noMethods)
+    return m;
+}
+
+
+PyMODINIT_FUNC PyInit_renpy_lexersupport(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.lexersupport", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit_renpy_display_quaternion(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "renpy.display.quaternion", "", noMethods)
+    return m;
+}
+
 
 // Overide the heap initialization function.
 void __libnx_initheap(void)
