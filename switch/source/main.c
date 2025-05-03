@@ -11,7 +11,8 @@ AccountUid userID={0};
         ob = PyModule_Create(&moduledef);
 
 #define MOD_IMPORT(name) \
-        if (PyImport_ImportModule(name) == NULL) show_error_and_exit("Could not import" name ".");
+        static PyObject* ob = PyImport_ImportModule(name); \
+        if (ob == NULL) show_error_and_exit("Could not import" name ".");
 
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
@@ -335,9 +336,9 @@ int main(int argc, char* argv[])
     }
 
     fclose(sysconfigdata_file);
-    Py_InitializeEx(0);
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
     PyImport_ExtendInittab(builtins);
+    Py_InitializeEx(0);
     MOD_IMPORT("pygame_sdl2.color");
     MOD_IMPORT("pygame_sdl2.controller");
     MOD_IMPORT("pygame_sdl2.display");
