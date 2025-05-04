@@ -347,7 +347,7 @@ int main(int argc, char* argv[])
         show_error("PyImport_ExtendInittab", 0);
     }
 
-    //show_error("before Py_InitializeEx", 0);
+    show_error("before Py_InitializeEx", 0);
 
     Py_InitializeEx(0);
 
