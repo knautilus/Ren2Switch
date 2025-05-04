@@ -12,9 +12,11 @@ AccountUid userID={0};
 
 char python_error_buffer[0x400];
 
-void show_error_and_exit(const char* message)
+void show_error(const char* message, int exit)
 {
-    Py_Finalize();
+    if (exit == 1) {
+        Py_Finalize();
+    }
     char* first_line = (char*)message;
     char* end = strchr(message, '\n');
     if (end != NULL)
@@ -26,14 +28,16 @@ void show_error_and_exit(const char* message)
     ErrorSystemConfig c;
     errorSystemCreate(&c, (const char*)first_line, message);
     errorSystemShow(&c);
-    Py_Exit(1);
+    if (exit == 1) {
+        Py_Exit(1);
+    }
 }
 
 static PyObject* moduleImport(const char *name)
 {
     PyObject* ob = PyImport_ImportModule(name);
     if (ob == NULL) {
-        show_error_and_exit(name);
+        show_error(name, 1);
     }
     return ob;
 }
@@ -237,7 +241,6 @@ Result createSaveData()
 
 void userAppInit()
 {
-
     // fsdevUnmountAll();
 
     Result rc=0;
@@ -328,12 +331,12 @@ int main(int argc, char* argv[])
 
     if (sysconfigdata_file == NULL)
     {
-        show_error_and_exit("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.");
+        show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
     }
 
     if (renpy_file == NULL)
     {
-        show_error_and_exit("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.");
+        show_error("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.", 1);
     }
 
     fclose(sysconfigdata_file);
@@ -341,12 +344,15 @@ int main(int argc, char* argv[])
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
 
     if (PyImport_ExtendInittab(builtins) == -1) {
-        show_error_and_exit("PyImport_ExtendInittab");
+        show_error("PyImport_ExtendInittab", 0);
     }
 
-    show_error_and_exit("before Py_InitializeEx");
+    //show_error("before Py_InitializeEx", 0);
 
     Py_InitializeEx(0);
+
+    show_error("before moduleImport", 0);
+
     moduleImport("pygame_sdl2.color");
     moduleImport("pygame_sdl2.controller");
     moduleImport("pygame_sdl2.display");
@@ -408,7 +414,7 @@ int main(int argc, char* argv[])
     moduleImport("renpy.lexersupport");
     moduleImport("renpy.display.quaternion");
 
-    show_error_and_exit("after moduleImport");
+    show_error("after moduleImport", 0);
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
@@ -423,14 +429,14 @@ int main(int argc, char* argv[])
 
     if (python_result == -1)
     {
-        show_error_and_exit("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.");
+        show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     }
 
 #define x(lib) \
     { \
         if (PyRun_SimpleString("import " lib) == -1) \
         { \
-            show_error_and_exit("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python2.7\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist."); \
+            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python3.9\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
         } \
     }
 
@@ -444,10 +450,10 @@ int main(int argc, char* argv[])
 
     if (python_result == -1)
     {
-        show_error_and_exit("An uncaught Python exception occurred during renpy.py execution.\n\nPlease look in the save:// folder for more information about this exception.");
+        show_error("An uncaught Python exception occurred during renpy.py execution.\n\nPlease look in the save:// folder for more information about this exception.", 1);
     }
 
-    show_error_and_exit("before Py_Exit");
+    show_error("before Py_Exit", 0);
 
     Py_Exit(0);
     return 0;
