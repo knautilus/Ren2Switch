@@ -12,7 +12,6 @@ AccountUid userID={0};
 
 char python_error_buffer[0x400];
 
-
 void show_error_and_exit(const char* message)
 {
     Py_Finalize();
@@ -102,16 +101,13 @@ static PyMethodDef myMethods[] = {
     { NULL, NULL, 0, NULL }
 };
 
-static PyMethodDef noMethods[] = {
-    { NULL, NULL, 0, NULL }
-};
-
-PyMODINIT_FUNC PyInit__otrh_libnx(void)
+PyMODINIT_FUNC PyInit__otrhlibnx(void)
 {
     PyObject *m;
     MOD_DEF(m, "_otrhlibnx", "", myMethods)
     return m;
 }
+
 /*
 PyMODINIT_FUNC PyInit_pygame_sdl2_color();
 PyMODINIT_FUNC PyInit_pygame_sdl2_controller();
@@ -179,6 +175,7 @@ PyMODINIT_FUNC PyInit_renpy_uguu_uguu();
 PyMODINIT_FUNC PyInit_renpy_lexersupport();
 PyMODINIT_FUNC PyInit_renpy_display_quaternion();
 */
+
 // Overide the heap initialization function.
 void __libnx_initheap(void)
 {
@@ -308,7 +305,6 @@ static void on_applet_hook(AppletHookType hook, void *param)
 }
 
 
-
 int main(int argc, char* argv[])
 {
     setenv("MESA_NO_ERROR", "1", 1);
@@ -323,7 +319,7 @@ int main(int argc, char* argv[])
     Py_OptimizeFlag = 2;
 
     static struct _inittab builtins[] = {
-        {"_otrhlibnx", PyInit__otrh_libnx},
+        {"_otrhlibnx", PyInit__otrhlibnx},
         {NULL, NULL}
     };
 
@@ -341,8 +337,15 @@ int main(int argc, char* argv[])
     }
 
     fclose(sysconfigdata_file);
+
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
-    PyImport_ExtendInittab(builtins);
+
+    if (PyImport_ExtendInittab(builtins) == -1) {
+        show_error_and_exit("PyImport_ExtendInittab");
+    }
+
+    show_error_and_exit("before Py_InitializeEx");
+
     Py_InitializeEx(0);
     moduleImport("pygame_sdl2.color");
     moduleImport("pygame_sdl2.controller");
@@ -405,6 +408,8 @@ int main(int argc, char* argv[])
     moduleImport("renpy.lexersupport");
     moduleImport("renpy.display.quaternion");
 
+    show_error_and_exit("after moduleImport");
+
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
         NULL,
@@ -441,6 +446,8 @@ int main(int argc, char* argv[])
     {
         show_error_and_exit("An uncaught Python exception occurred during renpy.py execution.\n\nPlease look in the save:// folder for more information about this exception.");
     }
+
+    show_error_and_exit("before Py_Exit");
 
     Py_Exit(0);
     return 0;
