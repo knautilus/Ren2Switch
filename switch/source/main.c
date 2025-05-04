@@ -10,10 +10,32 @@ AccountUid userID={0};
           PyModuleDef_HEAD_INIT, name, doc, -1, methods, }; \
         ob = PyModule_Create(&moduledef);
 
+char python_error_buffer[0x400];
+
+
+void show_error_and_exit(const char* message)
+{
+    Py_Finalize();
+    char* first_line = (char*)message;
+    char* end = strchr(message, '\n');
+    if (end != NULL)
+    {
+        first_line = python_error_buffer;
+        memcpy(first_line, message, (end - message) > sizeof(python_error_buffer) ? sizeof(python_error_buffer) : (end - message));
+        first_line[end - message] = '\0';
+    }
+    ErrorSystemConfig c;
+    errorSystemCreate(&c, (const char*)first_line, message);
+    errorSystemShow(&c);
+    Py_Exit(1);
+}
+
 static PyObject* moduleImport(const char *name)
 {
     PyObject* ob = PyImport_ImportModule(name);
-    if (ob == NULL) show_error_and_exit("Could not import" name ".");
+    if (ob == NULL) {
+        show_error_and_exit(name);
+    }
     return ob;
 }
 
@@ -266,26 +288,6 @@ void userAppExit()
 ConsoleRenderer* getDefaultConsoleRenderer(void)
 {
     return NULL;
-}
-
-char python_error_buffer[0x400];
-
-
-void show_error_and_exit(const char* message)
-{
-    Py_Finalize();
-    char* first_line = (char*)message;
-    char* end = strchr(message, '\n');
-    if (end != NULL)
-    {
-        first_line = python_error_buffer;
-        memcpy(first_line, message, (end - message) > sizeof(python_error_buffer) ? sizeof(python_error_buffer) : (end - message));
-        first_line[end - message] = '\0';
-    }
-    ErrorSystemConfig c;
-    errorSystemCreate(&c, (const char*)first_line, message);
-    errorSystemShow(&c);
-    Py_Exit(1);
 }
 
 
