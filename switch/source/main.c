@@ -321,21 +321,34 @@ int main(int argc, char* argv[])
     Py_DontWriteBytecodeFlag = 1;
     Py_OptimizeFlag = 2;
 
+    PyStatus status;
+
+    PyConfig config;
+    PyConfig_InitPythonConfig(&config);
+    config.isolated = 1;
+
+    /* Decode command line arguments.
+       Implicitly preinitialize Python (in isolated mode). */
+    status = PyConfig_SetBytesArgv(&config, argc, argv);
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
+
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
         {NULL, NULL}
     };
 
+    show_error("Test", 0);
+
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
 
-    if (sysconfigdata_file == NULL)
-    {
+    if (sysconfigdata_file == NULL) {
         show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
     }
 
-    if (renpy_file == NULL)
-    {
+    if (renpy_file == NULL) {
         show_error("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.", 1);
     }
 
@@ -349,7 +362,11 @@ int main(int argc, char* argv[])
 
     show_error("before Py_InitializeEx", 0);
 
-    Py_InitializeEx(0);
+    status = Py_InitializeFromConfig(&config);
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
+    PyConfig_Clear(&config);
 
     show_error("before moduleImport", 0);
 
@@ -457,4 +474,16 @@ int main(int argc, char* argv[])
 
     Py_Exit(0);
     return 0;
+
+exception:
+    PyConfig_Clear(&config);
+    if (PyStatus_IsExit(status)) {
+        return status.exitcode;
+    }
+
+    show_error(status.err_msg, 0);
+
+    /* Display the error message and exit the process with
+       non-zero exit code */
+    Py_ExitStatusException(status);
 }
