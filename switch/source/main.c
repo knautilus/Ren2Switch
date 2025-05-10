@@ -35,9 +35,10 @@ void show_error(const char* message, int exit)
 
 static PyObject* moduleImport(const char *name)
 {
+    show_error(name, 0);
     PyObject* ob = PyImport_ImportModule(name);
     if (ob == NULL) {
-        show_error(name, 1);
+        show_error("error moduleImport", 0);
     }
     return ob;
 }
