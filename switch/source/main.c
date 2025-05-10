@@ -353,6 +353,8 @@ int main(int argc, char* argv[])
         show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     }
 
+    show_error("before PyConfig_SetBytesArgv", 0);
+
     /* Decode command line arguments.
        Implicitly preinitialize Python (in isolated mode). */
     status = PyConfig_SetBytesArgv(&config, argc, argv);
@@ -364,6 +366,8 @@ int main(int argc, char* argv[])
         {"_otrhlibnx", PyInit__otrhlibnx},
         {NULL, NULL}
     };
+
+    show_error("before fopen", 0);
 
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
@@ -379,6 +383,8 @@ int main(int argc, char* argv[])
     fclose(sysconfigdata_file);
 
     //Py_SetPythonHome(L"romfs:/Contents/lib.zip");
+
+    show_error("before PyImport_ExtendInittab", 0);
 
     if (PyImport_ExtendInittab(builtins) == -1) {
         show_error("PyImport_ExtendInittab", 0);
