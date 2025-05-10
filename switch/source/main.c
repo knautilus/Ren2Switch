@@ -354,7 +354,7 @@ int main(int argc, char* argv[])
 
     fclose(sysconfigdata_file);
 
-    Py_SetPythonHome(L"romfs:/Contents/lib.zip");
+    //Py_SetPythonHome(L"romfs:/Contents/lib.zip");
 
     if (PyImport_ExtendInittab(builtins) == -1) {
         show_error("PyImport_ExtendInittab", 0);
