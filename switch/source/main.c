@@ -353,14 +353,13 @@ int main(int argc, char* argv[])
         show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     }
 
-    show_error("before PyConfig_SetBytesArgv", 0);
-
     /* Decode command line arguments.
        Implicitly preinitialize Python (in isolated mode). */
-    status = PyConfig_SetBytesArgv(&config, argc, argv);
-    if (PyStatus_Exception(status)) {
-        goto exception;
-    }
+    //show_error("before PyConfig_SetBytesArgv", 0);
+    //status = PyConfig_SetBytesArgv(&config, argc, argv);
+    //if (PyStatus_Exception(status)) {
+    //    goto exception;
+    //}
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
