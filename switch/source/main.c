@@ -331,6 +331,8 @@ int main(int argc, char* argv[])
     PyStatus status;
     int python_result;
 
+    show_error("before PyConfig_InitPythonConfig", 0);
+
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
     config.home = L"romfs:/Contents/lib.zip";
@@ -340,7 +342,9 @@ int main(int argc, char* argv[])
     config.write_bytecode = 0;
     config.optimization_level = 2;
     config.parse_argv = 1;
-    config.argv = argv_list;
+    config.argv = &argv_list;
+
+    show_error("before PyRun_SimpleString", 0);
 
     python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
 
