@@ -14,7 +14,7 @@ apt -y install python3 python3-dev python3-pip
 
 apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
 pip3 uninstall distribute
-pip3 install future six typing requests ecdsa pefile Cython==3.0.10 setuptools
+pip3 install future six typing requests ecdsa pefile Cython==3.0.12 setuptools
 
 python3 --version
 
@@ -27,9 +27,9 @@ dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
 dkp-pacman -U --noconfirm switch-libpython-3.9.2-1-any.pkg.tar.zst
 #tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
 
-#curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
-#unzip -qq -n devkitpro-pkgbuild-helpers-2.2.3-1-any.zip -d $DEVKITPRO
-#rm devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
+curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
+unzip -qq -n devkitpro-pkgbuild-helpers-2.2.3-1-any.zip -d $DEVKITPRO
+rm devkitpro-pkgbuild-helpers-2.2.3-1-any.zip
 
 #curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/python39-switch.zip
 #unzip -qq python39-switch.zip -d $DEVKITPRO/portlibs/switch
