@@ -335,7 +335,7 @@ int main(int argc, char* argv[])
 
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
-    config.home = L"romfs:/Contents/lib.zip";
+    config.home = L"romfs:/Contents/libzip";
     config.site_import = 0;
     config.use_environment = 0;
     config.user_site_directory = 0;
@@ -343,11 +343,11 @@ int main(int argc, char* argv[])
     config.optimization_level = 2;
     config.parse_argv = 1;
     config.argv = argv_list;
-    config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    config.pythonpath_env = L"romfs:/Contents/libzip";
     config.filesystem_encoding = L"utf-8";
 
     //show_error("before PyRun_SimpleString", 0);
-    //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib.zip')\n");
+    //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/libzip')\n");
     //if (python_result == -1)
     //{
     //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
@@ -368,20 +368,20 @@ int main(int argc, char* argv[])
 
     show_error("before fopen", 0);
 
-    FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
+    //FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
 
-    if (sysconfigdata_file == NULL) {
-        show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
-    }
+    //if (sysconfigdata_file == NULL) {
+    //    show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
+    //}
 
     if (renpy_file == NULL) {
         show_error("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.", 1);
     }
 
-    fclose(sysconfigdata_file);
+    //fclose(sysconfigdata_file);
 
-    //Py_SetPythonHome(L"romfs:/Contents/lib.zip");
+    //Py_SetPythonHome(L"romfs:/Contents/libzip");
 
     show_error("before PyImport_ExtendInittab", 0);
 

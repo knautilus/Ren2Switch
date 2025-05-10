@@ -103,7 +103,8 @@ cp ./renpy_clear/renpy.py ./raw/switch/romfs/Contents/
 cp -r ./renpy_clear/lib/python3.9/. ./raw/lib
 cp -r ./renpy_clear/renpy ./raw/lib
 rm -rf ./raw/lib/renpy/common/
-7z a -tzip ./raw/switch/romfs/Contents/lib.zip ./raw/lib/*
+#7z a -tzip ./raw/switch/romfs/Contents/lib.zip ./raw/lib/*
+cp -r ./raw/lib/. ./raw/switch/romfs/Contents/libzip
 rm -rf ./raw/lib
 #rm ./renpy_clear/*.txt
 rm -rf ./renpy_clear/game
