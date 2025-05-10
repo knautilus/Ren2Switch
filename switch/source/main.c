@@ -326,7 +326,7 @@ int main(int argc, char* argv[])
         NULL,
     };
 
-    PyWideStringList argv_list = {.length = 1, .items = pyargs};
+    PyWideStringList argv_list = {.length = 1, .items = &pyargs};
 
     PyStatus status;
     int python_result;
@@ -342,7 +342,7 @@ int main(int argc, char* argv[])
     config.write_bytecode = 0;
     config.optimization_level = 2;
     config.parse_argv = 1;
-    config.argv = &argv_list;
+    config.argv = argv_list;
 
     show_error("before PyRun_SimpleString", 0);
 
