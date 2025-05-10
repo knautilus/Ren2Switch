@@ -341,7 +341,6 @@ int main(int argc, char* argv[])
     config.optimization_level = 2;
     config.parse_argv = 1;
     config.argv = argv_list;
-    config.isolated = 1;
 
     python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
 
