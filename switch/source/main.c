@@ -323,11 +323,10 @@ int main(int argc, char* argv[])
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
-        L"romfs:/Contents/lib.zip",
         NULL,
     };
 
-    PyWideStringList argv_list = {.length = 2, .items = pyargs};
+    PyWideStringList argv_list = {.length = 1, .items = pyargs};
 
     PyStatus status;
     int python_result;
@@ -344,6 +343,8 @@ int main(int argc, char* argv[])
     config.optimization_level = 2;
     config.parse_argv = 1;
     config.argv = argv_list;
+    config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    config.filesystem_encoding = L"utf-8";
 
     //show_error("before PyRun_SimpleString", 0);
     //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib.zip')\n");
