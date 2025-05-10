@@ -335,7 +335,7 @@ int main(int argc, char* argv[])
 
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
-    config.home = L"romfs:/Contents/libzip";
+    config.home = L"romfs:/Contents/lib";
     config.site_import = 0;
     config.use_environment = 0;
     config.user_site_directory = 0;
@@ -343,11 +343,12 @@ int main(int argc, char* argv[])
     config.optimization_level = 2;
     config.parse_argv = 1;
     config.argv = argv_list;
-    config.pythonpath_env = L"romfs:/Contents/libzip";
+    config.pythonpath_env = L"romfs:/Contents/lib";
     config.filesystem_encoding = L"utf-8";
+    config.program_name = L"python3";
 
     //show_error("before PyRun_SimpleString", 0);
-    //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/libzip')\n");
+    //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib')\n");
     //if (python_result == -1)
     //{
     //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
@@ -381,7 +382,7 @@ int main(int argc, char* argv[])
 
     //fclose(sysconfigdata_file);
 
-    //Py_SetPythonHome(L"romfs:/Contents/libzip");
+    //Py_SetPythonHome(L"romfs:/Contents/lib");
 
     show_error("before PyImport_ExtendInittab", 0);
 
