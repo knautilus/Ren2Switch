@@ -344,14 +344,12 @@ int main(int argc, char* argv[])
     config.parse_argv = 1;
     config.argv = argv_list;
 
-    show_error("before PyRun_SimpleString", 0);
-
-    python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib.zip')\n");
-
-    if (python_result == -1)
-    {
-        show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
-    }
+    //show_error("before PyRun_SimpleString", 0);
+    //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib.zip')\n");
+    //if (python_result == -1)
+    //{
+    //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
+    //}
 
     /* Decode command line arguments.
        Implicitly preinitialize Python (in isolated mode). */
