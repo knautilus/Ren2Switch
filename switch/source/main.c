@@ -346,7 +346,7 @@ int main(int argc, char* argv[])
 
     show_error("before PyRun_SimpleString", 0);
 
-    python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
+    python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib.zip')\n");
 
     if (python_result == -1)
     {
