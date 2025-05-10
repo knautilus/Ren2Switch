@@ -326,7 +326,7 @@ int main(int argc, char* argv[])
         NULL,
     };
 
-    PyWideStringList argv_list = {.length = 1, .items = &pyargs};
+    PyWideStringList argv_list = {.length = 1, .items = pyargs};
 
     PyStatus status;
     int python_result;
