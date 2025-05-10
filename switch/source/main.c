@@ -346,6 +346,13 @@ int main(int argc, char* argv[])
     config.pythonpath_env = L"romfs:/Contents/lib";
     config.filesystem_encoding = L"utf-8";
     config.program_name = L"python3";
+    config.module_search_paths_set = 1;
+
+    status = PyWideStringList_Append(&config.module_search_paths,
+                                     L"romfs:/Contents/lib");
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
 
     //show_error("before PyRun_SimpleString", 0);
     //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib')\n");
