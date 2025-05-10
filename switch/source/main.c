@@ -321,7 +321,13 @@ int main(int argc, char* argv[])
     //Py_DontWriteBytecodeFlag = 1;
     //Py_OptimizeFlag = 2;
 
+    wchar_t* pyargs[] = {
+        L"romfs:/Contents/renpy.py",
+        NULL,
+    };
+
     PyStatus status;
+    int python_result;
 
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
@@ -331,6 +337,16 @@ int main(int argc, char* argv[])
     config.user_site_directory = 0;
     config.write_bytecode = 0;
     config.optimization_level = 2;
+    config.parse_argv = 1;
+    config.argv = pyargs;
+    config.safe_path = 1;
+
+    python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
+
+    if (python_result == -1)
+    {
+        show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
+    }
 
     /* Decode command line arguments.
        Implicitly preinitialize Python (in isolated mode). */
@@ -436,21 +452,7 @@ int main(int argc, char* argv[])
 
     show_error("after moduleImport", 0);
 
-    wchar_t* pyargs[] = {
-        L"romfs:/Contents/renpy.py",
-        NULL,
-    };
-
-    PySys_SetArgvEx(1, pyargs, 1);
-
-    int python_result;
-
-    python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
-
-    if (python_result == -1)
-    {
-        show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
-    }
+    //PySys_SetArgvEx(1, pyargs, 1);
 
 #define x(lib) \
     { \
