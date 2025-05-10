@@ -323,10 +323,11 @@ int main(int argc, char* argv[])
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
+        L"romfs:/Contents/lib.zip",
         NULL,
     };
 
-    PyWideStringList argv_list = {.length = 1, .items = pyargs};
+    PyWideStringList argv_list = {.length = 2, .items = pyargs};
 
     PyStatus status;
     int python_result;
