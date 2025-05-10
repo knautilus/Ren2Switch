@@ -14,7 +14,7 @@ apt -y install python3 python3-dev python3-pip
 
 apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-dev libsdl2-ttf-dev libsdl2-mixer-dev libavformat-dev libfreetype6-dev libswscale-dev libglew-dev libfribidi-dev libavcodec-dev  libswresample-dev libsdl2-gfx-dev libgl1-mesa-glx
 pip3 uninstall distribute
-pip3 install future six typing requests ecdsa pefile Cython==3.0.11-1 setuptools
+pip3 install future six typing requests ecdsa pefile Cython==3.0.10 setuptools
 
 python3 --version
 
