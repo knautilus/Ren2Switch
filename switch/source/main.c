@@ -315,17 +315,22 @@ int main(int argc, char* argv[])
     appletLockExit();
     appletHook(&applet_hook_cookie, on_applet_hook, NULL);
 
-    Py_NoSiteFlag = 1;
-    Py_IgnoreEnvironmentFlag = 1;
-    Py_NoUserSiteDirectory = 1;
-    Py_DontWriteBytecodeFlag = 1;
-    Py_OptimizeFlag = 2;
+    //Py_NoSiteFlag = 1;
+    //Py_IgnoreEnvironmentFlag = 1;
+    //Py_NoUserSiteDirectory = 1;
+    //Py_DontWriteBytecodeFlag = 1;
+    //Py_OptimizeFlag = 2;
 
     PyStatus status;
 
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
-    config.isolated = 1;
+    config.home = L"romfs:/Contents/lib.zip";
+    config.site_import = 0;
+    config.use_environment = 0;
+    config.user_site_directory = 0;
+    config.write_bytecode = 0;
+    config.optimization_level = 2;
 
     /* Decode command line arguments.
        Implicitly preinitialize Python (in isolated mode). */
@@ -338,8 +343,6 @@ int main(int argc, char* argv[])
         {"_otrhlibnx", PyInit__otrhlibnx},
         {NULL, NULL}
     };
-
-    show_error("Test", 0);
 
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
