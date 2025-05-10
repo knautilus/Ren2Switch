@@ -326,6 +326,8 @@ int main(int argc, char* argv[])
         NULL,
     };
 
+    PyWideStringList argv_list = {.length = 1, .items = pyargs};
+
     PyStatus status;
     int python_result;
 
@@ -338,8 +340,8 @@ int main(int argc, char* argv[])
     config.write_bytecode = 0;
     config.optimization_level = 2;
     config.parse_argv = 1;
-    config.argv = pyargs;
-    config.safe_path = 1;
+    config.argv = argv_list;
+    config.isolated = 1;
 
     python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
 
