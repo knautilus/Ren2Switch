@@ -28,6 +28,22 @@ set(OPTIMIZATION_FLAGS
     -Ofast
 )
 
+set(DKA_SWITCH_C_FLAGS "-D__SWITCH__ -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -ftls-model=local-exec -ffunction-sections -fdata-sections")
+set(CMAKE_C_FLAGS   "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+set(CMAKE_CXX_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+set(CMAKE_ASM_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+
+set(CMAKE_EXE_LINKER_FLAGS_INIT "-specs=${DEVKITPRO}/libnx/switch.specs")
+
+set(CMAKE_FIND_ROOT_PATH
+  ${DEVKITPRO}/devkitA64
+  ${DEVKITPRO}/tools
+  ${DEVKITPRO}/portlibs/switch
+  ${DEVKITPRO}/libnx
+)
+
+set(NSWITCH TRUE)
+
 set(INCLUDES
     ${DEVKITPRO}/portlibs/switch/include/python3.9
 )
