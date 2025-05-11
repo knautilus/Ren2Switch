@@ -37,6 +37,7 @@ static PyObject* moduleImport(const char *name)
 {
     show_error(name, 0);
     PyObject* ob = PyImport_ImportModule(name);
+    show_error("imported", 0);
     if (ob == NULL) {
         show_error("error moduleImport", 0);
     }
@@ -53,7 +54,7 @@ static PyObject* commitsave(PyObject* self, PyObject* args)
     FsSaveDataInfo info;
     s64 total_entries=0;
     Result rc=0;
-    
+
     fsdevCommitDevice("save");
     fsFsGetTotalSpace(FsSave, "/", &total_size);
     fsFsGetFreeSpace(FsSave, "/", &free_size);
