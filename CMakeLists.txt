@@ -110,7 +110,7 @@ set(SOURCES
     source/module/renpy.gl2.gl2texture.c
     source/module/renpy.uguu.gl.c
     source/module/renpy.uguu.uguu.c
-    
+
     source/module/renpy.lexersupport.c
     source/module/renpy.display.quaternion.c
 )

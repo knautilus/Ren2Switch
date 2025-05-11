@@ -34,6 +34,84 @@ set(INCLUDES
 
 set(SOURCES
     source/main.c
+    ../source/module/IMG_savepng.c
+    ../source/module/SDL2_rotozoom.c
+    ../source/module/SDL_gfxPrimitives.c
+    ../source/module/_renpy.c
+    ../source/module/_renpybidi.c
+    ../source/module/alphablit.c
+    ../source/module/core.c
+    ../source/module/ffmedia.c
+    ../source/module/ftsupport.c
+    ../source/module/pygame_sdl2.color.c
+    ../source/module/pygame_sdl2.controller.c
+    ../source/module/pygame_sdl2.display.c
+    ../source/module/pygame_sdl2.draw.c
+    ../source/module/pygame_sdl2.error.c
+    ../source/module/pygame_sdl2.event.c
+    ../source/module/pygame_sdl2.font.c
+    ../source/module/pygame_sdl2.gfxdraw.c
+    ../source/module/pygame_sdl2.image.c
+    ../source/module/pygame_sdl2.joystick.c
+    ../source/module/pygame_sdl2.key.c
+    ../source/module/pygame_sdl2.locals.c
+    ../source/module/pygame_sdl2.mixer.c
+    ../source/module/pygame_sdl2.mixer_music.c
+    ../source/module/pygame_sdl2.mouse.c
+    ../source/module/pygame_sdl2.power.c
+    ../source/module/pygame_sdl2.pygame_time.c
+    ../source/module/pygame_sdl2.rect.c
+    ../source/module/pygame_sdl2.render.c
+    ../source/module/pygame_sdl2.rwobject.c
+    ../source/module/pygame_sdl2.scrap.c
+    ../source/module/pygame_sdl2.surface.c
+    ../source/module/pygame_sdl2.transform.c
+    ../source/module/renpy.audio.renpysound.c
+    ../source/module/renpy.display.accelerator.c
+    ../source/module/renpy.display.matrix.c
+    ../source/module/renpy.display.render.c
+    ../source/module/renpy.gl.gldraw.c
+    ../source/module/renpy.gl.glenviron_shader.c
+    ../source/module/renpy.gl.glrtt_copy.c
+    ../source/module/renpy.gl.glrtt_fbo.c
+    ../source/module/renpy.gl.gltexture.c
+    ../source/module/renpy.pydict.c
+    ../source/module/renpy.style.c
+    ../source/module/renpy.styledata.style_activate_functions.c
+    ../source/module/renpy.styledata.style_functions.c
+    ../source/module/renpy.styledata.style_hover_functions.c
+    ../source/module/renpy.styledata.style_idle_functions.c
+    ../source/module/renpy.styledata.style_insensitive_functions.c
+    ../source/module/renpy.styledata.style_selected_activate_functions.c
+    ../source/module/renpy.styledata.style_selected_functions.c
+    ../source/module/renpy.styledata.style_selected_hover_functions.c
+    ../source/module/renpy.styledata.style_selected_idle_functions.c
+    ../source/module/renpy.styledata.style_selected_insensitive_functions.c
+    ../source/module/renpy.styledata.styleclass.c
+    ../source/module/renpy.styledata.stylesets.c
+    ../source/module/renpy.text.ftfont.c
+    ../source/module/renpy.text.textsupport.c
+    ../source/module/renpy.text.texwrap.c
+    ../source/module/renpysound_core.c
+    ../source/module/ttgsubtable.c
+    ../source/module/write_jpeg.c
+    ../source/module/write_png.c
+    ../source/module/renpybidicore.c
+
+    #../source/module/renpy.compat.dictviews.c
+    ../source/module/renpy.gl2.gl2draw.c
+    ../source/module/renpy.gl2.gl2mesh.c
+    ../source/module/renpy.gl2.gl2mesh2.c
+    ../source/module/renpy.gl2.gl2mesh3.c
+    ../source/module/renpy.gl2.gl2model.c
+    ../source/module/renpy.gl2.gl2polygon.c
+    ../source/module/renpy.gl2.gl2shader.c
+    ../source/module/renpy.gl2.gl2texture.c
+    ../source/module/renpy.uguu.gl.c
+    ../source/module/renpy.uguu.uguu.c
+
+    ../source/module/renpy.lexersupport.c
+    ../source/module/renpy.display.quaternion.c
 )
 
 set(CMAKE_PREFIX_PATH "${DEVKITPRO}/portlibs/switch")
