@@ -30,6 +30,10 @@ set(OPTIMIZATION_FLAGS
 
 set(INCLUDES
     ${DEVKITPRO}/portlibs/switch/include/python3.9
+    ${DEVKITPRO}/portlibs/switch/include/fribidi
+    ../include
+    ../include/module
+    ../include/module/src
 )
 
 set(SOURCES
