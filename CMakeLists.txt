@@ -24,6 +24,37 @@ set(OPTIMIZATION_FLAGS
     -Ofast
 )
 
+set(DKA_SWITCH_C_FLAGS "-D__SWITCH__ -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -ftls-model=local-exec -ffunction-sections -fdata-sections")
+set(CMAKE_C_FLAGS   "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+set(CMAKE_CXX_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+set(CMAKE_ASM_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+
+set(CMAKE_EXE_LINKER_FLAGS_INIT "-specs=${DEVKITPRO}/libnx/switch.specs")
+
+set(CMAKE_FIND_ROOT_PATH
+  ${DEVKITPRO}/devkitA64
+  ${DEVKITPRO}/tools
+  ${DEVKITPRO}/portlibs/switch
+  ${DEVKITPRO}/libnx
+)
+
+set(OPENGL_egl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libEGL.a")
+set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
+set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
+set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
+
+mark_as_advanced(
+  OPENGL_INCLUDE_DIR
+  OPENGL_xmesa_INCLUDE_DIR
+  OPENGL_egl_LIBRARY
+  OPENGL_glu_LIBRARY
+  OPENGL_glx_LIBRARY
+  OPENGL_gl_LIBRARY
+  OPENGL_opengl_LIBRARY
+  OPENGL_EGL_INCLUDE_DIR
+  OPENGL_GLX_INCLUDE_DIR
+)
+
 set(INCLUDES
     ${DEVKITPRO}/portlibs/switch/include/python3.9
     ${DEVKITPRO}/portlibs/switch/include/fribidi

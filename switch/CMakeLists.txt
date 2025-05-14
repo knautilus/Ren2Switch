@@ -44,6 +44,8 @@ set(CMAKE_FIND_ROOT_PATH
 
 set(NSWITCH TRUE)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(INCLUDES
     ${DEVKITPRO}/portlibs/switch/include/python3.9
 )
