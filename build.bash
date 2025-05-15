@@ -53,6 +53,7 @@ rm -rf build
 mkdir build
 pushd build
 cmake ..
+cat build.make
 make
 popd
 popd
