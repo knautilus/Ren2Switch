@@ -58,8 +58,8 @@ ls
 #cat cmake_install.cmake
 #echo "== Makefile =="
 #cat Makefile
-pushd MakeFiles
-echo "== Makefiles list =="
+pushd CMakeFiles
+echo "== CMakefiles list =="
 ls
 popd
 make
