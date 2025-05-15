@@ -38,22 +38,27 @@ set(CMAKE_FIND_ROOT_PATH
   ${DEVKITPRO}/libnx
 )
 
-set(OPENGL_egl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libEGL.a")
-set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
-set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
-set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
+#set(OPENGL_egl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libEGL.a")
+#set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
+#set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
+#set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
 
-mark_as_advanced(
-  OPENGL_INCLUDE_DIR
-  OPENGL_xmesa_INCLUDE_DIR
-  OPENGL_egl_LIBRARY
-  OPENGL_glu_LIBRARY
-  OPENGL_glx_LIBRARY
-  OPENGL_gl_LIBRARY
-  OPENGL_opengl_LIBRARY
-  OPENGL_EGL_INCLUDE_DIR
-  OPENGL_GLX_INCLUDE_DIR
-)
+message(OPENGL_egl_LIBRARY="${OPENGL_egl_LIBRARY}")
+message(OPENGL_gl_LIBRARY="${OPENGL_gl_LIBRARY}")
+message(OPENGL_EGL_INCLUDE_DIR="${OPENGL_EGL_INCLUDE_DIR}")
+message(OPENGL_INCLUDE_DIR="${OPENGL_INCLUDE_DIR}")
+
+#mark_as_advanced(
+#  OPENGL_INCLUDE_DIR
+#  OPENGL_xmesa_INCLUDE_DIR
+#  OPENGL_egl_LIBRARY
+#  OPENGL_glu_LIBRARY
+#  OPENGL_glx_LIBRARY
+#  OPENGL_gl_LIBRARY
+#  OPENGL_opengl_LIBRARY
+#  OPENGL_EGL_INCLUDE_DIR
+#  OPENGL_GLX_INCLUDE_DIR
+#)
 
 set(INCLUDES
     ${DEVKITPRO}/portlibs/switch/include/python3.9
