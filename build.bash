@@ -54,10 +54,10 @@ mkdir build
 pushd build
 cmake ..
 ls
-echo "== cmake_install.cmake =="
-cat cmake_install.cmake
-echo "== Makefile =="
-cat Makefile
+#echo "== cmake_install.cmake =="
+#cat cmake_install.cmake
+#echo "== Makefile =="
+#cat Makefile
 pushd MakeFiles
 echo "== Makefiles list =="
 ls
