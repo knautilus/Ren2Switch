@@ -54,7 +54,12 @@ mkdir build
 pushd build
 cmake ..
 ls
-cat build.make
+echo "cmake_install.cmake"
+cat cmake_install.cmake
+echo "Makefile"
+cat Makefile
+echo "CMakeFiles"
+cat CMakeFiles
 make
 popd
 popd
