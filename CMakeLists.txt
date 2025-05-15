@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.0.2)
 
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     if(DEFINED ENV{DEVKITPRO})
         set(DEVKITPRO $ENV{DEVKITPRO})
-        set(CMAKE_TOOLCHAIN_FILE "$ENV{DEVKITPRO}/cmake/Switch.cmake" CACHE PATH "toolchain file")
+        set(CMAKE_TOOLCHAIN_FILE "$ENV{DEVKITPRO}/switch.cmake" CACHE PATH "toolchain file")
     else()
         message(FATAL_ERROR "Please define DEVKITPRO to point to your SDK path!")
     endif()
@@ -23,42 +23,6 @@ set(C_FLAGS
 set(OPTIMIZATION_FLAGS
     -Ofast
 )
-
-set(DKA_SWITCH_C_FLAGS "-D__SWITCH__ -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -ftls-model=local-exec -ffunction-sections -fdata-sections")
-set(CMAKE_C_FLAGS   "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
-set(CMAKE_CXX_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
-set(CMAKE_ASM_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
-
-set(CMAKE_EXE_LINKER_FLAGS_INIT "-specs=${DEVKITPRO}/libnx/switch.specs")
-
-set(CMAKE_FIND_ROOT_PATH
-  ${DEVKITPRO}/devkitA64
-  ${DEVKITPRO}/tools
-  ${DEVKITPRO}/portlibs/switch
-  ${DEVKITPRO}/libnx
-)
-
-#set(OPENGL_egl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libEGL.a")
-#set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
-#set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
-#set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
-
-message(OPENGL_egl_LIBRARY="${OPENGL_egl_LIBRARY}")
-message(OPENGL_gl_LIBRARY="${OPENGL_gl_LIBRARY}")
-message(OPENGL_EGL_INCLUDE_DIR="${OPENGL_EGL_INCLUDE_DIR}")
-message(OPENGL_INCLUDE_DIR="${OPENGL_INCLUDE_DIR}")
-
-#mark_as_advanced(
-#  OPENGL_INCLUDE_DIR
-#  OPENGL_xmesa_INCLUDE_DIR
-#  OPENGL_egl_LIBRARY
-#  OPENGL_glu_LIBRARY
-#  OPENGL_glx_LIBRARY
-#  OPENGL_gl_LIBRARY
-#  OPENGL_opengl_LIBRARY
-#  OPENGL_EGL_INCLUDE_DIR
-#  OPENGL_GLX_INCLUDE_DIR
-#)
 
 set(INCLUDES
     ${DEVKITPRO}/portlibs/switch/include/python3.9
@@ -150,6 +114,11 @@ set(SOURCES
     source/module/renpy.lexersupport.c
     source/module/renpy.display.quaternion.c
 )
+
+message(OPENGL_egl_LIBRARY="${OPENGL_egl_LIBRARY}")
+message(OPENGL_gl_LIBRARY="${OPENGL_gl_LIBRARY}")
+message(OPENGL_EGL_INCLUDE_DIR="${OPENGL_EGL_INCLUDE_DIR}")
+message(OPENGL_INCLUDE_DIR="${OPENGL_INCLUDE_DIR}")
 
 find_package(PkgConfig REQUIRED)
 # Workaround for library paths not being set correctly
@@ -251,4 +220,3 @@ target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELWITHDEBINFO>:${OPTIMIZATION_FLAGS}>)
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
-
