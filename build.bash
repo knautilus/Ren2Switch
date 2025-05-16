@@ -61,10 +61,14 @@ ls
 pushd CMakeFiles
 echo "== CMakefiles list =="
 ls
-echo "== Makefile2 =="
-cat Makefile2
-echo "== build.make =="
-cat renpy-switch.nso.dir/build.make
+pushd renpy-switch.dir
+echo "== renpy-switch.dir list =="
+ls
+popd
+pushd renpy-switch.nso.dir
+echo "== renpy-switch.nso.dir list =="
+ls
+popd
 popd
 make
 popd
