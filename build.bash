@@ -51,7 +51,7 @@ source /opt/devkitpro/switchvars.sh
 pushd switch
 rm -rf build
 mkdir build
-cmake
+cmake ./
 echo "== switch list =="
 ls
 pushd build
