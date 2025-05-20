@@ -51,31 +51,9 @@ source /opt/devkitpro/switchvars.sh
 pushd switch
 rm -rf build
 mkdir build
-echo "== switch list =="
-ls
 pushd build
 cmake ..
-echo "== build list =="
-ls
-#echo "== cmake_install.cmake =="
-#cat cmake_install.cmake
-#echo "== Makefile =="
-#cat Makefile
-#pushd CMakeFiles
-#echo "== CMakefiles list =="
-#ls
-#pushd renpy-switch.dir
-#echo "== renpy-switch.dir list =="
-#ls
-#popd
-#pushd renpy-switch.nso.dir
-#echo "== renpy-switch.nso.dir list =="
-#ls
-#popd
-#popd
 make
-echo "== build list =="
-ls
 popd
 popd
 
