@@ -74,6 +74,8 @@ ls
 #popd
 #popd
 make
+echo "== build list =="
+ls
 popd
 popd
 
