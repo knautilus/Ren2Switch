@@ -422,7 +422,7 @@ int main(int argc, char* argv[])
         {"renpy.text.textsupport", PyInit_renpy_text_textsupport},
         {"renpy.text.texwrap", PyInit_renpy_text_texwrap},
 
-        {"renpy.compat.dictviews", PyInit_renpy_compat_dictviews},
+        //{"renpy.compat.dictviews", PyInit_renpy_compat_dictviews},
         {"renpy.gl2.gl2draw", PyInit_renpy_gl2_gl2draw},
         {"renpy.gl2.gl2mesh", PyInit_renpy_gl2_gl2mesh},
         {"renpy.gl2.gl2mesh2", PyInit_renpy_gl2_gl2mesh2},
@@ -472,7 +472,6 @@ int main(int argc, char* argv[])
     PyConfig_Clear(&config);
 /*
     show_error("before moduleImport", 0);
-
 
     moduleImport("pygame_sdl2.color");
     moduleImport("pygame_sdl2.controller");
