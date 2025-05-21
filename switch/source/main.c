@@ -535,7 +535,7 @@ int main(int argc, char* argv[])
     moduleImport("pygame_sdl2.transform");
 
     show_error("after moduleImport", 0);
-*/
+
     //PySys_SetArgvEx(1, pyargs, 1);
 
 #define x(lib) \
