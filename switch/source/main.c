@@ -113,7 +113,7 @@ PyMODINIT_FUNC PyInit__otrhlibnx(void)
     MOD_DEF(m, "_otrhlibnx", "", myMethods)
     return m;
 }
-
+/*
 PyMODINIT_FUNC PyInit_pygame_sdl2_color();
 PyMODINIT_FUNC PyInit_pygame_sdl2_controller();
 PyMODINIT_FUNC PyInit_pygame_sdl2_display();
@@ -179,7 +179,7 @@ PyMODINIT_FUNC PyInit_renpy_uguu_uguu();
 
 PyMODINIT_FUNC PyInit_renpy_lexersupport();
 PyMODINIT_FUNC PyInit_renpy_display_quaternion();
-
+*/
 // Overide the heap initialization function.
 void __libnx_initheap(void)
 {
@@ -371,7 +371,7 @@ int main(int argc, char* argv[])
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
-        
+        /*
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
         {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
         {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
@@ -436,7 +436,7 @@ int main(int argc, char* argv[])
         
         {"renpy.lexersupport", PyInit_renpy_lexersupport},
         {"renpy.display.quaternion", PyInit_renpy_display_quaternion},
-        
+        */
         {NULL, NULL}
     };
 
@@ -470,29 +470,9 @@ int main(int argc, char* argv[])
         goto exception;
     }
     PyConfig_Clear(&config);
-/*
+
     show_error("before moduleImport", 0);
 
-    moduleImport("pygame_sdl2.color");
-    moduleImport("pygame_sdl2.controller");
-    moduleImport("pygame_sdl2.display");
-    moduleImport("pygame_sdl2.draw");
-    moduleImport("pygame_sdl2.error");
-    moduleImport("pygame_sdl2.event");
-    moduleImport("pygame_sdl2.gfxdraw");
-    moduleImport("pygame_sdl2.image");
-    moduleImport("pygame_sdl2.joystick");
-    moduleImport("pygame_sdl2.key");
-    moduleImport("pygame_sdl2.locals");
-    moduleImport("pygame_sdl2.mouse");
-    moduleImport("pygame_sdl2.power");
-    moduleImport("pygame_sdl2.pygame_time");
-    moduleImport("pygame_sdl2.rect");
-    moduleImport("pygame_sdl2.render");
-    moduleImport("pygame_sdl2.rwobject");
-    moduleImport("pygame_sdl2.scrap");
-    moduleImport("pygame_sdl2.surface");
-    moduleImport("pygame_sdl2.transform");
     moduleImport("_renpy");
     moduleImport("_renpybidi");
     moduleImport("renpy.audio.renpysound");
@@ -533,6 +513,26 @@ int main(int argc, char* argv[])
     moduleImport("renpy.uguu.uguu");
     moduleImport("renpy.lexersupport");
     moduleImport("renpy.display.quaternion");
+    moduleImport("pygame_sdl2.color");
+    moduleImport("pygame_sdl2.controller");
+    moduleImport("pygame_sdl2.display");
+    moduleImport("pygame_sdl2.draw");
+    moduleImport("pygame_sdl2.error");
+    moduleImport("pygame_sdl2.event");
+    moduleImport("pygame_sdl2.gfxdraw");
+    moduleImport("pygame_sdl2.image");
+    moduleImport("pygame_sdl2.joystick");
+    moduleImport("pygame_sdl2.key");
+    moduleImport("pygame_sdl2.locals");
+    moduleImport("pygame_sdl2.mouse");
+    moduleImport("pygame_sdl2.power");
+    moduleImport("pygame_sdl2.pygame_time");
+    moduleImport("pygame_sdl2.rect");
+    moduleImport("pygame_sdl2.render");
+    moduleImport("pygame_sdl2.rwobject");
+    moduleImport("pygame_sdl2.scrap");
+    moduleImport("pygame_sdl2.surface");
+    moduleImport("pygame_sdl2.transform");
 
     show_error("after moduleImport", 0);
 */
