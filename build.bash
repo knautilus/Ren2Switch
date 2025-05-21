@@ -100,7 +100,7 @@ cp -r ./renpy_clear/renpy/common ./raw/switch/romfs/Contents/renpy/
 cp ./renpy_clear/renpy.py ./raw/switch/romfs/Contents/
 #unzip -qq ./raw/lib.zip -d ./raw/lib/
 #rm ./raw/lib.zip
-cp $DEVKITPRO/portlibs/switch/. ./raw/lib/sw
+cp -r $DEVKITPRO/portlibs/switch/. ./raw/lib/sw
 cp -r ./renpy_clear/lib/python3.9/. ./raw/lib
 cp -r ./renpy_clear/renpy ./raw/lib
 rm -rf ./raw/lib/renpy/common/
