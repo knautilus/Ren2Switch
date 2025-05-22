@@ -354,13 +354,6 @@ int main(int argc, char* argv[])
         goto exception;
     }
 
-    //show_error("before PyRun_SimpleString", 0);
-    //python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib')\n");
-    //if (python_result == -1)
-    //{
-    //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
-    //}
-
     /* Decode command line arguments.
        Implicitly preinitialize Python (in isolated mode). */
     //show_error("before PyConfig_SetBytesArgv", 0);
@@ -470,6 +463,13 @@ int main(int argc, char* argv[])
         goto exception;
     }
     PyConfig_Clear(&config);
+
+    show_error("before PyRun_SimpleString", 0);
+    python_result = PyRun_SimpleString("import sys; sys.path = ['romfs:/Contents/lib'];");
+    if (python_result == -1)
+    {
+        show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
+    }
 
     show_error("before moduleImport", 0);
 
