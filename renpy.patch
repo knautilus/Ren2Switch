@@ -159,17 +159,17 @@ diff -Naur b/renpy/ast.py a/renpy/ast.py
 diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
 --- b/renpy/audio/audio.py	2023-06-08 02:55:48.000000000 +0300
 +++ a/renpy/audio/audio.py	2023-08-22 03:40:53.817637195 +0300
-@@ -27,9 +27,6 @@
+@@ -27,8 +27,7 @@
  from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
  from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
  
 -
 -from future.utils import raise_
--
++from six import reraise as raise_
+ 
  import time
  import pygame_sdl2 # @UnusedImport
- import os
-@@ -1106,6 +1103,9 @@
+@@ -1106,6 +1104,9 @@
  
  def quit(): # @ReservedAssignment
  
@@ -179,15 +179,6 @@ diff -Naur b/renpy/audio/audio.py a/renpy/audio/audio.py
      global periodic_thread_quit
  
      global pcm_ok
-@@ -1253,7 +1253,7 @@
-             exc = periodic_exc
-             periodic_exc = None
- 
--            raise_(exc[0], exc[1], exc[2])
-+            raise exc[0], exc[1], exc[2]
- 
-         run_periodic = True
-         periodic_condition.notify()
 diff -Naur b/renpy/bootstrap.py a/renpy/bootstrap.py
 --- b/renpy/bootstrap.py	2023-05-06 04:20:29.000000000 +0300
 +++ a/renpy/bootstrap.py	2023-09-01 00:40:04.344179857 +0300
