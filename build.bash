@@ -90,7 +90,6 @@ python3 generate_private.py
 rm -rf private
 
 
-
 mkdir -p ./raw/switch/romfs/Contents/renpy
 mkdir -p ./raw/lib/sw
 #mkdir -p ./raw/android/assets/renpy/common
@@ -100,7 +99,7 @@ cp -r ./renpy_clear/renpy/common ./raw/switch/romfs/Contents/renpy/
 cp ./renpy_clear/renpy.py ./raw/switch/romfs/Contents/
 #unzip -qq ./raw/lib.zip -d ./raw/lib/
 #rm ./raw/lib.zip
-cp -r $DEVKITPRO/portlibs/switch/. ./raw/lib/sw
+#cp -r $DEVKITPRO/portlibs/switch/. ./raw/lib/sw
 cp -r ./renpy_clear/lib/python3.9/. ./raw/lib
 cp -r ./renpy_clear/renpy ./raw/lib
 rm -rf ./raw/lib/renpy/common/
@@ -109,4 +108,4 @@ cp -r ./raw/lib ./raw/switch/romfs/Contents/
 rm -rf ./raw/lib
 #rm ./renpy_clear/*.txt
 rm -rf ./renpy_clear/game
-#mv ./renpy_clear/ ./raw/
+mv ./renpy_clear/ ./raw/
