@@ -722,24 +722,15 @@ diff -Naur b/renpy/easy.py a/renpy/easy.py
 diff -Naur b/renpy/execution.py a/renpy/execution.py
 --- b/renpy/execution.py	2023-06-08 02:55:48.000000000 +0300
 +++ a/renpy/execution.py	2023-08-31 13:08:32.523010973 +0300
-@@ -25,8 +25,6 @@
+@@ -25,7 +25,7 @@
  from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
  from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
  
 -from future.utils import reraise
--
++from six import reraise
+ 
  import sys
  import time
- 
-@@ -631,7 +629,7 @@
-                     except renpy.game.CONTROL_EXCEPTIONS as ce:
-                         raise ce
-                     except Exception:
--                        reraise(exc_info[0], exc_info[1], exc_info[2])
-+                        raise exc_info[0], exc_info[1], exc_info[2]
- 
-                 node = self.next_node
- 
 diff -Naur b/renpy/game.py a/renpy/game.py
 --- b/renpy/game.py	2023-03-12 06:54:19.000000000 +0300
 +++ a/renpy/game.py	2023-08-02 03:58:43.288462400 +0300
@@ -891,43 +882,18 @@ diff -Naur b/renpy/loader.py a/renpy/loader.py
 diff -Naur b/renpy/loadsave.py a/renpy/loadsave.py
 --- b/renpy/loadsave.py	2023-04-05 07:48:56.000000000 +0300
 +++ a/renpy/loadsave.py	2023-08-03 13:36:49.230289300 +0300
-@@ -24,10 +24,6 @@
+@@ -24,9 +24,7 @@
  from __future__ import division, absolute_import, with_statement, print_function, unicode_literals
  from renpy.compat import PY2, basestring, bchr, bord, chr, open, pystr, range, round, str, tobytes, unicode # *
  
 -from future.utils import reraise
++from six import reraise
 -
 -from typing import Optional
--
+ 
  import io
  import zipfile
- import re
-@@ -420,20 +416,20 @@
-         t, e, tb = sys.exc_info()
- 
-         if mutate_flag:
--            reraise(t, e, tb)
-+            raise t, e, tb
- 
-         try:
-             bad = find_bad_reduction(roots, renpy.game.log)
-         except Exception:
--            reraise(t, e, tb)
-+            raise t, e, tb
- 
-         if bad is None:
--            reraise(t, e, tb)
-+            raise t, e, tb
- 
-         if e.args:
-             e.args = (e.args[0] + ' (perhaps {})'.format(bad),) + e.args[1:]
- 
--        reraise(t, e, tb)
-+        raise t, e, tb
- 
-     if mutate_flag and renpy.revertable.mutate_flag:
-         raise SaveAbort()
-@@ -611,7 +607,7 @@
+@@ -611,7 +608,7 @@
  
      autosave_not_running.clear()
  
