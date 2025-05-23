@@ -410,7 +410,7 @@ diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
  # Determine if this is Python2.
  
 -PY2 = future.utils.PY2
-+PY2 = false
++PY2 = False
  
  ################################################################################
  # Make open mimic Python 3.
