@@ -189,6 +189,21 @@ PyMODINIT_FUNC PyInit_renpy_lexersupport();
 PyMODINIT_FUNC PyInit_renpy_display_quaternion();
 */
 
+PyMODINIT_FUNC PyInit__renpy(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "_renpy", "", noMethods)
+    return m;
+}
+
+PyMODINIT_FUNC PyInit__renpybidi(void)
+{
+    PyObject *m;
+    MOD_DEF(m, "_renpybidi", "", noMethods)
+    return m;
+}
+
+/*
 PyMODINIT_FUNC PyInit_pygame_sdl2_color(void)
 {
     PyObject *m;
@@ -328,22 +343,6 @@ PyMODINIT_FUNC PyInit_pygame_sdl2_transform(void)
     MOD_DEF(m, "pygame_sdl2.transform", "", noMethods)
     return m;
 }
-
-
-PyMODINIT_FUNC PyInit__renpy(void)
-{
-    PyObject *m;
-    MOD_DEF(m, "_renpy", "", noMethods)
-    return m;
-}
-
-PyMODINIT_FUNC PyInit__renpybidi(void)
-{
-    PyObject *m;
-    MOD_DEF(m, "_renpybidi", "", noMethods)
-    return m;
-}
-
 
 PyMODINIT_FUNC PyInit_renpy_audio_renpysound(void)
 {
@@ -618,6 +617,7 @@ PyMODINIT_FUNC PyInit_renpy_display_quaternion(void)
     MOD_DEF(m, "renpy.display.quaternion", "", noMethods)
     return m;
 }
+*/
 
 // Overide the heap initialization function.
 void __libnx_initheap(void)
@@ -804,6 +804,10 @@ int main(int argc, char* argv[])
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
 
+        {"_renpy", PyInit__renpy},
+        {"_renpybidi", PyInit__renpybidi},
+
+/*
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
         {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
         {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
@@ -825,8 +829,6 @@ int main(int argc, char* argv[])
         {"pygame_sdl2.surface", PyInit_pygame_sdl2_surface},
         {"pygame_sdl2.transform", PyInit_pygame_sdl2_transform},
 
-        {"_renpy", PyInit__renpy},
-        {"_renpybidi", PyInit__renpybidi},
         {"renpy.audio.renpysound", PyInit_renpy_audio_renpysound},
         {"renpy.display.accelerator", PyInit_renpy_display_accelerator},
         {"renpy.display.matrix", PyInit_renpy_display_matrix},
@@ -868,7 +870,7 @@ int main(int argc, char* argv[])
         
         {"renpy.lexersupport", PyInit_renpy_lexersupport},
         {"renpy.display.quaternion", PyInit_renpy_display_quaternion},
-
+*/
         {NULL, NULL}
     };
 
