@@ -405,6 +405,15 @@ diff -Naur b/renpy/common/00updater.rpy a/renpy/common/00updater.rpy
 diff -Naur b/renpy/compat/__init__.py a/renpy/compat/__init__.py
 --- b/renpy/compat/__init__.py	2023-06-08 02:56:04.000000000 +0300
 +++ a/renpy/compat/__init__.py	2023-08-03 16:54:30.048632700 +0300
+@@ -76,7 +76,7 @@
+ ################################################################################
+ # Determine if this is Python2.
+ 
+-PY2 = future.utils.PY2
++PY2 = false
+ 
+ ################################################################################
+ # Make open mimic Python 3.
 @@ -104,9 +104,50 @@
  strict_error = codecs.lookup_error("strict")
  codecs.register_error("python_strict", strict_error)
