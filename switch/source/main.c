@@ -39,7 +39,10 @@ static PyObject* moduleImport(const char *name)
     PyObject* ob = PyImport_ImportModule(name);
     show_error("imported", 0);
     if (ob == NULL) {
-        show_error("error moduleImport", 0);
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+        char *pStrErrorMessage = PyString_AsString(pvalue);
+        show_error(pStrErrorMessage, 0);
     }
     return ob;
 }
