@@ -41,8 +41,9 @@ static PyObject* moduleImport(const char *name)
     if (ob == NULL) {
         PyObject *ptype, *pvalue, *ptraceback;
         PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-        char *pStrErrorMessage = PyString_AsString(pvalue);
-        show_error(pStrErrorMessage, 0);
+        PyObject *str_value = PyObject_Str(pvalue);
+        const char* message = PyUnicode_AsUTF8(str_value);
+        show_error(message, 0);
     }
     return ob;
 }
