@@ -142,10 +142,11 @@ PyMODINIT_FUNC PyInit_pygame_sdl2_rwobject();
 PyMODINIT_FUNC PyInit_pygame_sdl2_scrap();
 PyMODINIT_FUNC PyInit_pygame_sdl2_surface();
 PyMODINIT_FUNC PyInit_pygame_sdl2_transform();
-
-PyMODINIT_FUNC PyInit__renpy();
-PyMODINIT_FUNC PyInit__renpybidi();
-PyMODINIT_FUNC PyInit_renpy_audio_renpysound();
+*/
+PyMODINIT_FUNC PyInit__renpy(void);
+PyMODINIT_FUNC PyInit__renpybidi(void);
+PyMODINIT_FUNC PyInit_renpy_audio_renpysound(void);
+/*
 PyMODINIT_FUNC PyInit_renpy_display_accelerator();
 PyMODINIT_FUNC PyInit_renpy_display_render();
 PyMODINIT_FUNC PyInit_renpy_display_matrix();
@@ -203,7 +204,6 @@ PyMODINIT_FUNC PyInit__renpybidi(void)
     MOD_DEF(m, "_renpybidi", "", noMethods)
     return m;
 }
-*/
 
 PyMODINIT_FUNC PyInit_pygame_sdl2_color(void)
 {
@@ -211,7 +211,7 @@ PyMODINIT_FUNC PyInit_pygame_sdl2_color(void)
     MOD_DEF(m, "pygame_sdl2.color", "", noMethods)
     return m;
 }
-/*
+
 PyMODINIT_FUNC PyInit_pygame_sdl2_controller(void)
 {
     PyObject *m;
@@ -804,34 +804,13 @@ int main(int argc, char* argv[])
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
-/*
+
         {"_renpy", PyInit__renpy},
         {"_renpybidi", PyInit__renpybidi},
-*/
-
-        {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
-/*
-        {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
-        {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
-        {"pygame_sdl2.draw", PyInit_pygame_sdl2_draw},
-        {"pygame_sdl2.error", PyInit_pygame_sdl2_error},
-        {"pygame_sdl2.event", PyInit_pygame_sdl2_event},
-        {"pygame_sdl2.gfxdraw", PyInit_pygame_sdl2_gfxdraw},
-        {"pygame_sdl2.image", PyInit_pygame_sdl2_image},
-        {"pygame_sdl2.joystick", PyInit_pygame_sdl2_joystick},
-        {"pygame_sdl2.key", PyInit_pygame_sdl2_key},
-        {"pygame_sdl2.locals", PyInit_pygame_sdl2_locals},
-        {"pygame_sdl2.mouse", PyInit_pygame_sdl2_mouse},
-        {"pygame_sdl2.power", PyInit_pygame_sdl2_power},
-        {"pygame_sdl2.pygame_time", PyInit_pygame_sdl2_pygame_time},
-        {"pygame_sdl2.rect", PyInit_pygame_sdl2_rect},
-        {"pygame_sdl2.render", PyInit_pygame_sdl2_render},
-        {"pygame_sdl2.rwobject", PyInit_pygame_sdl2_rwobject},
-        {"pygame_sdl2.scrap", PyInit_pygame_sdl2_scrap},
-        {"pygame_sdl2.surface", PyInit_pygame_sdl2_surface},
-        {"pygame_sdl2.transform", PyInit_pygame_sdl2_transform},
 
         {"renpy.audio.renpysound", PyInit_renpy_audio_renpysound},
+
+/*
         {"renpy.display.accelerator", PyInit_renpy_display_accelerator},
         {"renpy.display.matrix", PyInit_renpy_display_matrix},
         {"renpy.display.render", PyInit_renpy_display_render},
@@ -857,6 +836,28 @@ int main(int argc, char* argv[])
         {"renpy.text.ftfont", PyInit_renpy_text_ftfont},
         {"renpy.text.textsupport", PyInit_renpy_text_textsupport},
         {"renpy.text.texwrap", PyInit_renpy_text_texwrap},
+
+/*
+        {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
+        {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
+        {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
+        {"pygame_sdl2.draw", PyInit_pygame_sdl2_draw},
+        {"pygame_sdl2.error", PyInit_pygame_sdl2_error},
+        {"pygame_sdl2.event", PyInit_pygame_sdl2_event},
+        {"pygame_sdl2.gfxdraw", PyInit_pygame_sdl2_gfxdraw},
+        {"pygame_sdl2.image", PyInit_pygame_sdl2_image},
+        {"pygame_sdl2.joystick", PyInit_pygame_sdl2_joystick},
+        {"pygame_sdl2.key", PyInit_pygame_sdl2_key},
+        {"pygame_sdl2.locals", PyInit_pygame_sdl2_locals},
+        {"pygame_sdl2.mouse", PyInit_pygame_sdl2_mouse},
+        {"pygame_sdl2.power", PyInit_pygame_sdl2_power},
+        {"pygame_sdl2.pygame_time", PyInit_pygame_sdl2_pygame_time},
+        {"pygame_sdl2.rect", PyInit_pygame_sdl2_rect},
+        {"pygame_sdl2.render", PyInit_pygame_sdl2_render},
+        {"pygame_sdl2.rwobject", PyInit_pygame_sdl2_rwobject},
+        {"pygame_sdl2.scrap", PyInit_pygame_sdl2_scrap},
+        {"pygame_sdl2.surface", PyInit_pygame_sdl2_surface},
+        {"pygame_sdl2.transform", PyInit_pygame_sdl2_transform},
 
         //{"renpy.compat.dictviews", PyInit_renpy_compat_dictviews},
         {"renpy.gl2.gl2draw", PyInit_renpy_gl2_gl2draw},
