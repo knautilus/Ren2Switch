@@ -145,8 +145,8 @@ PyMODINIT_FUNC PyInit_pygame_sdl2_transform();
 */
 PyMODINIT_FUNC PyInit__renpy(void);
 PyMODINIT_FUNC PyInit__renpybidi(void);
-PyMODINIT_FUNC PyInit_renpy_audio_renpysound(void);
 /*
+PyMODINIT_FUNC PyInit_renpy_audio_renpysound();
 PyMODINIT_FUNC PyInit_renpy_display_accelerator();
 PyMODINIT_FUNC PyInit_renpy_display_render();
 PyMODINIT_FUNC PyInit_renpy_display_matrix();
@@ -808,9 +808,8 @@ int main(int argc, char* argv[])
         {"_renpy", PyInit__renpy},
         {"_renpybidi", PyInit__renpybidi},
 
-        {"renpy.audio.renpysound", PyInit_renpy_audio_renpysound},
-
 /*
+        {"renpy.audio.renpysound", PyInit_renpy_audio_renpysound},
         {"renpy.display.accelerator", PyInit_renpy_display_accelerator},
         {"renpy.display.matrix", PyInit_renpy_display_matrix},
         {"renpy.display.render", PyInit_renpy_display_render},
