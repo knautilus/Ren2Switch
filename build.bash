@@ -66,7 +66,7 @@ rm -rf renpy_clear
 mkdir renpy_clear
 cp ./renpy_sdk/*/renpy.sh ./renpy_clear/renpy.sh
 cp -r ./renpy_sdk/*/lib ./renpy_clear/lib
-cp -r ./renpy_sdk ./renpy_clear/sdk
+#cp -r ./renpy_sdk ./renpy_clear/sdk
 mkdir ./renpy_clear/game
 cp -r ./renpy-source/renpy ./renpy_clear/renpy
 cp ./renpy-source/renpy.py ./renpy_clear/renpy.py

@@ -189,6 +189,7 @@ PyMODINIT_FUNC PyInit_renpy_lexersupport();
 PyMODINIT_FUNC PyInit_renpy_display_quaternion();
 */
 
+/*
 PyMODINIT_FUNC PyInit__renpy(void)
 {
     PyObject *m;
@@ -202,15 +203,15 @@ PyMODINIT_FUNC PyInit__renpybidi(void)
     MOD_DEF(m, "_renpybidi", "", noMethods)
     return m;
 }
+*/
 
-/*
 PyMODINIT_FUNC PyInit_pygame_sdl2_color(void)
 {
     PyObject *m;
     MOD_DEF(m, "pygame_sdl2.color", "", noMethods)
     return m;
 }
-
+/*
 PyMODINIT_FUNC PyInit_pygame_sdl2_controller(void)
 {
     PyObject *m;
@@ -803,12 +804,13 @@ int main(int argc, char* argv[])
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
-
+/*
         {"_renpy", PyInit__renpy},
         {"_renpybidi", PyInit__renpybidi},
+*/
 
-/*
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
+/*
         {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
         {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
         {"pygame_sdl2.draw", PyInit_pygame_sdl2_draw},
