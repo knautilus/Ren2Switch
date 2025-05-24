@@ -1863,7 +1863,7 @@ diff -Naur b/renpy.py a/renpy.py
 +    try:
 +        main()
 +    except:
-+        #if sys.platform == 'horizon':
-+            with open("exception.log", "w") as f:
++        if sys.platform == 'horizon':
++            with open("save://exception.log", "w") as f:
 +                import traceback
 +                f.write(traceback.format_exc())
