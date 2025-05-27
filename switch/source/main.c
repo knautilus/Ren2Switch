@@ -188,7 +188,8 @@ PyMODINIT_FUNC PyInit_renpy_uguu_uguu(void);
 
 PyMODINIT_FUNC PyInit_renpy_lexersupport(void);
 PyMODINIT_FUNC PyInit_renpy_display_quaternion(void);
-PyMODINIT_FUNC PyInit_renpy_encryption(void);
+//PyMODINIT_FUNC PyInit_renpy_encryption(void);
+
 /*
 PyMODINIT_FUNC PyInit__renpy(void)
 {
@@ -832,7 +833,7 @@ int main(int argc, char* argv[])
         {"renpy.text.ftfont", PyInit_renpy_text_ftfont},
         {"renpy.text.textsupport", PyInit_renpy_text_textsupport},
         {"renpy.text.texwrap", PyInit_renpy_text_texwrap},
-        {"renpy.encryption", PyInit_renpy_encryption},
+        //{"renpy.encryption", PyInit_renpy_encryption},
 
         {"_renpy", PyInit__renpy},
         {"_renpybidi", PyInit__renpybidi},

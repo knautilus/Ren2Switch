@@ -119,6 +119,6 @@ ln -sf $(realpath renpy-source/module/gen3/renpy.gl2.gl2texture.c) source/module
 ln -sf $(realpath renpy-source/module/gen3/renpy.uguu.gl.c) source/module/renpy.uguu.gl.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.uguu.uguu.c) source/module/renpy.uguu.uguu.c
 
-ln -sf $(realpath renpy-source/module/gen3/renpy.encryption.c) source/module/renpy.encryption.c
+#ln -sf $(realpath renpy-source/module/gen3/renpy.encryption.c) source/module/renpy.encryption.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.lexersupport.c) source/module/renpy.lexersupport.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.display.quaternion.c) source/module/renpy.display.quaternion.c
