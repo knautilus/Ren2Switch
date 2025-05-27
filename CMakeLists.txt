@@ -255,8 +255,7 @@ target_link_libraries(${PROJECT_NAME}
     PkgConfig::ZLIB
 )
 
-#target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
-target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:include/${PROJECT_NAME}>
+target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${INCLUDES}>" $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELWITHDEBINFO>:${OPTIMIZATION_FLAGS}>)
