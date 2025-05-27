@@ -121,75 +121,74 @@ PyMODINIT_FUNC PyInit__otrhlibnx(void)
     MOD_DEF(m, "_otrhlibnx", "", myMethods)
     return m;
 }
-/*
-PyMODINIT_FUNC PyInit_pygame_sdl2_color();
-PyMODINIT_FUNC PyInit_pygame_sdl2_controller();
-PyMODINIT_FUNC PyInit_pygame_sdl2_display();
-PyMODINIT_FUNC PyInit_pygame_sdl2_draw();
-PyMODINIT_FUNC PyInit_pygame_sdl2_error();
-PyMODINIT_FUNC PyInit_pygame_sdl2_event();
-PyMODINIT_FUNC PyInit_pygame_sdl2_gfxdraw();
-PyMODINIT_FUNC PyInit_pygame_sdl2_image();
-PyMODINIT_FUNC PyInit_pygame_sdl2_joystick();
-PyMODINIT_FUNC PyInit_pygame_sdl2_key();
-PyMODINIT_FUNC PyInit_pygame_sdl2_locals();
-PyMODINIT_FUNC PyInit_pygame_sdl2_mouse();
-PyMODINIT_FUNC PyInit_pygame_sdl2_power();
-PyMODINIT_FUNC PyInit_pygame_sdl2_pygame_time();
-PyMODINIT_FUNC PyInit_pygame_sdl2_rect();
-PyMODINIT_FUNC PyInit_pygame_sdl2_render();
-PyMODINIT_FUNC PyInit_pygame_sdl2_rwobject();
-PyMODINIT_FUNC PyInit_pygame_sdl2_scrap();
-PyMODINIT_FUNC PyInit_pygame_sdl2_surface();
-PyMODINIT_FUNC PyInit_pygame_sdl2_transform();
-*/
+
+PyMODINIT_FUNC PyInit_pygame_sdl2_color(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_controller(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_display(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_draw(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_error(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_event(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_gfxdraw(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_image(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_joystick(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_key(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_locals(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_mouse(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_power(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_pygame_time(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_rect(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_render(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_rwobject(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_scrap(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_surface(void);
+PyMODINIT_FUNC PyInit_pygame_sdl2_transform(void);
+
 PyMODINIT_FUNC PyInit__renpy(void);
 PyMODINIT_FUNC PyInit__renpybidi(void);
-/*
-PyMODINIT_FUNC PyInit_renpy_audio_renpysound();
-PyMODINIT_FUNC PyInit_renpy_display_accelerator();
-PyMODINIT_FUNC PyInit_renpy_display_render();
-PyMODINIT_FUNC PyInit_renpy_display_matrix();
-PyMODINIT_FUNC PyInit_renpy_gl_gl();
-PyMODINIT_FUNC PyInit_renpy_gl_gldraw();
-PyMODINIT_FUNC PyInit_renpy_gl_glenviron_shader();
-PyMODINIT_FUNC PyInit_renpy_gl_glrtt_copy();
-PyMODINIT_FUNC PyInit_renpy_gl_glrtt_fbo();
-PyMODINIT_FUNC PyInit_renpy_gl_gltexture();
-PyMODINIT_FUNC PyInit_renpy_pydict();
-PyMODINIT_FUNC PyInit_renpy_style();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_activate_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_hover_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_idle_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_insensitive_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_activate_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_hover_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_idle_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_insensitive_functions();
-PyMODINIT_FUNC PyInit_renpy_styledata_styleclass();
-PyMODINIT_FUNC PyInit_renpy_styledata_stylesets();
-PyMODINIT_FUNC PyInit_renpy_text_ftfont();
-PyMODINIT_FUNC PyInit_renpy_text_textsupport();
-PyMODINIT_FUNC PyInit_renpy_text_texwrap();
+PyMODINIT_FUNC PyInit_renpy_audio_filter(void);
+PyMODINIT_FUNC PyInit_renpy_audio_renpysound(void);
+PyMODINIT_FUNC PyInit_renpy_display_accelerator(void);
+PyMODINIT_FUNC PyInit_renpy_display_render(void);
+PyMODINIT_FUNC PyInit_renpy_display_matrix(void);
+//PyMODINIT_FUNC PyInit_renpy_gl_gl();
+PyMODINIT_FUNC PyInit_renpy_gl_gldraw(void);
+PyMODINIT_FUNC PyInit_renpy_gl_glenviron_shader(void);
+PyMODINIT_FUNC PyInit_renpy_gl_glrtt_copy(void);
+PyMODINIT_FUNC PyInit_renpy_gl_glrtt_fbo(void);
+PyMODINIT_FUNC PyInit_renpy_gl_gltexture(void);
+PyMODINIT_FUNC PyInit_renpy_pydict(void);
+PyMODINIT_FUNC PyInit_renpy_style(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_activate_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_hover_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_idle_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_insensitive_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_activate_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_hover_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_idle_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_style_selected_insensitive_functions(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_styleclass(void);
+PyMODINIT_FUNC PyInit_renpy_styledata_stylesets(void);
+PyMODINIT_FUNC PyInit_renpy_text_ftfont(void);
+PyMODINIT_FUNC PyInit_renpy_text_textsupport(void);
+PyMODINIT_FUNC PyInit_renpy_text_texwrap(void);
 
-// PyMODINIT_FUNC PyInit_renpy_compat_dictviews();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2draw();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh2();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh3();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2model();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2polygon();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2shader();
-PyMODINIT_FUNC PyInit_renpy_gl2_gl2texture();
-PyMODINIT_FUNC PyInit_renpy_uguu_gl();
-PyMODINIT_FUNC PyInit_renpy_uguu_uguu();
+//PyMODINIT_FUNC PyInit_renpy_text_hbfont(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2draw(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh2(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh3(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2model(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2polygon(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2shader(void);
+PyMODINIT_FUNC PyInit_renpy_gl2_gl2texture(void);
+PyMODINIT_FUNC PyInit_renpy_uguu_gl(void);
+PyMODINIT_FUNC PyInit_renpy_uguu_uguu(void);
 
-PyMODINIT_FUNC PyInit_renpy_lexersupport();
-PyMODINIT_FUNC PyInit_renpy_display_quaternion();
-*/
-
+PyMODINIT_FUNC PyInit_renpy_lexersupport(void);
+PyMODINIT_FUNC PyInit_renpy_display_quaternion(void);
+PyMODINIT_FUNC PyInit_renpy_encryption(void);
 /*
 PyMODINIT_FUNC PyInit__renpy(void)
 {
@@ -805,10 +804,7 @@ int main(int argc, char* argv[])
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
 
-        {"_renpy", PyInit__renpy},
-        {"_renpybidi", PyInit__renpybidi},
-
-/*
+        {"renpy.audio.filter", PyInit_renpy_audio_filter},
         {"renpy.audio.renpysound", PyInit_renpy_audio_renpysound},
         {"renpy.display.accelerator", PyInit_renpy_display_accelerator},
         {"renpy.display.matrix", PyInit_renpy_display_matrix},
@@ -832,11 +828,15 @@ int main(int argc, char* argv[])
         {"renpy.styledata.style_selected_insensitive_functions", PyInit_renpy_styledata_style_selected_insensitive_functions},
         {"renpy.styledata.styleclass", PyInit_renpy_styledata_styleclass},
         {"renpy.styledata.stylesets", PyInit_renpy_styledata_stylesets},
+        //{"renpy.text.hbfont", PyInit_renpy_text_hbfont},
         {"renpy.text.ftfont", PyInit_renpy_text_ftfont},
         {"renpy.text.textsupport", PyInit_renpy_text_textsupport},
         {"renpy.text.texwrap", PyInit_renpy_text_texwrap},
+        {"renpy.encryption", PyInit_renpy_encryption},
 
-/*
+        {"_renpy", PyInit__renpy},
+        {"_renpybidi", PyInit__renpybidi},
+
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
         {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
         {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
@@ -869,10 +869,10 @@ int main(int argc, char* argv[])
         {"renpy.gl2.gl2texture", PyInit_renpy_gl2_gl2texture},
         {"renpy.uguu.gl", PyInit_renpy_uguu_gl},
         {"renpy.uguu.uguu", PyInit_renpy_uguu_uguu},
-        
+
         {"renpy.lexersupport", PyInit_renpy_lexersupport},
         {"renpy.display.quaternion", PyInit_renpy_display_quaternion},
-*/
+
         {NULL, NULL}
     };
 

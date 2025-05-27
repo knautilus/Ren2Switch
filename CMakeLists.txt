@@ -103,6 +103,7 @@ set(SOURCES
     source/module/pygame_sdl2.scrap.c
     source/module/pygame_sdl2.surface.c
     source/module/pygame_sdl2.transform.c
+    source/module/renpy.audio.filter.c
     source/module/renpy.audio.renpysound.c
     source/module/renpy.display.accelerator.c
     source/module/renpy.display.matrix.c
@@ -113,6 +114,7 @@ set(SOURCES
     source/module/renpy.gl.glrtt_fbo.c
     source/module/renpy.gl.gltexture.c
     source/module/renpy.pydict.c
+    source/module/renpy.encryption.c
     source/module/renpy.style.c
     source/module/renpy.styledata.style_activate_functions.c
     source/module/renpy.styledata.style_functions.c
@@ -126,6 +128,7 @@ set(SOURCES
     source/module/renpy.styledata.style_selected_insensitive_functions.c
     source/module/renpy.styledata.styleclass.c
     source/module/renpy.styledata.stylesets.c
+    #source/module/renpy.text.hbfont.c
     source/module/renpy.text.ftfont.c
     source/module/renpy.text.textsupport.c
     source/module/renpy.text.texwrap.c

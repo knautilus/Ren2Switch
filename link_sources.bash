@@ -41,11 +41,12 @@ ln -sf $(realpath renpy-source/module/ftsupport.c) source/module/ftsupport.c
 
 ln -sf $(realpath renpy-source/module/gen3/_renpy.c) source/module/_renpy.c
 ln -sf $(realpath renpy-source/module/gen3/_renpybidi.c) source/module/_renpybidi.c
+ln -sf $(realpath renpy-source/module/gen3/renpy.audio.filter.c) source/module/renpy.audio.filter.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.audio.renpysound.c) source/module/renpy.audio.renpysound.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.display.accelerator.c) source/module/renpy.display.accelerator.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.display.matrix.c) source/module/renpy.display.matrix.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.display.render.c) source/module/renpy.display.render.c
-ln -sf $(realpath renpy-source/module/gen3/renpy.gl.gl.c) source/module/renpy.gl.gl.c
+#ln -sf $(realpath renpy-source/module/gen3/renpy.gl.gl.c) source/module/renpy.gl.gl.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.gl.gldraw.c) source/module/renpy.gl.gldraw.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.gl.glenviron_shader.c) source/module/renpy.gl.glenviron_shader.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.gl.glrtt_copy.c) source/module/renpy.gl.glrtt_copy.c
@@ -53,6 +54,7 @@ ln -sf $(realpath renpy-source/module/gen3/renpy.gl.glrtt_fbo.c) source/module/r
 ln -sf $(realpath renpy-source/module/gen3/renpy.gl.gltexture.c) source/module/renpy.gl.gltexture.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.parsersupport.c) source/module/renpy.parsersupport.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.pydict.c) source/module/renpy.pydict.c
+ln -sf $(realpath renpy-source/module/gen3/renpy.encryption.c) source/module/renpy.encryption.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.style.c) source/module/renpy.style.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.styledata.style_activate_functions.c) source/module/renpy.styledata.style_activate_functions.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.styledata.style_functions.c) source/module/renpy.styledata.style_functions.c
@@ -66,6 +68,7 @@ ln -sf $(realpath renpy-source/module/gen3/renpy.styledata.style_selected_idle_f
 ln -sf $(realpath renpy-source/module/gen3/renpy.styledata.style_selected_insensitive_functions.c) source/module/renpy.styledata.style_selected_insensitive_functions.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.styledata.styleclass.c) source/module/renpy.styledata.styleclass.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.styledata.stylesets.c) source/module/renpy.styledata.stylesets.c
+#ln -sf $(realpath renpy-source/module/gen3/renpy.text.hbfont.c) source/module/renpy.text.hbfont.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.text.ftfont.c) source/module/renpy.text.ftfont.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.text.textsupport.c) source/module/renpy.text.textsupport.c
 ln -sf $(realpath renpy-source/module/gen3/renpy.text.texwrap.c) source/module/renpy.text.texwrap.c
