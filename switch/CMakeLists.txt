@@ -70,6 +70,7 @@ mark_as_advanced(
 
 set(INCLUDES
     ${DEVKITPRO}/portlibs/switch/include/python3.9
+    ${DEVKITPRO}/portlibs/switch/include/renpy-switch-modules
 )
 
 set(SOURCES

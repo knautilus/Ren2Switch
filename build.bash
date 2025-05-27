@@ -41,6 +41,7 @@ mkdir -p $LOCAL_PREFIX/lib
 echo "== build-switch =="
 ls
 cp librenpy-switch-modules.a $LOCAL_PREFIX/lib/librenpy-switch-modules.a
+cp include/renpy-switch-modules $LOCAL_PREFIX/include/renpy-switch-modules
 popd
 
 tar -czvf $PREFIXARCHIVE -C $LOCAL_PREFIX .
