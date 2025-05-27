@@ -66,6 +66,7 @@ set(INCLUDES
     include
     include/module
     include/module/src
+    include/module/libhydrogen
 )
 
 # source/libnx_wrap.c disabled for the time being
