@@ -1,7 +1,7 @@
 
 
 mkdir -p source/module
-mkdir -p include/module include/module/pygame_sdl2 include/module/src include/module/libhydrogen
+mkdir -p include/module include/module/pygame_sdl2 include/module/src #include/module/libhydrogen
 
 ln -sf $(realpath pygame_sdl2-source/gen3/pygame_sdl2.color.c) source/module/pygame_sdl2.color.c
 ln -sf $(realpath pygame_sdl2-source/gen3/pygame_sdl2.controller.c) source/module/pygame_sdl2.controller.c

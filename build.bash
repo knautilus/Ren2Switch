@@ -38,6 +38,8 @@ export LOCAL_PREFIX=$(realpath local_prefix)
 cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
 mkdir -p $LOCAL_PREFIX/lib
+echo "== build-switch =="
+ls
 cp librenpy-switch-modules.a $LOCAL_PREFIX/lib/librenpy-switch-modules.a
 popd
 
