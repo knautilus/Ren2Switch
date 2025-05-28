@@ -40,12 +40,8 @@ cmake --build .
 mkdir -p $LOCAL_PREFIX/lib
 echo "== build-switch =="
 ls
-pushd include/renpy-switch-modules
-echo "== include/renpy-switch-modules =="
-ls
-popd
 cp librenpy-switch-modules.a $LOCAL_PREFIX/lib/librenpy-switch-modules.a
-cp include/renpy-switch-modules $LOCAL_PREFIX/include/renpy-switch-modules
+#cp include/renpy-switch-modules $LOCAL_PREFIX/include/renpy-switch-modules
 popd
 
 tar -czvf $PREFIXARCHIVE -C $LOCAL_PREFIX .
