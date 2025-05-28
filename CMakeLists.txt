@@ -254,7 +254,7 @@ target_link_libraries(${PROJECT_NAME}
     PkgConfig::SDL2_TTF
     PkgConfig::ZLIB
 )
-target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive" "-Wl,--no-gc-sections")
+#target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive" "-Wl,--no-gc-sections")
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
