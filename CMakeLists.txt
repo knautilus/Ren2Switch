@@ -16,7 +16,6 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(C_FLAGS
-    -DCYTHON_NO_PYINIT_EXPORT=1
     -DFRIBIDI_ENTRY=
     -DHAVE_CONFIG_H=1
 )
@@ -43,11 +42,6 @@ set(OPENGL_egl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libEGL.a")
 set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
 set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
 set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
-
-message(OPENGL_egl_LIBRARY="${OPENGL_egl_LIBRARY}")
-message(OPENGL_gl_LIBRARY="${OPENGL_gl_LIBRARY}")
-message(OPENGL_EGL_INCLUDE_DIR="${OPENGL_EGL_INCLUDE_DIR}")
-message(OPENGL_INCLUDE_DIR="${OPENGL_INCLUDE_DIR}")
 
 mark_as_advanced(
   OPENGL_INCLUDE_DIR
@@ -182,6 +176,7 @@ if(LIBDRM_NOUVEAU_INCLUDE_DIRS)
 endif()
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
+add_compile_definitions(CYTHON_NO_PYINIT_EXPORT)
 
 target_link_libraries(${PROJECT_NAME}
     ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
@@ -205,7 +200,7 @@ target_link_libraries(${PROJECT_NAME}
     PkgConfig::SDL2_TTF
     PkgConfig::ZLIB
 )
-#target_link_options(${PROJECT_NAME} PUBLIC "-Wl,--whole-archive")
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
