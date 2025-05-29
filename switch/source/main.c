@@ -121,7 +121,7 @@ PyMODINIT_FUNC PyInit__otrhlibnx(void)
     MOD_DEF(m, "_otrhlibnx", "", myMethods)
     return m;
 }
-/*
+
 PyMODINIT_FUNC PyInit_pygame_sdl2_color(void);
 PyMODINIT_FUNC PyInit_pygame_sdl2_controller(void);
 PyMODINIT_FUNC PyInit_pygame_sdl2_display(void);
@@ -189,7 +189,7 @@ PyMODINIT_FUNC PyInit_renpy_uguu_uguu(void);
 PyMODINIT_FUNC PyInit_renpy_lexersupport(void);
 PyMODINIT_FUNC PyInit_renpy_display_quaternion(void);
 //PyMODINIT_FUNC PyInit_renpy_encryption(void);
-*/
+
 /*
 PyMODINIT_FUNC PyInit__renpy(void)
 {
