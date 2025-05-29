@@ -804,7 +804,7 @@ int main(int argc, char* argv[])
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
-/*
+
         {"renpy.audio.filter", PyInit_renpy_audio_filter},
         {"renpy.audio.renpysound", PyInit_renpy_audio_renpysound},
         {"renpy.display.accelerator", PyInit_renpy_display_accelerator},
@@ -873,7 +873,7 @@ int main(int argc, char* argv[])
 
         {"renpy.lexersupport", PyInit_renpy_lexersupport},
         {"renpy.display.quaternion", PyInit_renpy_display_quaternion},
-*/
+
         {NULL, NULL}
     };
 
