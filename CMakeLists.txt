@@ -176,7 +176,7 @@ if(LIBDRM_NOUVEAU_INCLUDE_DIRS)
 endif()
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
-add_compile_definitions(CYTHON_NO_PYINIT_EXPORT)
+#add_compile_definitions(CYTHON_NO_PYINIT_EXPORT)
 
 target_link_libraries(${PROJECT_NAME}
     ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
