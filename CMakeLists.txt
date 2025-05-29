@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.13 FATAL ERROR)
 
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     if(DEFINED ENV{DEVKITPRO})
@@ -176,7 +176,7 @@ if(LIBDRM_NOUVEAU_INCLUDE_DIRS)
 endif()
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
-#add_compile_definitions(CYTHON_NO_PYINIT_EXPORT)
+add_compile_definitions(CYTHON_NO_PYINIT_EXPORT=1)
 
 target_link_libraries(${PROJECT_NAME}
     ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
