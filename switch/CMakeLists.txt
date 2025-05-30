@@ -189,6 +189,7 @@ target_link_libraries(${PROJECT_NAME}
 target_link_options(
     ${PROJECT_NAME}
     PRIVATE
+    -Wl,--no-gc-sections
     -Wl,--undefined=PyInit_pygame_sdl2_color
     -Wl,--undefined=PyInit_pygame_sdl2_controller
     -Wl,--undefined=PyInit_pygame_sdl2_display
