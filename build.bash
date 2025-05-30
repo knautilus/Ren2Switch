@@ -64,7 +64,7 @@ cp sources/main.c source/main.c
 pushd source/module
 echo "== list source/module =="
 ls
-rm hydrogen.c
+rm hydrogen.c tinyfiledialogs.c
 #rm tinyfiledialogs.c _renpytfd.c sdl2.c pygame_sdl2.mixer.c pygame_sdl2.font.c pygame_sdl2.mixer_music.c
 popd
 
