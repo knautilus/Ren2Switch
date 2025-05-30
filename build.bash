@@ -38,6 +38,7 @@ RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py bu
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py install
 popd
 
+cp sources/main.c source/main.c
 
 #export PREFIXARCHIVE=$(realpath renpy-switch-modules.tar.gz)
 #
@@ -59,6 +60,11 @@ popd
 #tar -xf renpy-switch-modules.tar.gz -C $DEVKITPRO/portlibs/switch
 #rm renpy-switch-modules.tar.gz
 #rm -rf build-switch
+
+pushd source/module
+echo "== list source/module =="
+ls
+popd
 
 source /opt/devkitpro/switchvars.sh
 
