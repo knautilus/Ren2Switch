@@ -64,6 +64,8 @@ cp sources/main.c source/main.c
 pushd source/module
 echo "== list source/module =="
 ls
+rm hydrogen.c
+#rm tinyfiledialogs.c _renpytfd.c sdl2.c pygame_sdl2.mixer.c pygame_sdl2.font.c pygame_sdl2.mixer_music.c
 popd
 
 source /opt/devkitpro/switchvars.sh
