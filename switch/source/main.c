@@ -1,6 +1,9 @@
 #include <switch.h>
 #include <Python.h>
 #include <stdio.h>
+#include "pygame_sdl2/pygame_sdl2.h"
+#include "renpysound_core.h"
+#include "SDL.h"
 
 u64 cur_progid = 0;
 AccountUid userID={0};
