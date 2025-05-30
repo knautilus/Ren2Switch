@@ -199,11 +199,12 @@ target_link_libraries(${PROJECT_NAME}
     PkgConfig::SDL2_TTF
     PkgConfig::ZLIB
 )
+
 target_link_options(
     ${PROJECT_NAME}
     PUBLIC
     -Wl,--no-gc-sections
-}
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 #target_compile_definitions(${PROJECT_NAME} PRIVATE CYTHON_NO_PYINIT_EXPORT)
