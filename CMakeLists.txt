@@ -175,7 +175,6 @@ if(LIBDRM_NOUVEAU_INCLUDE_DIRS)
                  INTERFACE_INCLUDE_DIRECTORIES "${DEVKITPRO}/portlibs/switch/include")
 endif()
 
-add_compile_definitions(CYTHON_NO_PYINIT_EXPORT)
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
@@ -201,7 +200,6 @@ target_link_libraries(${PROJECT_NAME}
     PkgConfig::ZLIB
 )
 
-target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive")
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
