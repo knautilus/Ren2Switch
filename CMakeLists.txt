@@ -32,6 +32,9 @@ set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
 set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
 set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
 
+set(CMAKE_PREFIX_PATH "${DEVKITPRO}/portlibs/switch")
+set(ENV{PKG_CONFIG_PATH} "${DEVKITPRO}/portlibs/switch/lib/pkgconfig")
+
 add_compile_definitions(__SWITCH__)
 
 add_compile_options(
@@ -60,11 +63,11 @@ add_executable(${PROJECT_NAME} ${simple_SRC})
 
 target_link_libraries("${PROJECT_NAME}"
   python3.9
-  SDL2_mixer 
-  SDL2_image 
-  SDL2_ttf 
-  SDL2_gfx 
-  SDL2 
+  SDL2_mixer
+  SDL2_image
+  SDL2_ttf
+  SDL2_gfx
+  SDL2
   taihen_stub
   libgpu_es4_ext_stub_weak
   libIMGEGL_stub_weak
@@ -85,14 +88,14 @@ target_link_libraries("${PROJECT_NAME}"
   FLAC
   mikmod
   opus
-  swresample 
+  swresample
   mp3lame
-  avutil 
-  freetype 
-  mpdec 
-  jpeg 
-  png 
-  bz2 
+  avutil
+  freetype
+  mpdec
+  jpeg
+  png
+  bz2
   SceMotion_stub
   SceCommonDialog_stub
   SceHid_stub
