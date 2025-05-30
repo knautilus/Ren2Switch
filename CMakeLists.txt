@@ -146,54 +146,6 @@ add_executable(${PROJECT_NAME} ${simple_SRC})
 
 target_link_libraries("${PROJECT_NAME}"
     python3.9
-    taihen_stub
-    libgpu_es4_ext_stub_weak
-    libIMGEGL_stub_weak
-    libGLESv2_stub_weak
-    SceAppMgr_stub
-    SceProcessmgr_stub
-    SceIme_stub_weak
-    avformat
-    avfilter
-    swscale 
-    avcodec
-    webpdemux
-    webp
-    vorbis
-    vorbisfile
-    ogg
-    mpg123
-    FLAC
-    mikmod
-    opus
-    swresample
-    mp3lame
-    avutil
-    freetype
-    mpdec
-    jpeg
-    png
-    bz2
-    SceMotion_stub
-    SceCommonDialog_stub
-    SceHid_stub
-    SceGxm_stub
-    SceAudio_stub
-    SceAudioIn_stub
-    SceAvPlayer_stub
-    ScePower_stub
-    SceDisplay_stub
-    SceCtrl_stub
-    SceTouch_stub
-    SceIofilemgr_stub
-    SceNet_stub
-    SceNetCtl_stub
-    SceSsl_stub
-    SceVshBridge_stub
-    SceSysmodule_stub
-    #${OPENSSL_LIBRARIES}
-    pthread
-    intl
     fribidi
     #harfbuzz
     gcc
