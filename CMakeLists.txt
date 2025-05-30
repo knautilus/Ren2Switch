@@ -15,23 +15,8 @@ set(SWITCH_APP_NAME "Ren'Py")
 set(SWITCH_AUTHOR   "renpytom")
 set(SWITCH_VERSION  "8.3.7")
 
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE RelWithDebInfo)
-endif()
-
-set(C_FLAGS
-    -DFRIBIDI_ENTRY=
-    -DHAVE_CONFIG_H=1
-)
-
-set(OPTIMIZATION_FLAGS
-    -Ofast
-)
-
+set(NSWITCH TRUE)
 set(DKA_SWITCH_C_FLAGS "-D__SWITCH__ -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -ftls-model=local-exec -ffunction-sections -fdata-sections")
-set(CMAKE_C_FLAGS   "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
-set(CMAKE_CXX_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
-set(CMAKE_ASM_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "-specs=${DEVKITPRO}/libnx/switch.specs")
 
@@ -42,164 +27,98 @@ set(CMAKE_FIND_ROOT_PATH
   ${DEVKITPRO}/libnx
 )
 
-set(NSWITCH TRUE)
-
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
 set(OPENGL_egl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libEGL.a")
 set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
 set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
 set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
 
-message(OPENGL_egl_LIBRARY="${OPENGL_egl_LIBRARY}")
-message(OPENGL_gl_LIBRARY="${OPENGL_gl_LIBRARY}")
-message(OPENGL_EGL_INCLUDE_DIR="${OPENGL_EGL_INCLUDE_DIR}")
-message(OPENGL_INCLUDE_DIR="${OPENGL_INCLUDE_DIR}")
+add_compile_definitions(__SWITCH__)
 
-mark_as_advanced(
-  OPENGL_INCLUDE_DIR
-  OPENGL_xmesa_INCLUDE_DIR
-  OPENGL_egl_LIBRARY
-  OPENGL_glu_LIBRARY
-  OPENGL_glx_LIBRARY
-  OPENGL_gl_LIBRARY
-  OPENGL_opengl_LIBRARY
-  OPENGL_EGL_INCLUDE_DIR
-  OPENGL_GLX_INCLUDE_DIR
+add_compile_options(
+  -O2 -std=gnu99  # This O2 literally won't do anything for official builds btw
+  -w
+  -fsingle-precision-constant -fno-common
 )
 
-set(INCLUDES
-    ${DEVKITPRO}/portlibs/switch/include/python3.9
-    ${DEVKITPRO}/portlibs/switch/include/fribidi
-    include
-    include/module
-    include/module/src
-    include/module/pygame_sdl2
-    include/module/pygame_sdl2/src
+include_directories(
+    "include"
+    "include/module"
+    "include/module/pygame_sdl2"
+    "include/module/pygame_sdl2/src"
+    "${DEVKITPRO}/portlibs/switch/include/python3.9"
+    "${DEVKITPRO}/portlibs/switch/include/fribidi"
 )
+
+#find_package(OpenSSL REQUIRED)
 
 file(GLOB_RECURSE simple_SRC
     source/*.c
 )
 
-set(CMAKE_PREFIX_PATH "${DEVKITPRO}/portlibs/switch")
-set(ENV{PKG_CONFIG_PATH} "${DEVKITPRO}/portlibs/switch/lib/pkgconfig")
-
-find_package(PkgConfig REQUIRED)
-# Workaround for library paths not being set correctly
-set(pkgcfg_lib_FREETYPE2_nx /opt/devkitpro/libnx/lib/libnx.a)
-set(pkgcfg_lib_LIBAVFILTER_nx /opt/devkitpro/libnx/lib/libnx.a)
-set(pkgcfg_lib_LIBAVFORMAT_nx /opt/devkitpro/libnx/lib/libnx.a)
-set(pkgcfg_lib_EGL_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
-set(pkgcfg_lib_FREETYPE2_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
-set(pkgcfg_lib_GLAPI_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
-set(pkgcfg_lib_GLESV2_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
-set(pkgcfg_lib_LIBAVCODEC_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_LIBAVFILTER_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_LIBAVFORMAT_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_LIBAVUTIL_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_LIBSWRESAMPLE_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_LIBSWSCALE_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_SDL2_IMAGE_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_SDL2_MIXER_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_SDL2_TTF_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
-set(pkgcfg_lib_SDL2_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
-set(pkgcfg_lib_SDL2_GFX_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
-set(pkgcfg_lib_SDL2_IMAGE_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
-set(pkgcfg_lib_SDL2_MIXER_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
-set(pkgcfg_lib_SDL2_TTF_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
-set(pkgcfg_lib_LIBDRM_NOUVEAU_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
-set(pkgcfg_lib_SDL2_GFX_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
-set(pkgcfg_lib_SDL2_IMAGE_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
-set(pkgcfg_lib_SDL2_MIXER_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
-set(pkgcfg_lib_SDL2_TTF_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
-set(pkgcfg_lib_SDL2_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
-set(pkgcfg_lib_SDL2_GFX_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
-set(pkgcfg_lib_SDL2_IMAGE_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
-set(pkgcfg_lib_SDL2_MIXER_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
-set(pkgcfg_lib_SDL2_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
-set(pkgcfg_lib_SDL2_TTF_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
-set(pkgcfg_lib_SDL2_IMAGE_z /opt/devkitpro/portlibs/switch/lib/libz.a)
-set(pkgcfg_lib_SDL2_TTF_z /opt/devkitpro/portlibs/switch/lib/libz.a)
-set(pkgcfg_lib_SDL2_GFX_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
-set(pkgcfg_lib_SDL2_IMAGE_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
-set(pkgcfg_lib_SDL2_MIXER_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
-set(pkgcfg_lib_SDL2_TTF_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
-set(pkgcfg_lib_SDL2_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
-set(pkgcfg_lib_SDL2_IMAGE_SDL2_image /opt/devkitpro/portlibs/switch/lib/libSDL2_image.a)
-set(pkgcfg_lib_SDL2_GFX_SDL2_gfx /opt/devkitpro/portlibs/switch/lib/libSDL2_gfx.a)
-set(pkgcfg_lib_SDL2_IMAGE_jpeg /opt/devkitpro/portlibs/switch/lib/libjpeg.a)
-set(pkgcfg_lib_SDL2_IMAGE_png16 /opt/devkitpro/portlibs/switch/lib/libpng16.a)
-set(pkgcfg_lib_SDL2_IMAGE_webp /opt/devkitpro/portlibs/switch/lib/libwebp.a)
-set(pkgcfg_lib_SDL2_MIXER_SDL2_mixer /opt/devkitpro/portlibs/switch/lib/libSDL2_mixer.a)
-set(pkgcfg_lib_SDL2_MIXER_modplug /opt/devkitpro/portlibs/switch/lib/libmodplug.a)
-set(pkgcfg_lib_SDL2_MIXER_mpg123 /opt/devkitpro/portlibs/switch/lib/libmpg123.a)
-set(pkgcfg_lib_SDL2_MIXER_ogg /opt/devkitpro/portlibs/switch/lib/libogg.a)
-set(pkgcfg_lib_SDL2_MIXER_opus /opt/devkitpro/portlibs/switch/lib/libopus.a)
-set(pkgcfg_lib_SDL2_MIXER_opusfile /opt/devkitpro/portlibs/switch/lib/libopusfile.a)
-set(pkgcfg_lib_SDL2_MIXER_stdc++ /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libstdc++.a)
-set(pkgcfg_lib_SDL2_MIXER_vorbisidec /opt/devkitpro/portlibs/switch/lib/libvorbisidec.a)
-set(pkgcfg_lib_SDL2_TTF_SDL2_ttf /opt/devkitpro/portlibs/switch/lib/libSDL2_ttf.a)
-set(pkgcfg_lib_SDL2_TTF_bz2 /opt/devkitpro/portlibs/switch/lib/libbz2.a)
-set(pkgcfg_lib_SDL2_TTF_freetype /opt/devkitpro/portlibs/switch/lib/libfreetype.a)
-set(pkgcfg_lib_SDL2_TTF_png16 /opt/devkitpro/portlibs/switch/lib/libpng16.a)
-
-pkg_check_modules(EGL REQUIRED IMPORTED_TARGET egl)
-pkg_check_modules(FREETYPE2 REQUIRED IMPORTED_TARGET freetype2)
-pkg_check_modules(GLAPI REQUIRED IMPORTED_TARGET glapi)
-pkg_check_modules(GLESV2 REQUIRED IMPORTED_TARGET glesv2)
-pkg_check_modules(LIBAVCODEC REQUIRED IMPORTED_TARGET libavcodec)
-pkg_check_modules(LIBAVFILTER REQUIRED IMPORTED_TARGET libavfilter)
-pkg_check_modules(LIBAVFORMAT REQUIRED IMPORTED_TARGET libavformat)
-pkg_check_modules(LIBAVUTIL REQUIRED IMPORTED_TARGET libavutil)
-pkg_check_modules(LIBDRM_NOUVEAU REQUIRED IMPORTED_TARGET libdrm_nouveau)
-pkg_check_modules(LIBSWRESAMPLE REQUIRED IMPORTED_TARGET libswresample)
-pkg_check_modules(LIBSWSCALE REQUIRED IMPORTED_TARGET libswscale)
-pkg_check_modules(SDL2 REQUIRED IMPORTED_TARGET sdl2)
-pkg_check_modules(SDL2_GFX REQUIRED IMPORTED_TARGET SDL2_gfx)
-pkg_check_modules(SDL2_IMAGE REQUIRED IMPORTED_TARGET SDL2_image)
-pkg_check_modules(SDL2_MIXER REQUIRED IMPORTED_TARGET SDL2_mixer)
-pkg_check_modules(SDL2_TTF REQUIRED IMPORTED_TARGET SDL2_ttf)
-pkg_check_modules(ZLIB REQUIRED IMPORTED_TARGET zlib)
-
-# Workaround for pkg-config not expanding $(DEVKITPRO)
-if(LIBDRM_NOUVEAU_INCLUDE_DIRS)
-    set_property(TARGET PkgConfig::LIBDRM_NOUVEAU PROPERTY
-                 INTERFACE_INCLUDE_DIRECTORIES "${DEVKITPRO}/portlibs/switch/include")
-endif()
-
 add_executable(${PROJECT_NAME} ${simple_SRC})
 
-target_link_libraries(${PROJECT_NAME}
-    ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
-    ${DEVKITPRO}/portlibs/switch/lib/libfribidi.a
-    m
-    PkgConfig::EGL
-    PkgConfig::FREETYPE2
-    PkgConfig::GLAPI
-    PkgConfig::GLESV2
-    PkgConfig::LIBAVCODEC
-    PkgConfig::LIBAVFILTER
-    PkgConfig::LIBAVFORMAT
-    PkgConfig::LIBAVUTIL
-    PkgConfig::LIBDRM_NOUVEAU
-    PkgConfig::LIBSWRESAMPLE
-    PkgConfig::LIBSWSCALE
-    PkgConfig::SDL2
-    PkgConfig::SDL2_GFX
-    PkgConfig::SDL2_IMAGE
-    PkgConfig::SDL2_MIXER
-    PkgConfig::SDL2_TTF
-    PkgConfig::ZLIB
+target_link_libraries("${PROJECT_NAME}"
+  python3.9
+  SDL2_mixer 
+  SDL2_image 
+  SDL2_ttf 
+  SDL2_gfx 
+  SDL2 
+  taihen_stub
+  libgpu_es4_ext_stub_weak
+  libIMGEGL_stub_weak
+  libGLESv2_stub_weak
+  SceAppMgr_stub
+  SceProcessmgr_stub
+  SceIme_stub_weak
+  avformat
+  avfilter
+  swscale 
+  avcodec
+  webpdemux
+  webp
+  vorbis
+  vorbisfile
+  ogg
+  mpg123
+  FLAC
+  mikmod
+  opus
+  swresample 
+  mp3lame
+  avutil 
+  freetype 
+  mpdec 
+  jpeg 
+  png 
+  bz2 
+  SceMotion_stub
+  SceCommonDialog_stub
+  SceHid_stub
+  SceGxm_stub
+  SceAudio_stub
+  SceAudioIn_stub
+  SceAvPlayer_stub
+  ScePower_stub
+  SceDisplay_stub
+  SceCtrl_stub
+  SceTouch_stub
+  SceIofilemgr_stub
+  SceNet_stub
+  SceNetCtl_stub
+  SceSsl_stub
+  SceVshBridge_stub
+  SceSysmodule_stub
+  ${SDL2_LIBRARIES}
+  #${OPENSSL_LIBRARIES}
+  pthread
+  intl
+  fribidi
+  #harfbuzz
+  gcc
+  z
+  m
 )
-
-target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
-#target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive")
-#target_compile_definitions(${PROJECT_NAME} PRIVATE CYTHON_NO_PYINIT_EXPORT)
-target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
-target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
-target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELWITHDEBINFO>:${OPTIMIZATION_FLAGS}>)
-set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 add_custom_target(${PROJECT_NAME}.nso ALL
     COMMAND ${DEVKITPRO}/tools/bin/elf2nso
