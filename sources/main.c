@@ -1,6 +1,10 @@
 #include <switch.h>
 #include <Python.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <wchar.h>
+#include <SDL2/SDL.h>
 
 u64 cur_progid = 0;
 AccountUid userID={0};

@@ -41,12 +41,13 @@ add_compile_options(
 )
 
 include_directories(
-    "include"
-    "include/module"
-    "include/module/pygame_sdl2"
-    "include/module/pygame_sdl2/src"
-    "${DEVKITPRO}/portlibs/switch/include/python3.9"
-    "${DEVKITPRO}/portlibs/switch/include/fribidi"
+    ${DEVKITPRO}/portlibs/switch/include/python3.9
+    ${DEVKITPRO}/portlibs/switch/include/fribidi
+    include
+    include/module
+    include/module/src
+    include/module/pygame_sdl2
+    include/module/pygame_sdl2/src
 )
 
 #find_package(OpenSSL REQUIRED)
