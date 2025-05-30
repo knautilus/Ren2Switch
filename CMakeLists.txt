@@ -74,6 +74,8 @@ set(INCLUDES
     include
     include/module
     include/module/src
+    include/module/pygame_sdl2
+    include/module/pygame_sdl2/src
 )
 
 set(SOURCES
@@ -273,8 +275,8 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
-target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive")
-target_compile_definitions(${PROJECT_NAME} PRIVATE CYTHON_NO_PYINIT_EXPORT)
+#target_link_options(${PROJECT_NAME} PRIVATE "-Wl,--whole-archive")
+#target_compile_definitions(${PROJECT_NAME} PRIVATE CYTHON_NO_PYINIT_EXPORT)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELWITHDEBINFO>:${OPTIMIZATION_FLAGS}>)

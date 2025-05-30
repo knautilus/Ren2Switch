@@ -1,18 +1,31 @@
 set -e
 
 export DEVKITPRO=/opt/devkitpro
+
+mkdir -p source/module
+mkdir -p include/module include/module/pygame_sdl2
+
 pushd pygame_sdl2-source
-rm -rf gen3 gen3-static
-python3 setup.py || true
-PYGAME_SDL2_STATIC=1 python3 setup.py || true
+rm -rf gen3-static
+PYGAME_SDL2_STATIC=1 python3 setup.py
 popd
 
 pushd renpy-source/module
-rm -rf gen3 gen3-static
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py || true
-RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python3 setup.py || true
+rm -rf gen3-static
+RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python3 setup.py
 popd
 
+rsync -avm --include='*/' --include='*.c' --exclude='*' pygame_sdl2/ source/module
+rsync -avm --include='*/' --include='*.c' --exclude='*' renpy-source/module source/module
+find source/module -mindepth 2 -type f -exec mv -t source/module {} +
+find source/module -type d -empty -delete
+
+rsync -avm --include='*/' --include='*.h' --exclude='*' pygame_sdl2/ include/module/pygame_sdl2
+find include/module/pygame_sdl2 -mindepth 2 -type f -exec mv -t include/module/pygame_sdl2 {} +
+mv include/module/pygame_sdl2/surface.h include/module/pygame_sdl2/src
+rsync -avm --include='*/' --include='*.h' --exclude='*' renpy-source/module/ include/module
+#mv source/module/hydrogen.c include/module/libhydrogen
+find include/module -type d -empty -delete
 
 pushd pygame_sdl2-source
 python3 setup.py build
@@ -25,8 +38,6 @@ RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py bu
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local python3 setup.py install
 popd
 
-
-bash link_sources.bash
 
 #export PREFIXARCHIVE=$(realpath renpy-switch-modules.tar.gz)
 #
@@ -102,7 +113,7 @@ cp -r ./renpy_clear/renpy/common ./raw/switch/romfs/Contents/renpy/
 cp ./renpy_clear/renpy.py ./raw/switch/romfs/Contents/
 #unzip -qq ./raw/lib.zip -d ./raw/lib/
 #rm ./raw/lib.zip
-cp -r $DEVKITPRO/portlibs/switch/. ./raw/switchlibs
+#cp -r $DEVKITPRO/portlibs/switch/. ./raw/switchlibs
 cp -r ./renpy_clear/lib/python3.9/. ./raw/lib
 cp -r ./renpy_clear/renpy ./raw/lib
 rm -rf ./raw/lib/renpy/common/
