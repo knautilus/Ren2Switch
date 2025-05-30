@@ -145,7 +145,7 @@ endif()
 add_executable(${PROJECT_NAME} ${simple_SRC})
 
 target_link_libraries("${PROJECT_NAME}"
-    python3.9
+    ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
     fribidi
     #harfbuzz
     gcc

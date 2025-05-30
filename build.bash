@@ -7,12 +7,12 @@ mkdir -p include/module include/module/pygame_sdl2
 
 pushd pygame_sdl2-source
 PYGAME_SDL2_STATIC=1 python3 setup.py || true
-rm -rf gen3-static
+rm -rf gen
 popd
 
 pushd renpy-source/module
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python3 setup.py || true
-rm -rf gen3-static
+rm -rf gen
 popd
 
 rsync -avm --include='*/' --include='*.c' --exclude='*' pygame_sdl2-source/ source/module
