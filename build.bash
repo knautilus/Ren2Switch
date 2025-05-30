@@ -28,42 +28,39 @@ popd
 
 bash link_sources.bash
 
-export PREFIXARCHIVE=$(realpath renpy-switch-modules.tar.gz)
-
-rm -rf build-switch
-mkdir build-switch
-pushd build-switch
-mkdir local_prefix
-export LOCAL_PREFIX=$(realpath local_prefix)
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build .
-mkdir -p $LOCAL_PREFIX/lib
-echo "== build-switch =="
-ls
-cp librenpy-switch-modules.a $LOCAL_PREFIX/lib/librenpy-switch-modules.a
-#cp include/renpy-switch-modules $LOCAL_PREFIX/include/renpy-switch-modules
-popd
-
-tar -czvf $PREFIXARCHIVE -C $LOCAL_PREFIX .
-tar -xf renpy-switch-modules.tar.gz -C $DEVKITPRO/portlibs/switch
-rm renpy-switch-modules.tar.gz
-rm -rf build-switch
+#export PREFIXARCHIVE=$(realpath renpy-switch-modules.tar.gz)
+#
+#rm -rf build-switch
+#mkdir build-switch
+#pushd build-switch
+#mkdir local_prefix
+#export LOCAL_PREFIX=$(realpath local_prefix)
+#cmake -DCMAKE_BUILD_TYPE=Release ..
+#cmake --build .
+#mkdir -p $LOCAL_PREFIX/lib
+#echo "== build-switch =="
+#ls
+#cp librenpy-switch-modules.a $LOCAL_PREFIX/lib/librenpy-switch-modules.a
+##cp include/renpy-switch-modules $LOCAL_PREFIX/include/renpy-switch-modules
+#popd
+#
+#tar -czvf $PREFIXARCHIVE -C $LOCAL_PREFIX .
+#tar -xf renpy-switch-modules.tar.gz -C $DEVKITPRO/portlibs/switch
+#rm renpy-switch-modules.tar.gz
+#rm -rf build-switch
 
 source /opt/devkitpro/switchvars.sh
 
-pushd switch
 rm -rf build
 mkdir build
 pushd build
 cmake ..
 make
 popd
-popd
 
 mkdir -p ./raw/switch/exefs
-mv ./switch/build/renpy-switch.nso ./raw/switch/exefs/main
-rm -rf switch include source pygame_sdl2-source
-
+mv ./build/renpy-switch.nso ./raw/switch/exefs/main
+rm -rf build include source pygame_sdl2-source
 
 rm -rf renpy_clear
 mkdir renpy_clear

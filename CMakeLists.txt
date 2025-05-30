@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.13)
 
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     if(DEFINED ENV{DEVKITPRO})
@@ -9,7 +9,11 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     endif()
 endif()
 
-project(renpy-switch-modules)
+project(renpy-switch)
+
+set(SWITCH_APP_NAME "Ren'Py")
+set(SWITCH_AUTHOR   "renpytom")
+set(SWITCH_VERSION  "8.3.7")
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RelWithDebInfo)
@@ -38,10 +42,19 @@ set(CMAKE_FIND_ROOT_PATH
   ${DEVKITPRO}/libnx
 )
 
+set(NSWITCH TRUE)
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(OPENGL_egl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libEGL.a")
 set(OPENGL_gl_LIBRARY "/opt/devkitpro/portlibs/switch/lib/libglapi.a")
 set(OPENGL_EGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
 set(OPENGL_INCLUDE_DIR "/opt/devkitpro/portlibs/switch/include")
+
+message(OPENGL_egl_LIBRARY="${OPENGL_egl_LIBRARY}")
+message(OPENGL_gl_LIBRARY="${OPENGL_gl_LIBRARY}")
+message(OPENGL_EGL_INCLUDE_DIR="${OPENGL_EGL_INCLUDE_DIR}")
+message(OPENGL_INCLUDE_DIR="${OPENGL_INCLUDE_DIR}")
 
 mark_as_advanced(
   OPENGL_INCLUDE_DIR
@@ -61,12 +74,10 @@ set(INCLUDES
     include
     include/module
     include/module/src
-    #include/module/libhydrogen
 )
 
-# source/libnx_wrap.c disabled for the time being
-
 set(SOURCES
+    sources/main.c
     source/module/IMG_savepng.c
     source/module/SDL2_rotozoom.c
     source/module/SDL_gfxPrimitives.c
@@ -150,7 +161,68 @@ set(SOURCES
     source/module/renpy.display.quaternion.c
 )
 
+set(CMAKE_PREFIX_PATH "${DEVKITPRO}/portlibs/switch")
+set(ENV{PKG_CONFIG_PATH} "${DEVKITPRO}/portlibs/switch/lib/pkgconfig")
+
 find_package(PkgConfig REQUIRED)
+# Workaround for library paths not being set correctly
+set(pkgcfg_lib_FREETYPE2_nx /opt/devkitpro/libnx/lib/libnx.a)
+set(pkgcfg_lib_LIBAVFILTER_nx /opt/devkitpro/libnx/lib/libnx.a)
+set(pkgcfg_lib_LIBAVFORMAT_nx /opt/devkitpro/libnx/lib/libnx.a)
+set(pkgcfg_lib_EGL_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
+set(pkgcfg_lib_FREETYPE2_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
+set(pkgcfg_lib_GLAPI_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
+set(pkgcfg_lib_GLESV2_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libm.a)
+set(pkgcfg_lib_LIBAVCODEC_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_LIBAVFILTER_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_LIBAVFORMAT_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_LIBAVUTIL_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_LIBSWRESAMPLE_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_LIBSWSCALE_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_SDL2_IMAGE_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_SDL2_MIXER_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_SDL2_TTF_m /opt/devkitpro/devkitA64/aarch64-none-elf/lib/libm.a)
+set(pkgcfg_lib_SDL2_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
+set(pkgcfg_lib_SDL2_GFX_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
+set(pkgcfg_lib_SDL2_IMAGE_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
+set(pkgcfg_lib_SDL2_MIXER_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
+set(pkgcfg_lib_SDL2_TTF_EGL /opt/devkitpro/portlibs/switch/lib/libEGL.a)
+set(pkgcfg_lib_LIBDRM_NOUVEAU_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
+set(pkgcfg_lib_SDL2_GFX_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
+set(pkgcfg_lib_SDL2_IMAGE_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
+set(pkgcfg_lib_SDL2_MIXER_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
+set(pkgcfg_lib_SDL2_TTF_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
+set(pkgcfg_lib_SDL2_drm_nouveau /opt/devkitpro/portlibs/switch/lib/libdrm_nouveau.a)
+set(pkgcfg_lib_SDL2_GFX_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
+set(pkgcfg_lib_SDL2_IMAGE_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
+set(pkgcfg_lib_SDL2_MIXER_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
+set(pkgcfg_lib_SDL2_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
+set(pkgcfg_lib_SDL2_TTF_SDL2 /opt/devkitpro/portlibs/switch/lib/libSDL2.a)
+set(pkgcfg_lib_SDL2_IMAGE_z /opt/devkitpro/portlibs/switch/lib/libz.a)
+set(pkgcfg_lib_SDL2_TTF_z /opt/devkitpro/portlibs/switch/lib/libz.a)
+set(pkgcfg_lib_SDL2_GFX_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
+set(pkgcfg_lib_SDL2_IMAGE_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
+set(pkgcfg_lib_SDL2_MIXER_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
+set(pkgcfg_lib_SDL2_TTF_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
+set(pkgcfg_lib_SDL2_glapi /opt/devkitpro/portlibs/switch/lib/libglapi.a)
+set(pkgcfg_lib_SDL2_IMAGE_SDL2_image /opt/devkitpro/portlibs/switch/lib/libSDL2_image.a)
+set(pkgcfg_lib_SDL2_GFX_SDL2_gfx /opt/devkitpro/portlibs/switch/lib/libSDL2_gfx.a)
+set(pkgcfg_lib_SDL2_IMAGE_jpeg /opt/devkitpro/portlibs/switch/lib/libjpeg.a)
+set(pkgcfg_lib_SDL2_IMAGE_png16 /opt/devkitpro/portlibs/switch/lib/libpng16.a)
+set(pkgcfg_lib_SDL2_IMAGE_webp /opt/devkitpro/portlibs/switch/lib/libwebp.a)
+set(pkgcfg_lib_SDL2_MIXER_SDL2_mixer /opt/devkitpro/portlibs/switch/lib/libSDL2_mixer.a)
+set(pkgcfg_lib_SDL2_MIXER_modplug /opt/devkitpro/portlibs/switch/lib/libmodplug.a)
+set(pkgcfg_lib_SDL2_MIXER_mpg123 /opt/devkitpro/portlibs/switch/lib/libmpg123.a)
+set(pkgcfg_lib_SDL2_MIXER_ogg /opt/devkitpro/portlibs/switch/lib/libogg.a)
+set(pkgcfg_lib_SDL2_MIXER_opus /opt/devkitpro/portlibs/switch/lib/libopus.a)
+set(pkgcfg_lib_SDL2_MIXER_opusfile /opt/devkitpro/portlibs/switch/lib/libopusfile.a)
+set(pkgcfg_lib_SDL2_MIXER_stdc++ /opt/devkitpro/devkitA64/aarch64-none-elf/lib/pic/libstdc++.a)
+set(pkgcfg_lib_SDL2_MIXER_vorbisidec /opt/devkitpro/portlibs/switch/lib/libvorbisidec.a)
+set(pkgcfg_lib_SDL2_TTF_SDL2_ttf /opt/devkitpro/portlibs/switch/lib/libSDL2_ttf.a)
+set(pkgcfg_lib_SDL2_TTF_bz2 /opt/devkitpro/portlibs/switch/lib/libbz2.a)
+set(pkgcfg_lib_SDL2_TTF_freetype /opt/devkitpro/portlibs/switch/lib/libfreetype.a)
+set(pkgcfg_lib_SDL2_TTF_png16 /opt/devkitpro/portlibs/switch/lib/libpng16.a)
+
 pkg_check_modules(EGL REQUIRED IMPORTED_TARGET egl)
 pkg_check_modules(FREETYPE2 REQUIRED IMPORTED_TARGET freetype2)
 pkg_check_modules(GLAPI REQUIRED IMPORTED_TARGET glapi)
@@ -175,7 +247,7 @@ if(LIBDRM_NOUVEAU_INCLUDE_DIRS)
                  INTERFACE_INCLUDE_DIRECTORIES "${DEVKITPRO}/portlibs/switch/include")
 endif()
 
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
     ${DEVKITPRO}/portlibs/switch/lib/libpython3.9.a
@@ -200,75 +272,16 @@ target_link_libraries(${PROJECT_NAME}
     PkgConfig::ZLIB
 )
 
-target_link_options(
-    ${PROJECT_NAME}
-    PUBLIC
-    -Wl,--no-gc-sections
-    -Wl,--no-gc-sections
-    -Wl,--undefined=PyInit_pygame_sdl2_color
-    -Wl,--undefined=PyInit_pygame_sdl2_controller
-    -Wl,--undefined=PyInit_pygame_sdl2_display
-    -Wl,--undefined=PyInit_pygame_sdl2_draw
-    -Wl,--undefined=PyInit_pygame_sdl2_error
-    -Wl,--undefined=PyInit_pygame_sdl2_event
-    -Wl,--undefined=PyInit_pygame_sdl2_gfxdraw
-    -Wl,--undefined=PyInit_pygame_sdl2_image
-    -Wl,--undefined=PyInit_pygame_sdl2_joystick
-    -Wl,--undefined=PyInit_pygame_sdl2_key
-    -Wl,--undefined=PyInit_pygame_sdl2_locals
-    -Wl,--undefined=PyInit_pygame_sdl2_mouse
-    -Wl,--undefined=PyInit_pygame_sdl2_power
-    -Wl,--undefined=PyInit_pygame_sdl2_pygame_time
-    -Wl,--undefined=PyInit_pygame_sdl2_rect
-    -Wl,--undefined=PyInit_pygame_sdl2_render
-    -Wl,--undefined=PyInit_pygame_sdl2_rwobject
-    -Wl,--undefined=PyInit_pygame_sdl2_scrap
-    -Wl,--undefined=PyInit_pygame_sdl2_surface
-    -Wl,--undefined=PyInit_pygame_sdl2_transform
-    -Wl,--undefined=PyInit_renpy_audio_filter
-    -Wl,--undefined=PyInit_renpy_audio_renpysound
-    -Wl,--undefined=PyInit_renpy_display_accelerator
-    -Wl,--undefined=PyInit_renpy_display_render
-    -Wl,--undefined=PyInit_renpy_display_matrix
-    -Wl,--undefined=PyInit_renpy_gl_gldraw
-    -Wl,--undefined=PyInit_renpy_gl_glenviron_shader
-    -Wl,--undefined=PyInit_renpy_gl_glrtt_copy
-    -Wl,--undefined=PyInit_renpy_gl_glrtt_fbo
-    -Wl,--undefined=PyInit_renpy_gl_gltexture
-    -Wl,--undefined=PyInit_renpy_pydict
-    -Wl,--undefined=PyInit_renpy_style
-    -Wl,--undefined=PyInit_renpy_styledata_style_activate_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_hover_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_idle_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_insensitive_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_selected_activate_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_selected_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_selected_hover_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_selected_idle_functions
-    -Wl,--undefined=PyInit_renpy_styledata_style_selected_insensitive_functions
-    -Wl,--undefined=PyInit_renpy_styledata_styleclass
-    -Wl,--undefined=PyInit_renpy_styledata_stylesets
-    -Wl,--undefined=PyInit_renpy_text_ftfont
-    -Wl,--undefined=PyInit_renpy_text_textsupport
-    -Wl,--undefined=PyInit_renpy_text_texwrap
-    -Wl,--undefined=PyInit_renpy_gl2_gl2draw
-    -Wl,--undefined=PyInit_renpy_gl2_gl2mesh
-    -Wl,--undefined=PyInit_renpy_gl2_gl2mesh2
-    -Wl,--undefined=PyInit_renpy_gl2_gl2mesh3
-    -Wl,--undefined=PyInit_renpy_gl2_gl2model
-    -Wl,--undefined=PyInit_renpy_gl2_gl2polygon
-    -Wl,--undefined=PyInit_renpy_gl2_gl2shader
-    -Wl,--undefined=PyInit_renpy_gl2_gl2texture
-    -Wl,--undefined=PyInit_renpy_uguu_gl
-    -Wl,--undefined=PyInit_renpy_uguu_uguu
-    -Wl,--undefined=PyInit_renpy_lexersupport
-    -Wl,--undefined=PyInit_renpy_display_quaternion
-)
-
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
-#target_compile_definitions(${PROJECT_NAME} PRIVATE CYTHON_NO_PYINIT_EXPORT)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELEASE>:${OPTIMIZATION_FLAGS}>)
 target_compile_options(${PROJECT_NAME} PUBLIC $<$<CONFIG:RELWITHDEBINFO>:${OPTIMIZATION_FLAGS}>)
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+
+add_custom_target(${PROJECT_NAME}.nso ALL
+    COMMAND ${DEVKITPRO}/tools/bin/elf2nso
+        ${PROJECT_NAME}.elf
+        ${PROJECT_NAME}.nso
+    DEPENDS ${PROJECT_NAME}
+    VERBATIM
+)
