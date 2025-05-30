@@ -15,14 +15,14 @@ rm -rf gen3-static
 RENPY_DEPS_INSTALL=/usr/lib/x86_64-linux-gnu:/usr:/usr/local RENPY_STATIC=1 python3 setup.py || true
 popd
 
-rsync -avm --include='*/' --include='*.c' --exclude='*' pygame_sdl2/ source/module
+rsync -avm --include='*/' --include='*.c' --exclude='*' pygame_sdl2-source/ source/module
 rsync -avm --include='*/' --include='*.c' --exclude='*' renpy-source/module source/module
 find source/module -mindepth 2 -type f -exec mv -t source/module {} +
 find source/module -type d -empty -delete
 
-rsync -avm --include='*/' --include='*.h' --exclude='*' pygame_sdl2/ include/module/pygame_sdl2
-find include/module/pygame_sdl2 -mindepth 2 -type f -exec mv -t include/module/pygame_sdl2 {} +
-mv include/module/pygame_sdl2/surface.h include/module/pygame_sdl2/src
+rsync -avm --include='*/' --include='*.h' --exclude='*' pygame_sdl2-source/ include/module/pygame_sdl2
+find include/module/pygame_sdl2-source -mindepth 2 -type f -exec mv -t include/module/pygame_sdl2 {} +
+mv include/module/pygame_sdl2-source/surface.h include/module/pygame_sdl2/src
 rsync -avm --include='*/' --include='*.h' --exclude='*' renpy-source/module/ include/module
 #mv source/module/hydrogen.c include/module/libhydrogen
 find include/module -type d -empty -delete
