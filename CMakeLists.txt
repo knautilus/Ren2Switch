@@ -204,6 +204,66 @@ target_link_options(
     ${PROJECT_NAME}
     PUBLIC
     -Wl,--no-gc-sections
+    -Wl,--no-gc-sections
+    -Wl,--undefined=PyInit_pygame_sdl2_color
+    -Wl,--undefined=PyInit_pygame_sdl2_controller
+    -Wl,--undefined=PyInit_pygame_sdl2_display
+    -Wl,--undefined=PyInit_pygame_sdl2_draw
+    -Wl,--undefined=PyInit_pygame_sdl2_error
+    -Wl,--undefined=PyInit_pygame_sdl2_event
+    -Wl,--undefined=PyInit_pygame_sdl2_gfxdraw
+    -Wl,--undefined=PyInit_pygame_sdl2_image
+    -Wl,--undefined=PyInit_pygame_sdl2_joystick
+    -Wl,--undefined=PyInit_pygame_sdl2_key
+    -Wl,--undefined=PyInit_pygame_sdl2_locals
+    -Wl,--undefined=PyInit_pygame_sdl2_mouse
+    -Wl,--undefined=PyInit_pygame_sdl2_power
+    -Wl,--undefined=PyInit_pygame_sdl2_pygame_time
+    -Wl,--undefined=PyInit_pygame_sdl2_rect
+    -Wl,--undefined=PyInit_pygame_sdl2_render
+    -Wl,--undefined=PyInit_pygame_sdl2_rwobject
+    -Wl,--undefined=PyInit_pygame_sdl2_scrap
+    -Wl,--undefined=PyInit_pygame_sdl2_surface
+    -Wl,--undefined=PyInit_pygame_sdl2_transform
+    -Wl,--undefined=PyInit_renpy_audio_filter
+    -Wl,--undefined=PyInit_renpy_audio_renpysound
+    -Wl,--undefined=PyInit_renpy_display_accelerator
+    -Wl,--undefined=PyInit_renpy_display_render
+    -Wl,--undefined=PyInit_renpy_display_matrix
+    -Wl,--undefined=PyInit_renpy_gl_gldraw
+    -Wl,--undefined=PyInit_renpy_gl_glenviron_shader
+    -Wl,--undefined=PyInit_renpy_gl_glrtt_copy
+    -Wl,--undefined=PyInit_renpy_gl_glrtt_fbo
+    -Wl,--undefined=PyInit_renpy_gl_gltexture
+    -Wl,--undefined=PyInit_renpy_pydict
+    -Wl,--undefined=PyInit_renpy_style
+    -Wl,--undefined=PyInit_renpy_styledata_style_activate_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_hover_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_idle_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_insensitive_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_selected_activate_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_selected_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_selected_hover_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_selected_idle_functions
+    -Wl,--undefined=PyInit_renpy_styledata_style_selected_insensitive_functions
+    -Wl,--undefined=PyInit_renpy_styledata_styleclass
+    -Wl,--undefined=PyInit_renpy_styledata_stylesets
+    -Wl,--undefined=PyInit_renpy_text_ftfont
+    -Wl,--undefined=PyInit_renpy_text_textsupport
+    -Wl,--undefined=PyInit_renpy_text_texwrap
+    -Wl,--undefined=PyInit_renpy_gl2_gl2draw
+    -Wl,--undefined=PyInit_renpy_gl2_gl2mesh
+    -Wl,--undefined=PyInit_renpy_gl2_gl2mesh2
+    -Wl,--undefined=PyInit_renpy_gl2_gl2mesh3
+    -Wl,--undefined=PyInit_renpy_gl2_gl2model
+    -Wl,--undefined=PyInit_renpy_gl2_gl2polygon
+    -Wl,--undefined=PyInit_renpy_gl2_gl2shader
+    -Wl,--undefined=PyInit_renpy_gl2_gl2texture
+    -Wl,--undefined=PyInit_renpy_uguu_gl
+    -Wl,--undefined=PyInit_renpy_uguu_uguu
+    -Wl,--undefined=PyInit_renpy_lexersupport
+    -Wl,--undefined=PyInit_renpy_display_quaternion
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
