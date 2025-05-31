@@ -399,20 +399,24 @@ int main(int argc, char* argv[])
 
     fclose(sysconfigdata_file);
 
+    show_error("before PyImport_ExtendInittab", 0);
+
+    PyImport_ExtendInittab(builtins);
+
     show_error("before Py_InitializeEx", 0);
 
     Py_InitializeEx(0);
 
+    show_error("before Py_SetPythonHome", 0);
+
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
-
-    show_error("before PyImport_ExtendInittab", 0);
-
-    PyImport_ExtendInittab(builtins);
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
         NULL,
     };
+
+    show_error("before PySys_SetArgvEx", 0);
 
     PySys_SetArgvEx(1, pyargs, 1);
 
