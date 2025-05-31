@@ -334,7 +334,7 @@ int main(int argc, char* argv[])
     config.argv = argv_list;
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
     config.filesystem_encoding = L"utf-8";
-    config.program_name = L"python3";
+    config.program_name = L"python";
     config.module_search_paths_set = 1;
 
     status = PyWideStringList_Append(&config.module_search_paths,
@@ -450,9 +450,27 @@ int main(int argc, char* argv[])
     }
     PyConfig_Clear(&config);
 
+    show_error("before Py_GetPythonHome", 0);
+
+    w_char* home = Py_GetPythonHome();
+
+    show_error("before Py_EncodeLocale", 0);
+
+    char* homeMsg = Py_EncodeLocale(home, NULL);
+    show_error(homeMsg, 9);
+
     show_error("before PySys_SetArgvEx", 0);
 
     PySys_SetArgvEx(1, pyargs, 1);
+
+    show_error("before Py_GetPythonHome 2", 0);
+
+    home = Py_GetPythonHome();
+
+    show_error("before Py_EncodeLocale 2", 0);
+
+    homeMsg = Py_EncodeLocale(home, NULL);
+    show_error(homeMsg, 9);
 
     //show_error("before PyRun_SimpleString sys.path", 0);
 
