@@ -310,7 +310,7 @@ int main(int argc, char* argv[])
     //Py_DontWriteBytecodeFlag = 1;
     //Py_OptimizeFlag = 2;
 
-    wchar_t* pyargs[] = {More actions
+    wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
         NULL,
     };
