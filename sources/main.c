@@ -403,13 +403,13 @@ int main(int argc, char* argv[])
 
     PyImport_ExtendInittab(builtins);
 
-    show_error("before Py_InitializeEx", 0);
-
-    Py_InitializeEx(0);
-
     show_error("before Py_SetPythonHome", 0);
 
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
+
+    show_error("before Py_InitializeEx", 0);
+
+    Py_InitializeEx(0);
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
