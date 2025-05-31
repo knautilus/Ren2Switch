@@ -304,14 +304,46 @@ int main(int argc, char* argv[])
     appletLockExit();
     appletHook(&applet_hook_cookie, on_applet_hook, NULL);
 
-    Py_NoSiteFlag = 1;
-    Py_IgnoreEnvironmentFlag = 1;
-    Py_NoUserSiteDirectory = 1;
-    Py_DontWriteBytecodeFlag = 1;
-    Py_OptimizeFlag = 2;
+    //Py_NoSiteFlag = 1;
+    //Py_IgnoreEnvironmentFlag = 1;
+    //Py_NoUserSiteDirectory = 1;
+    //Py_DontWriteBytecodeFlag = 1;
+    //Py_OptimizeFlag = 2;
+
+    wchar_t* pyargs[] = {More actions
+        L"romfs:/Contents/renpy.py",
+        NULL,
+    };
+
+    PyWideStringList argv_list = {.length = 1, .items = pyargs};
+
+    PyStatus status;
+    int python_result;
+
+    show_error("before PyConfig_InitPythonConfig", 0);
+
+    PyConfig config;
+    PyConfig_InitPythonConfig(&config);
+    config.home = L"romfs:/Contents/lib.zip";
+    config.site_import = 0;
+    config.use_environment = 0;
+    config.user_site_directory = 0;
+    config.write_bytecode = 0;
+    config.optimization_level = 2;
+    config.parse_argv = 1;
+    config.argv = argv_list;
+    config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    config.filesystem_encoding = L"utf-8";
+    config.program_name = L"python3";
+    config.module_search_paths_set = 1;
+
+    status = PyWideStringList_Append(&config.module_search_paths,
+                                     L"romfs:/Contents/lib.zip");
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
 
     static struct _inittab builtins[] = {
-
         {"_otrhlibnx", PyInit__otrhlibnx},
 
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
@@ -408,14 +440,15 @@ int main(int argc, char* argv[])
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
     Py_SetPath(L"romfs:/Contents/lib.zip");
 
-    show_error("before Py_InitializeEx", 0);
+    show_error("before Py_InitializeFromConfig", 0);
 
-    Py_InitializeEx(0);
+    //Py_InitializeEx(0);
 
-    wchar_t* pyargs[] = {
-        L"romfs:/Contents/renpy.py",
-        NULL,
-    };
+    status = Py_InitializeFromConfig(&config);
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
+    PyConfig_Clear(&config);
 
     show_error("before PySys_SetArgvEx", 0);
 
@@ -461,4 +494,16 @@ int main(int argc, char* argv[])
 
     Py_Exit(0);
     return 0;
+
+exception:
+    PyConfig_Clear(&config);
+    if (PyStatus_IsExit(status)) {
+        return status.exitcode;
+    }
+
+    show_error(status.err_msg, 0);
+
+    /* Display the error message and exit the process with
+       non-zero exit code */
+    Py_ExitStatusException(status);
 }
