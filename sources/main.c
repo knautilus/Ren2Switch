@@ -1,10 +1,6 @@
 #include <switch.h>
 #include <Python.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <wchar.h>
-#include <SDL2/SDL.h>
 
 u64 cur_progid = 0;
 AccountUid userID={0};
@@ -35,21 +31,6 @@ void show_error(const char* message, int exit)
     if (exit == 1) {
         Py_Exit(1);
     }
-}
-
-static PyObject* moduleImport(const char *name)
-{
-    show_error(name, 0);
-    PyObject* ob = PyImport_ImportModule(name);
-    show_error("imported", 0);
-    if (ob == NULL) {
-        PyObject *ptype, *pvalue, *ptraceback;
-        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-        PyObject *str_value = PyObject_Str(pvalue);
-        const char* message = PyUnicode_AsUTF8(str_value);
-        show_error(message, 0);
-    }
-    return ob;
 }
 
 static PyObject* commitsave(PyObject* self, PyObject* args)
@@ -115,10 +96,6 @@ static PyMethodDef myMethods[] = {
     { NULL, NULL, 0, NULL }
 };
 
-static PyMethodDef noMethods[] = {
-    { NULL, NULL, 0, NULL }
-};
-
 PyMODINIT_FUNC PyInit__otrhlibnx(void)
 {
     PyObject *m;
@@ -149,12 +126,11 @@ PyMODINIT_FUNC PyInit_pygame_sdl2_transform(void);
 
 PyMODINIT_FUNC PyInit__renpy(void);
 PyMODINIT_FUNC PyInit__renpybidi(void);
-PyMODINIT_FUNC PyInit_renpy_audio_filter(void);
 PyMODINIT_FUNC PyInit_renpy_audio_renpysound(void);
 PyMODINIT_FUNC PyInit_renpy_display_accelerator(void);
 PyMODINIT_FUNC PyInit_renpy_display_render(void);
 PyMODINIT_FUNC PyInit_renpy_display_matrix(void);
-//PyMODINIT_FUNC PyInit_renpy_gl_gl();
+PyMODINIT_FUNC PyInit_renpy_gl_gl(void);
 PyMODINIT_FUNC PyInit_renpy_gl_gldraw(void);
 PyMODINIT_FUNC PyInit_renpy_gl_glenviron_shader(void);
 PyMODINIT_FUNC PyInit_renpy_gl_glrtt_copy(void);
@@ -178,7 +154,7 @@ PyMODINIT_FUNC PyInit_renpy_text_ftfont(void);
 PyMODINIT_FUNC PyInit_renpy_text_textsupport(void);
 PyMODINIT_FUNC PyInit_renpy_text_texwrap(void);
 
-//PyMODINIT_FUNC PyInit_renpy_text_hbfont(void);
+//PyMODINIT_FUNC PyInit_renpy_compat_dictviews(void);
 PyMODINIT_FUNC PyInit_renpy_gl2_gl2draw(void);
 PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh(void);
 PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh2(void);
@@ -192,8 +168,6 @@ PyMODINIT_FUNC PyInit_renpy_uguu_uguu(void);
 
 PyMODINIT_FUNC PyInit_renpy_lexersupport(void);
 PyMODINIT_FUNC PyInit_renpy_display_quaternion(void);
-//PyMODINIT_FUNC PyInit_renpy_encryption(void);
-
 
 // Overide the heap initialization function.
 void __libnx_initheap(void)
@@ -330,57 +304,39 @@ int main(int argc, char* argv[])
     appletLockExit();
     appletHook(&applet_hook_cookie, on_applet_hook, NULL);
 
-    //Py_NoSiteFlag = 1;
-    //Py_IgnoreEnvironmentFlag = 1;
-    //Py_NoUserSiteDirectory = 1;
-    //Py_DontWriteBytecodeFlag = 1;
-    //Py_OptimizeFlag = 2;
-
-    wchar_t* pyargs[] = {
-        L"romfs:/Contents/renpy.py",
-        NULL,
-    };
-
-    PyWideStringList argv_list = {.length = 1, .items = pyargs};
-
-    PyStatus status;
-    int python_result;
-
-    show_error("before PyConfig_InitPythonConfig", 0);
-
-    PyConfig config;
-    PyConfig_InitPythonConfig(&config);
-    config.home = L"romfs:/Contents/lib.zip";
-    config.site_import = 0;
-    config.use_environment = 0;
-    config.user_site_directory = 0;
-    config.write_bytecode = 0;
-    config.optimization_level = 2;
-    config.parse_argv = 1;
-    config.argv = argv_list;
-    config.pythonpath_env = L"romfs:/Contents/lib.zip";
-    config.filesystem_encoding = L"utf-8";
-    config.program_name = L"python3";
-    config.module_search_paths_set = 1;
-
-    status = PyWideStringList_Append(&config.module_search_paths,
-                                     L"romfs:/Contents/lib.zip");
-    if (PyStatus_Exception(status)) {
-        goto exception;
-    }
-
-    /* Decode command line arguments.
-       Implicitly preinitialize Python (in isolated mode). */
-    //show_error("before PyConfig_SetBytesArgv", 0);
-    //status = PyConfig_SetBytesArgv(&config, argc, argv);
-    //if (PyStatus_Exception(status)) {
-    //    goto exception;
-    //}
+    Py_NoSiteFlag = 1;
+    Py_IgnoreEnvironmentFlag = 1;
+    Py_NoUserSiteDirectory = 1;
+    Py_DontWriteBytecodeFlag = 1;
+    Py_OptimizeFlag = 2;
 
     static struct _inittab builtins[] = {
-        {"_otrhlibnx", PyInit__otrhlibnx},
 
-        {"renpy.audio.filter", PyInit_renpy_audio_filter},
+        {"_otrhlibnx", PyInit__otrh_libnx},
+
+        {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
+        {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
+        {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
+        {"pygame_sdl2.draw", PyInit_pygame_sdl2_draw},
+        {"pygame_sdl2.error", PyInit_pygame_sdl2_error},
+        {"pygame_sdl2.event", PyInit_pygame_sdl2_event},
+        {"pygame_sdl2.gfxdraw", PyInit_pygame_sdl2_gfxdraw},
+        {"pygame_sdl2.image", PyInit_pygame_sdl2_image},
+        {"pygame_sdl2.joystick", PyInit_pygame_sdl2_joystick},
+        {"pygame_sdl2.key", PyInit_pygame_sdl2_key},
+        {"pygame_sdl2.locals", PyInit_pygame_sdl2_locals},
+        {"pygame_sdl2.mouse", PyInit_pygame_sdl2_mouse},
+        {"pygame_sdl2.power", PyInit_pygame_sdl2_power},
+        {"pygame_sdl2.pygame_time", PyInit_pygame_sdl2_pygame_time},
+        {"pygame_sdl2.rect", PyInit_pygame_sdl2_rect},
+        {"pygame_sdl2.render", PyInit_pygame_sdl2_render},
+        {"pygame_sdl2.rwobject", PyInit_pygame_sdl2_rwobject},
+        {"pygame_sdl2.scrap", PyInit_pygame_sdl2_scrap},
+        {"pygame_sdl2.surface", PyInit_pygame_sdl2_surface},
+        {"pygame_sdl2.transform", PyInit_pygame_sdl2_transform},
+
+        {"_renpy", PyInit__renpy},
+        {"_renpybidi", PyInit__renpybidi},
         {"renpy.audio.renpysound", PyInit_renpy_audio_renpysound},
         {"renpy.display.accelerator", PyInit_renpy_display_accelerator},
         {"renpy.display.matrix", PyInit_renpy_display_matrix},
@@ -404,35 +360,9 @@ int main(int argc, char* argv[])
         {"renpy.styledata.style_selected_insensitive_functions", PyInit_renpy_styledata_style_selected_insensitive_functions},
         {"renpy.styledata.styleclass", PyInit_renpy_styledata_styleclass},
         {"renpy.styledata.stylesets", PyInit_renpy_styledata_stylesets},
-        //{"renpy.text.hbfont", PyInit_renpy_text_hbfont},
         {"renpy.text.ftfont", PyInit_renpy_text_ftfont},
         {"renpy.text.textsupport", PyInit_renpy_text_textsupport},
         {"renpy.text.texwrap", PyInit_renpy_text_texwrap},
-        //{"renpy.encryption", PyInit_renpy_encryption},
-
-        {"_renpy", PyInit__renpy},
-        {"_renpybidi", PyInit__renpybidi},
-
-        {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
-        {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
-        {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
-        {"pygame_sdl2.draw", PyInit_pygame_sdl2_draw},
-        {"pygame_sdl2.error", PyInit_pygame_sdl2_error},
-        {"pygame_sdl2.event", PyInit_pygame_sdl2_event},
-        {"pygame_sdl2.gfxdraw", PyInit_pygame_sdl2_gfxdraw},
-        {"pygame_sdl2.image", PyInit_pygame_sdl2_image},
-        {"pygame_sdl2.joystick", PyInit_pygame_sdl2_joystick},
-        {"pygame_sdl2.key", PyInit_pygame_sdl2_key},
-        {"pygame_sdl2.locals", PyInit_pygame_sdl2_locals},
-        {"pygame_sdl2.mouse", PyInit_pygame_sdl2_mouse},
-        {"pygame_sdl2.power", PyInit_pygame_sdl2_power},
-        {"pygame_sdl2.pygame_time", PyInit_pygame_sdl2_pygame_time},
-        {"pygame_sdl2.rect", PyInit_pygame_sdl2_rect},
-        {"pygame_sdl2.render", PyInit_pygame_sdl2_render},
-        {"pygame_sdl2.rwobject", PyInit_pygame_sdl2_rwobject},
-        {"pygame_sdl2.scrap", PyInit_pygame_sdl2_scrap},
-        {"pygame_sdl2.surface", PyInit_pygame_sdl2_surface},
-        {"pygame_sdl2.transform", PyInit_pygame_sdl2_transform},
 
         //{"renpy.compat.dictviews", PyInit_renpy_compat_dictviews},
         {"renpy.gl2.gl2draw", PyInit_renpy_gl2_gl2draw},
@@ -454,53 +384,50 @@ int main(int argc, char* argv[])
 
     show_error("before fopen", 0);
 
-    //FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
+    FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
 
-    //if (sysconfigdata_file == NULL) {
-    //    show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
-    //}
+    if (sysconfigdata_file == NULL)
+    {
+        show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
+    }
 
-    if (renpy_file == NULL) {
+    if (renpy_file == NULL)
+    {
         show_error("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.", 1);
     }
 
-    //fclose(sysconfigdata_file);
-
-    //Py_SetPythonHome(L"romfs:/Contents/lib.zip");
-
-    show_error("before PyImport_ExtendInittab", 0);
-
-    if (PyImport_ExtendInittab(builtins) == -1) {
-        show_error("PyImport_ExtendInittab", 0);
-    }
-
-    show_error("before Py_SetPath", 0);
-    wchar_t path[] = L"romfs:/Contents/lib.zip";
-    Py_SetPath(path);
+    fclose(sysconfigdata_file);
 
     show_error("before Py_InitializeEx", 0);
 
-    status = Py_InitializeFromConfig(&config);
-    if (PyStatus_Exception(status)) {
-        goto exception;
-    }
-    PyConfig_Clear(&config);
+    Py_InitializeEx(0);
 
-/*
+    Py_SetPythonHome(L"romfs:/Contents/lib.zip");
+
+    show_error("before PyImport_ExtendInittab", 0);
+
+    PyImport_ExtendInittab(builtins);
+
+    wchar_t* pyargs[] = {
+        L"romfs:/Contents/renpy.py",
+        NULL,
+    };
+
+    PySys_SetArgvEx(1, pyargs, 1);
+
+    int python_result;
+
     show_error("before PyRun_SimpleString sys.path", 0);
 
-    python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib.zip');");
+    python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
+
     if (python_result == -1)
     {
         show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     }
-*/
 
-    PySys_SetArgvEx(1, pyargs, 1);
-
-/*
-    show_error("before define x(lib)", 0);
+    show_error("before PyRun_SimpleString import", 0);
 
 #define x(lib) \
     { \
@@ -515,11 +442,6 @@ int main(int argc, char* argv[])
     x("encodings");
 
 #undef x
-*/
-    show_error("before moduleImport", 0);
-    moduleImport("os");
-    moduleImport("pygame_sdl2");
-    moduleImport("encodings");
 
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
@@ -534,16 +456,4 @@ int main(int argc, char* argv[])
 
     Py_Exit(0);
     return 0;
-
-exception:
-    PyConfig_Clear(&config);
-    if (PyStatus_IsExit(status)) {
-        return status.exitcode;
-    }
-
-    show_error(status.err_msg, 0);
-
-    /* Display the error message and exit the process with
-       non-zero exit code */
-    Py_ExitStatusException(status);
 }
