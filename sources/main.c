@@ -487,6 +487,7 @@ int main(int argc, char* argv[])
     }
     PyConfig_Clear(&config);
 
+/*
     show_error("before PyRun_SimpleString sys.path", 0);
 
     python_result = PyRun_SimpleString("import sys; sys.path.insert('romfs:/Contents/lib.zip');");
@@ -494,9 +495,11 @@ int main(int argc, char* argv[])
     {
         show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     }
+*/
 
     PySys_SetArgvEx(1, pyargs, 1);
 
+/*
     show_error("before define x(lib)", 0);
 
 #define x(lib) \
@@ -512,6 +515,11 @@ int main(int argc, char* argv[])
     x("encodings");
 
 #undef x
+*/
+    show_error("before moduleImport", 0);
+    moduleImport("os");
+    moduleImport("pygame_sdl2");
+    moduleImport("encodings");
 
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
