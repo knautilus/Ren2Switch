@@ -923,73 +923,9 @@ int main(int argc, char* argv[])
     //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     //}
 
-/*
-    show_error("before moduleImport", 0);
-
-    moduleImport("_renpy");
-    moduleImport("_renpybidi");
-    moduleImport("renpy.audio.renpysound");
-    moduleImport("renpy.display.accelerator");
-    moduleImport("renpy.display.matrix");
-    moduleImport("renpy.display.render");
-    moduleImport("renpy.gl.gldraw");
-    moduleImport("renpy.gl.glenviron_shader");
-    moduleImport("renpy.gl.glrtt_copy");
-    moduleImport("renpy.gl.glrtt_fbo");
-    moduleImport("renpy.gl.gltexture");
-    moduleImport("renpy.pydict");
-    moduleImport("renpy.style");
-    moduleImport("renpy.styledata.style_activate_functions");
-    moduleImport("renpy.styledata.style_functions");
-    moduleImport("renpy.styledata.style_hover_functions");
-    moduleImport("renpy.styledata.style_idle_functions");
-    moduleImport("renpy.styledata.style_insensitive_functions");
-    moduleImport("renpy.styledata.style_selected_activate_functions");
-    moduleImport("renpy.styledata.style_selected_functions");
-    moduleImport("renpy.styledata.style_selected_hover_functions");
-    moduleImport("renpy.styledata.style_selected_idle_functions");
-    moduleImport("renpy.styledata.style_selected_insensitive_functions");
-    moduleImport("renpy.styledata.styleclass");
-    moduleImport("renpy.styledata.stylesets");
-    moduleImport("renpy.text.ftfont");
-    moduleImport("renpy.text.textsupport");
-    moduleImport("renpy.text.texwrap");
-    moduleImport("renpy.gl2.gl2draw");
-    moduleImport("renpy.gl2.gl2mesh");
-    moduleImport("renpy.gl2.gl2mesh2");
-    moduleImport("renpy.gl2.gl2mesh3");
-    moduleImport("renpy.gl2.gl2model");
-    moduleImport("renpy.gl2.gl2polygon");
-    moduleImport("renpy.gl2.gl2shader");
-    moduleImport("renpy.gl2.gl2texture");
-    moduleImport("renpy.uguu.gl");
-    moduleImport("renpy.uguu.uguu");
-    moduleImport("renpy.lexersupport");
-    moduleImport("renpy.display.quaternion");
-    moduleImport("pygame_sdl2.color");
-    moduleImport("pygame_sdl2.controller");
-    moduleImport("pygame_sdl2.display");
-    moduleImport("pygame_sdl2.draw");
-    moduleImport("pygame_sdl2.error");
-    moduleImport("pygame_sdl2.event");
-    moduleImport("pygame_sdl2.gfxdraw");
-    moduleImport("pygame_sdl2.image");
-    moduleImport("pygame_sdl2.joystick");
-    moduleImport("pygame_sdl2.key");
-    moduleImport("pygame_sdl2.locals");
-    moduleImport("pygame_sdl2.mouse");
-    moduleImport("pygame_sdl2.power");
-    moduleImport("pygame_sdl2.pygame_time");
-    moduleImport("pygame_sdl2.rect");
-    moduleImport("pygame_sdl2.render");
-    moduleImport("pygame_sdl2.rwobject");
-    moduleImport("pygame_sdl2.scrap");
-    moduleImport("pygame_sdl2.surface");
-    moduleImport("pygame_sdl2.transform");
-
-    show_error("after moduleImport", 0);
-*/
     //PySys_SetArgvEx(1, pyargs, 1);
+
+    show_error("before define x(lib)", 0);
 
 #define x(lib) \
     { \
@@ -1004,6 +940,8 @@ int main(int argc, char* argv[])
     x("encodings");
 
 #undef x
+
+    show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
     python_result = PyRun_SimpleFileEx(renpy_file, "romfs:/Contents/renpy.py", 1);
 
