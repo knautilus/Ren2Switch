@@ -452,7 +452,7 @@ int main(int argc, char* argv[])
 
     show_error("before Py_GetPythonHome", 0);
 
-    w_char* home = Py_GetPythonHome();
+    wchar_t* home = Py_GetPythonHome();
 
     show_error("before Py_EncodeLocale", 0);
 
