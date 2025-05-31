@@ -454,8 +454,6 @@ int main(int argc, char* argv[])
 
     PySys_SetArgvEx(1, pyargs, 1);
 
-    int python_result;
-
     //show_error("before PyRun_SimpleString sys.path", 0);
 
     //python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");

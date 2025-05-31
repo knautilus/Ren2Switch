@@ -130,4 +130,4 @@ rm -rf ./raw/lib/renpy/common/
 rm -rf ./raw/lib
 #rm ./renpy_clear/*.txt
 rm -rf ./renpy_clear/game
-mv ./renpy_clear/ ./raw/
+#mv ./renpy_clear/ ./raw/
