@@ -406,6 +406,7 @@ int main(int argc, char* argv[])
     show_error("before Py_SetPythonHome", 0);
 
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
+    Py_SetPath(L"romfs:/Contents/lib.zip");
 
     show_error("before Py_InitializeEx", 0);
 
@@ -422,14 +423,14 @@ int main(int argc, char* argv[])
 
     int python_result;
 
-    show_error("before PyRun_SimpleString sys.path", 0);
+    //show_error("before PyRun_SimpleString sys.path", 0);
 
-    python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
+    //python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
 
-    if (python_result == -1)
-    {
-        show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
-    }
+    //if (python_result == -1)
+    //{
+    //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
+    //}
 
     show_error("before PyRun_SimpleString import", 0);
 
