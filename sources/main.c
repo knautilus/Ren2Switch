@@ -447,7 +447,7 @@ int main(int argc, char* argv[])
         show_error("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.", 1);
     }
 
-    fclose(sysconfigdata_file);
+    //fclose(sysconfigdata_file);
 
     show_error("before PyImport_ExtendInittab", 0);
 
