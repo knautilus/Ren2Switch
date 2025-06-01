@@ -519,7 +519,7 @@ int main(int argc, char* argv[])
     }
 
     show_error("before MySimpleStringFlags", 0);
-    MySimpleStringFlags("print('Hello python world! Press + to exit.')");
+    MySimpleStringFlags("print('Hello python world! Press + to exit.')", NULL);
 
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
