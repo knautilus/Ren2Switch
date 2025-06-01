@@ -490,6 +490,16 @@ int main(int argc, char* argv[])
 //
 //#undef x
 
+    show_error(Py_GetPlatform(), 0);
+    show_error(Py_GetVersion(), 0);
+    if(Py_IsInitialized())
+    {
+        how_error("Py_IsInitialized", 0);
+    }
+
+    show_error("before PyRun_SimpleString", 0);
+    PyRun_SimpleString("print('Hello python world! Press + to exit.')");
+
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
     python_result = PyRun_SimpleFileEx(renpy_file, "romfs:/Contents/renpy.py", 1);
