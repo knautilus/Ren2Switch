@@ -337,11 +337,11 @@ int main(int argc, char* argv[])
     config.program_name = L"python";
     config.module_search_paths_set = 1;
 
-    status = PyWideStringList_Append(&config.module_search_paths,
-                                     L"romfs:/Contents/lib.zip");
-    if (PyStatus_Exception(status)) {
-        goto exception;
-    }
+    //status = PyWideStringList_Append(&config.module_search_paths,
+    //                                 L"romfs:/Contents/lib.zip");
+    //if (PyStatus_Exception(status)) {
+    //    goto exception;
+    //}
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
@@ -448,6 +448,7 @@ int main(int argc, char* argv[])
     if (PyStatus_Exception(status)) {
         goto exception;
     }
+
     PyConfig_Clear(&config);
 
     show_error("before PySys_SetArgvEx", 0);
@@ -464,7 +465,7 @@ int main(int argc, char* argv[])
     show_error(homeMsg, 0);
 
     show_error("before import sys", 0);
-    PyRun_SimpleString("import sys;");
+    PyRun_SimpleString("import sys");
 
     //show_error("before PyRun_SimpleString sys.path", 0);
 
