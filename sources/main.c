@@ -324,8 +324,8 @@ int main(int argc, char* argv[])
 
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
-    config.home = L"romfs:/Contents/lib.zip";
-    config.isolated = 0;
+    //config.home = L"romfs:/Contents/lib.zip";
+    config.isolated = 1;
     config.site_import = 0;
     config.use_environment = 0;
     config.user_site_directory = 0;
@@ -333,16 +333,16 @@ int main(int argc, char* argv[])
     config.optimization_level = 2;
     config.parse_argv = 1;
     config.argv = argv_list;
-    config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    //config.pythonpath_env = L"romfs:/Contents/lib.zip";
     config.filesystem_encoding = L"utf-8";
     config.program_name = L"python";
     config.module_search_paths_set = 1;
 
-    //status = PyWideStringList_Append(&config.module_search_paths,
-    //                                 L"romfs:/Contents/lib.zip");
-    //if (PyStatus_Exception(status)) {
-    //    goto exception;
-    //}
+    status = PyWideStringList_Append(&config.module_search_paths,
+                                     L"romfs:/Contents/lib.zip");
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
