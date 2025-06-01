@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "pycore_pylifecycle.h"
-#include "Python-ast.h"
-#include "pegen_interface.h"
+#include <pycore_pylifecycle.h>
+#include <Python-ast.h>
+#include <pegen_interface.h>
 
 u64 cur_progid = 0;
 AccountUid userID={0};
