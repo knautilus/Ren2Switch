@@ -1,6 +1,8 @@
 #include <switch.h>
 #include <Python.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 u64 cur_progid = 0;
 AccountUid userID={0};

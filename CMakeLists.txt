@@ -16,7 +16,10 @@ set(SWITCH_AUTHOR   "renpytom")
 set(SWITCH_VERSION  "8.3.7")
 
 set(NSWITCH TRUE)
-set(DKA_SWITCH_C_FLAGS "-D__SWITCH__ -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -ftls-model=local-exec -ffunction-sections -fdata-sections")
+set(DKA_SWITCH_C_FLAGS "-D__SWITCH__ -march=armv8-a -mtune=cortex-a57 -mtp=soft -fPIE")
+set(CMAKE_C_FLAGS   "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+set(CMAKE_CXX_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
+set(CMAKE_ASM_FLAGS "${DKA_SWITCH_C_FLAGS}" CACHE STRING "")
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT "-specs=${DEVKITPRO}/libnx/switch.specs")
 
