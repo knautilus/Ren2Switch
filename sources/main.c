@@ -325,7 +325,7 @@ int main(int argc, char* argv[])
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
     config.home = L"romfs:/Contents/lib.zip";
-    config.isolated = 1;
+    config.isolated = 0;
     config.site_import = 0;
     config.use_environment = 0;
     config.user_site_directory = 0;
