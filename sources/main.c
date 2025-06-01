@@ -44,14 +44,101 @@ int MySimpleStringFlags(const char *command, PyCompilerFlags *flags)
         return -1;
     show_error("before PyModule_GetDict", 0);
     d = PyModule_GetDict(m);
-    show_error("PyRun_StringFlags", 0);
-    v = PyRun_StringFlags(command, Py_file_input, d, d, flags);
+    show_error("before MyStringFlags", 0);
+    v = MyStringFlags(command, Py_file_input, d, d, flags);
     if (v == NULL) {
         PyErr_Print();
         return -1;
     }
     Py_DECREF(v);
     return 0;
+}
+
+PyObject* MyStringFlags(const char *str, int start, PyObject *globals,
+                  PyObject *locals, PyCompilerFlags *flags)
+{
+    PyObject *ret = NULL;
+    mod_ty mod;
+    PyArena *arena;
+    PyObject *filename;
+    show_error("before _PyInterpreterState_GET", 0);
+    int use_peg = _PyInterpreterState_GET()->config._use_peg_parser;
+    show_error("before _PyUnicode_FromId", 0);
+    filename = _PyUnicode_FromId(&PyId_string); /* borrowed */
+    if (filename == NULL)
+        return NULL;
+    show_error("before PyArena_New", 0);
+    arena = PyArena_New();
+    if (arena == NULL)
+        return NULL;
+
+    if (use_peg) {
+        show_error("before PyPegen_ASTFromStringObject", 0);
+        mod = PyPegen_ASTFromStringObject(str, filename, start, flags, arena);
+    }
+    else {
+        show_error("before PyParser_ASTFromStringObject", 0);
+        mod = PyParser_ASTFromStringObject(str, filename, start, flags, arena);
+    }
+
+    if (mod != NULL)
+    {
+        show_error("before my_run_mod", 0);
+        ret = my_run_mod(mod, filename, globals, locals, flags, arena);
+    }
+    show_error("before PyArena_Free", 0);
+    PyArena_Free(arena);
+    return ret;
+}
+
+static PyObject* my_run_mod(mod_ty mod, PyObject *filename, PyObject *globals, PyObject *locals,
+            PyCompilerFlags *flags, PyArena *arena)
+{
+    show_error("before _PyThreadState_GET", 0);
+    PyThreadState *tstate = _PyThreadState_GET();
+    show_error("before PyAST_CompileObject", 0);
+    PyCodeObject *co = PyAST_CompileObject(mod, filename, flags, -1, arena);
+    if (co == NULL)
+        return NULL;
+
+    if (_PySys_Audit(tstate, "exec", "O", co) < 0) {
+        Py_DECREF(co);
+        return NULL;
+    }
+    show_error("before my_run_eval_code_obj", 0);
+    PyObject *v = my_run_eval_code_obj(tstate, co, globals, locals);
+    Py_DECREF(co);
+    return v;
+}
+
+static PyObject * my_run_eval_code_obj(PyThreadState *tstate, PyCodeObject *co, PyObject *globals, PyObject *locals)
+{
+    PyObject *v;
+    /*
+     * We explicitly re-initialize _Py_UnhandledKeyboardInterrupt every eval
+     * _just in case_ someone is calling into an embedded Python where they
+     * don't care about an uncaught KeyboardInterrupt exception (why didn't they
+     * leave config.install_signal_handlers set to 0?!?) but then later call
+     * Py_Main() itself (which _checks_ this flag and dies with a signal after
+     * its interpreter exits).  We don't want a previous embedded interpreter's
+     * uncaught exception to trigger an unexplained signal exit from a future
+     * Py_Main() based one.
+     */
+    _Py_UnhandledKeyboardInterrupt = 0;
+
+    /* Set globals['__builtins__'] if it doesn't exist */
+    if (globals != NULL && PyDict_GetItemString(globals, "__builtins__") == NULL) {
+        if (PyDict_SetItemString(globals, "__builtins__",
+                                 tstate->interp->builtins) < 0) {
+            return NULL;
+        }
+    }
+
+    v = PyEval_EvalCode((PyObject*)co, globals, locals);
+    if (!v && _PyErr_Occurred(tstate) == PyExc_KeyboardInterrupt) {
+        _Py_UnhandledKeyboardInterrupt = 1;
+    }
+    return v;
 }
 
 static PyObject* commitsave(PyObject* self, PyObject* args)
