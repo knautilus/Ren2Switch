@@ -434,13 +434,13 @@ int main(int argc, char* argv[])
 
     show_error("before fopen", 0);
 
-    FILE* sysconfigdata_file = fopen("romfs:/Contents/lib", "rb");
+    //FILE* sysconfigdata_file = fopen("romfs:/Contents/lib", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
 
-    if (sysconfigdata_file == NULL)
-    {
-        show_error("Could not find lib.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
-    }
+    //if (sysconfigdata_file == NULL)
+    //{
+    //    show_error("Could not find lib.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
+    //}
 
     if (renpy_file == NULL)
     {
