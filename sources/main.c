@@ -495,7 +495,7 @@ int main(int argc, char* argv[])
 
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
-    python_result = PyRun_SimpleFileEx(renpy_file, "romfs:/Contents/renpy.py", 1);
+    python_result = PyRun_SimpleFileEx(renpy_file, "renpy.py", 1);
 
     if (python_result == -1)
     {
