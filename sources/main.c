@@ -465,9 +465,6 @@ int main(int argc, char* argv[])
     char* homeMsg = Py_EncodeLocale(home, NULL);
     show_error(homeMsg, 0);
 
-    show_error("before import sys", 0);
-    PyRun_SimpleString("import sys");
-
     //show_error("before PyRun_SimpleString sys.path", 0);
 
     //python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
