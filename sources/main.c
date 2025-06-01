@@ -311,7 +311,7 @@ int main(int argc, char* argv[])
     //Py_OptimizeFlag = 2;
 
     wchar_t* pyargs[] = {
-        L"romfs:/Contents/renpy.py",
+        L"romfs:/Contents/lib.zip",
         NULL,
     };
 
@@ -325,6 +325,7 @@ int main(int argc, char* argv[])
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
     config.home = L"romfs:/Contents/lib.zip";
+    config.isolated = 1;
     config.site_import = 0;
     config.use_environment = 0;
     config.user_site_directory = 0;
