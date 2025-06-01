@@ -494,7 +494,7 @@ int main(int argc, char* argv[])
     show_error(Py_GetVersion(), 0);
     if(Py_IsInitialized())
     {
-        how_error("Py_IsInitialized", 0);
+        show_error("Py_IsInitialized", 0);
     }
 
     show_error("before PyRun_SimpleString", 0);
