@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
     //Py_OptimizeFlag = 2;
 
     wchar_t* pyargs[] = {
-        L"romfs:/Contents/lib.zip",
+        L"romfs:/Contents/lib",
         NULL,
     };
 
@@ -341,7 +341,7 @@ int main(int argc, char* argv[])
 
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
-    config.home = L"romfs:/Contents/lib.zip";
+    config.home = L"romfs:/Contents/lib";
     config.isolated = 1;
     config.site_import = 0;
     config.use_environment = 0;
@@ -350,13 +350,13 @@ int main(int argc, char* argv[])
     config.optimization_level = 2;
     config.parse_argv = 1;
     config.argv = argv_list;
-    config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    config.pythonpath_env = L"romfs:/Contents/lib";
     config.filesystem_encoding = L"utf-8";
     config.program_name = L"python";
     config.module_search_paths_set = 1;
 
     status = PyWideStringList_Append(&config.module_search_paths,
-                                     L"romfs:/Contents/lib.zip");
+                                     L"romfs:/Contents/lib");
     if (PyStatus_Exception(status)) {
         goto exception;
     }
@@ -434,12 +434,12 @@ int main(int argc, char* argv[])
 
     show_error("before fopen", 0);
 
-    FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
+    FILE* sysconfigdata_file = fopen("romfs:/Contents/lib", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
 
     if (sysconfigdata_file == NULL)
     {
-        show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
+        show_error("Could not find lib.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
     }
 
     if (renpy_file == NULL)
@@ -455,8 +455,8 @@ int main(int argc, char* argv[])
 
     show_error("before Py_SetPythonHome", 0);
 
-    Py_SetPythonHome(L"romfs:/Contents/lib.zip");
-    Py_SetPath(L"romfs:/Contents/lib.zip");
+    Py_SetPythonHome(L"romfs:/Contents/lib");
+    Py_SetPath(L"romfs:/Contents/lib");
 
     show_error("before Py_InitializeFromConfig", 0);
 
@@ -484,7 +484,7 @@ int main(int argc, char* argv[])
 
     //show_error("before PyRun_SimpleString sys.path", 0);
 
-    //python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
+    //python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib']");
 
     //if (python_result == -1)
     //{
