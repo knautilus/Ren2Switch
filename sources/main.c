@@ -324,7 +324,7 @@ int main(int argc, char* argv[])
 
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
-    //config.home = L"romfs:/Contents/lib.zip";
+    config.home = L"romfs:/Contents/lib.zip";
     config.isolated = 1;
     config.site_import = 0;
     config.use_environment = 0;
@@ -333,7 +333,7 @@ int main(int argc, char* argv[])
     config.optimization_level = 2;
     config.parse_argv = 1;
     config.argv = argv_list;
-    //config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    config.pythonpath_env = L"romfs:/Contents/lib.zip";
     config.filesystem_encoding = L"utf-8";
     config.program_name = L"python";
     config.module_search_paths_set = 1;
@@ -477,21 +477,21 @@ int main(int argc, char* argv[])
     //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     //}
 
-    show_error("before PyRun_SimpleString import", 0);
-
-#define x(lib) \
-    { \
-        if (PyRun_SimpleString("import " lib) == -1) \
-        { \
-            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python3.9\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
-        } \
-    }
-
-    x("os");
-    x("pygame_sdl2");
-    x("encodings");
-
-#undef x
+//    show_error("before PyRun_SimpleString import", 0);
+//
+//#define x(lib) \
+//    { \
+//        if (PyRun_SimpleString("import " lib) == -1) \
+//        { \
+//            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python3.9\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
+//        } \
+//    }
+//
+//    x("os");
+//    x("pygame_sdl2");
+//    x("encodings");
+//
+//#undef x
 
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
