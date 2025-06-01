@@ -450,6 +450,10 @@ int main(int argc, char* argv[])
     }
     PyConfig_Clear(&config);
 
+    show_error("before PySys_SetArgvEx", 0);
+
+    PySys_SetArgvEx(1, pyargs, 1);
+
     show_error("before Py_GetPythonHome", 0);
 
     wchar_t* home = Py_GetPythonHome();
@@ -457,20 +461,10 @@ int main(int argc, char* argv[])
     show_error("before Py_EncodeLocale", 0);
 
     char* homeMsg = Py_EncodeLocale(home, NULL);
-    show_error(homeMsg, 9);
+    show_error(homeMsg, 0);
 
-    show_error("before PySys_SetArgvEx", 0);
-
-    PySys_SetArgvEx(1, pyargs, 1);
-
-    show_error("before Py_GetPythonHome 2", 0);
-
-    home = Py_GetPythonHome();
-
-    show_error("before Py_EncodeLocale 2", 0);
-
-    homeMsg = Py_EncodeLocale(home, NULL);
-    show_error(homeMsg, 9);
+    show_error("before import sys", 0);
+    PyRun_SimpleString("import sys;");
 
     //show_error("before PyRun_SimpleString sys.path", 0);
 
