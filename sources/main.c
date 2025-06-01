@@ -35,6 +35,21 @@ void show_error(const char* message, int exit)
     }
 }
 
+static PyObject* moduleImport(const char *name)
+{
+    show_error(name, 0);
+    PyObject* ob = PyImport_ImportModule(name);
+    show_error("imported", 0);
+    if (ob == NULL) {
+        PyObject *ptype, *pvalue, *ptraceback;
+        PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+        PyObject *str_value = PyObject_Str(pvalue);
+        const char* message = PyUnicode_AsUTF8(str_value);
+        show_error(message, 0);
+    }
+    return ob;
+}
+
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
     u64 total_size = 0;
@@ -476,21 +491,25 @@ int main(int argc, char* argv[])
     //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     //}
 
-    show_error("before PyRun_SimpleString import", 0);
+    show_error("before moduleImport", 0);
 
-#define x(lib) \
-    { \
-        if (PyRun_SimpleString("import " lib) == -1) \
-        { \
-            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python3.9\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
-        } \
-    }
+    moduleImport("os");
+    moduleImport("pygame_sdl2");
+    moduleImport("encodings");
 
-    x("os");
-    x("pygame_sdl2");
-    x("encodings");
-
-#undef x
+//#define x(lib) \
+//    { \
+//        if (PyRun_SimpleString("import " lib) == -1) \
+//        { \
+//            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python3.9\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
+//        } \
+//    }
+//
+//    x("os");
+//    x("pygame_sdl2");
+//    x("encodings");
+//
+//#undef x
 
     show_error(Py_GetPlatform(), 0);
     show_error(Py_GetVersion(), 0);
