@@ -35,6 +35,25 @@ void show_error(const char* message, int exit)
     }
 }
 
+int MySimpleStringFlags(const char *command, PyCompilerFlags *flags)
+{
+    PyObject *m, *d, *v;
+    show_error("before PyImport_AddModule __main__", 0);
+    m = PyImport_AddModule("__main__");
+    if (m == NULL)
+        return -1;
+    show_error("before PyModule_GetDict", 0);
+    d = PyModule_GetDict(m);
+    show_error("PyRun_StringFlags", 0);
+    v = PyRun_StringFlags(command, Py_file_input, d, d, flags);
+    if (v == NULL) {
+        PyErr_Print();
+        return -1;
+    }
+    Py_DECREF(v);
+    return 0;
+}
+
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
     u64 total_size = 0;
@@ -499,8 +518,8 @@ int main(int argc, char* argv[])
         show_error("Py_IsInitialized", 0);
     }
 
-    show_error("before PyRun_SimpleString", 0);
-    PyRun_SimpleString("print('Hello python world! Press + to exit.')");
+    show_error("before MySimpleStringFlags", 0);
+    MySimpleStringFlags("print('Hello python world! Press + to exit.')");
 
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
