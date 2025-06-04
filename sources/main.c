@@ -327,12 +327,13 @@ int main(int argc, char* argv[])
     //Py_DontWriteBytecodeFlag = 1;
     //Py_OptimizeFlag = 2;
 
-    wchar_t* pyargs[] = {
-        L"romfs:/Contents/lib.zip",
-        NULL,
-    };
 
-    PyWideStringList argv_list = {.length = 1, .items = pyargs};
+    //wchar_t* pyargs[] = {
+    //    L"romfs:/Contents/lib.zip",
+    //    NULL,
+    //};
+
+    //PyWideStringList argv_list = {.length = 1, .items = pyargs};
 
     PyStatus status;
     int python_result;
@@ -342,14 +343,14 @@ int main(int argc, char* argv[])
     PyConfig config;
     PyConfig_InitPythonConfig(&config);
     config.home = L"romfs:/Contents/lib.zip";
-    config.isolated = 1;
+    //config.isolated = 1;
     config.site_import = 0;
     config.use_environment = 0;
     config.user_site_directory = 0;
     config.write_bytecode = 0;
     config.optimization_level = 2;
-    config.parse_argv = 1;
-    config.argv = argv_list;
+    //config.parse_argv = 1;
+    //config.argv = argv_list;
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
     config.filesystem_encoding = L"utf-8";
     config.program_name = L"python";
@@ -360,10 +361,10 @@ int main(int argc, char* argv[])
     if (PyStatus_Exception(status)) {
         goto exception;
     }
-
+/*
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
-/*
+
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
         {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
         {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
@@ -428,10 +429,10 @@ int main(int argc, char* argv[])
 
         {"renpy.lexersupport", PyInit_renpy_lexersupport},
         {"renpy.display.quaternion", PyInit_renpy_display_quaternion},
-*/
+
         {NULL, NULL}
     };
-
+*/
     show_error("before fopen", 0);
 
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
@@ -449,9 +450,9 @@ int main(int argc, char* argv[])
 
     fclose(sysconfigdata_file);
 
-    show_error("before PyImport_ExtendInittab", 0);
+    //show_error("before PyImport_ExtendInittab", 0);
 
-    PyImport_ExtendInittab(builtins);
+    //PyImport_ExtendInittab(builtins);
 
     show_error("before Py_SetPythonHome", 0);
 
@@ -469,9 +470,9 @@ int main(int argc, char* argv[])
 
     PyConfig_Clear(&config);
 
-    show_error("before PySys_SetArgvEx", 0);
+    //show_error("before PySys_SetArgvEx", 0);
 
-    PySys_SetArgvEx(1, pyargs, 1);
+    //PySys_SetArgvEx(1, pyargs, 1);
 
     show_error("before Py_GetPythonHome", 0);
 
