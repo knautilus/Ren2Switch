@@ -496,9 +496,9 @@ int main(int argc, char* argv[])
 
     show_error("before moduleImport", 0);
 
-    moduleImport("os");
-    moduleImport("pygame_sdl2");
-    moduleImport("encodings");
+    //moduleImport("os");
+    //moduleImport("pygame_sdl2");
+    //moduleImport("encodings");
 
 #define x(lib) \
     { \
