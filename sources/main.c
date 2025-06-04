@@ -363,7 +363,7 @@ int main(int argc, char* argv[])
 
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
-
+/*
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
         {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
         {"pygame_sdl2.display", PyInit_pygame_sdl2_display},
@@ -428,7 +428,7 @@ int main(int argc, char* argv[])
 
         {"renpy.lexersupport", PyInit_renpy_lexersupport},
         {"renpy.display.quaternion", PyInit_renpy_display_quaternion},
-
+*/
         {NULL, NULL}
     };
 
@@ -491,25 +491,28 @@ int main(int argc, char* argv[])
     //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     //}
 
+    show_error("before PyRun_SimpleString", 0);
+    PyRun_SimpleString("print('Hello python world! Press + to exit.')");
+
     show_error("before moduleImport", 0);
 
     moduleImport("os");
     moduleImport("pygame_sdl2");
     moduleImport("encodings");
 
-//#define x(lib) \
-//    { \
-//        if (PyRun_SimpleString("import " lib) == -1) \
-//        { \
-//            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python3.9\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
-//        } \
-//    }
-//
-//    x("os");
-//    x("pygame_sdl2");
-//    x("encodings");
-//
-//#undef x
+#define x(lib) \
+    { \
+        if (PyRun_SimpleString("import " lib) == -1) \
+        { \
+            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python3.9\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
+        } \
+    }
+
+    x("os");
+    x("pygame_sdl2");
+    x("encodings");
+
+#undef x
 
     show_error(Py_GetPlatform(), 0);
     show_error(Py_GetVersion(), 0);
