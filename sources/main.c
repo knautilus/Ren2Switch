@@ -361,7 +361,7 @@ int main(int argc, char* argv[])
     if (PyStatus_Exception(status)) {
         goto exception;
     }
-/*
+
     static struct _inittab builtins[] = {
         {"_otrhlibnx", PyInit__otrhlibnx},
 
@@ -432,7 +432,7 @@ int main(int argc, char* argv[])
 
         {NULL, NULL}
     };
-*/
+
     show_error("before fopen", 0);
 
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
@@ -450,9 +450,9 @@ int main(int argc, char* argv[])
 
     fclose(sysconfigdata_file);
 
-    //show_error("before PyImport_ExtendInittab", 0);
+    show_error("before PyImport_ExtendInittab", 0);
 
-    //PyImport_ExtendInittab(builtins);
+    PyImport_ExtendInittab(builtins);
 
     show_error("before Py_SetPythonHome", 0);
 
@@ -483,6 +483,16 @@ int main(int argc, char* argv[])
     char* homeMsg = Py_EncodeLocale(home, NULL);
     show_error(homeMsg, 0);
 
+    show_error(Py_GetPlatform(), 0);
+    show_error(Py_GetVersion(), 0);
+    if(Py_IsInitialized())
+    {
+        show_error("Py_IsInitialized", 0);
+    }
+
+    show_error("before PyRun_SimpleString", 0);
+    PyRun_SimpleString("print('Hello python world! Press + to exit.')");
+
     //show_error("before PyRun_SimpleString sys.path", 0);
 
     //python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
@@ -491,9 +501,6 @@ int main(int argc, char* argv[])
     //{
     //    show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     //}
-
-    show_error("before PyRun_SimpleString", 0);
-    PyRun_SimpleString("print('Hello python world! Press + to exit.')");
 
     show_error("before moduleImport", 0);
 
@@ -514,16 +521,6 @@ int main(int argc, char* argv[])
     x("encodings");
 
 #undef x
-
-    show_error(Py_GetPlatform(), 0);
-    show_error(Py_GetVersion(), 0);
-    if(Py_IsInitialized())
-    {
-        show_error("Py_IsInitialized", 0);
-    }
-
-    //show_error("before PyRun_SimpleString", 0);
-    //PyRun_SimpleString("print('Hello python world! Press + to exit.')");
 
     show_error("before PyRun_SimpleFileEx renpy.py", 0);
 
