@@ -12,6 +12,8 @@ apt -y install libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev lib
 
 apt -y install python2 python2-dev
 
+python2 --version
+
 curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 python2 get-pip.py
 pip2 --version 
@@ -20,16 +22,16 @@ apt-get -y install p7zip-full libsdl2-dev libsdl2-image-dev libjpeg-dev libpng-d
 pip2 uninstall distribute
 pip2 install future six typing requests ecdsa pefile==2019.4.18 Cython==0.29.36 setuptools==0.9.8
 
-curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
-curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/python27-switch.tar.gz
+curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/devkitpro-pkgbuild-helpers-2.2.4-2-any.pkg.tar.xz
+curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/python27-switch.zip
 curl -LOC - https://github.com/Otorhin/scripts/releases/download/oof/switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.4-2-any.pkg.tar.xz
 dkp-pacman -U --noconfirm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-tar -xvzf python27-switch.tar.gz -C $DEVKITPRO/portlibs/switch
+unzip -qq python27-switch.zip -d $DEVKITPRO/portlibs/switch
 
-rm devkitpro-pkgbuild-helpers-2.2.3-1-any.pkg.tar.xz
+rm devkitpro-pkgbuild-helpers-2.2.4-2-any.pkg.tar.xz
 rm switch-libfribidi-1.0.12-1-any.pkg.tar.xz
-rm python27-switch.tar.gz
+rm python27-switch.zip
 
 /bin/bash -c 'sed -i'"'"'.bak'"'"' '"'"'s/set(CMAKE_EXE_LINKER_FLAGS_INIT "/set(CMAKE_EXE_LINKER_FLAGS_INIT "-fPIC /'"'"' $DEVKITPRO/switch.cmake'
 
@@ -39,7 +41,6 @@ curl -LOC - https://www.renpy.org/dl/$RENPY_VER/renpy-$RENPY_VER-sdk.zip
 curl -LOC - https://www.renpy.org/dl/$RENPY_VER/renpy-$RENPY_VER-source.tar.bz2
 #curl -LOC - https://www.renpy.org/dl/$RENPY_VER/android-native-symbols.zip
 #curl -LOC - https://dl.otorh.in/github/rawproject.zip
-
 
 rm -rf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER pygame_sdl2-source
 tar -xf pygame_sdl2-$PYGAME_SDL2_VER+renpy$RENPY_VER.tar.gz
