@@ -23,12 +23,12 @@ pip2 uninstall distribute
 pip2 install future six typing requests ecdsa pefile==2019.4.18 Cython==0.29.36 setuptools==0.9.8
 
 curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/devkitpro-pkgbuild-helpers-2.2.4-2-any.pkg.tar.xz
-curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/python27-switch.zip
+curl -LOC - https://github.com/knautilus/Utils/releases/download/v1.0/python27-switch_test.zip
 dkp-pacman -U --noconfirm devkitpro-pkgbuild-helpers-2.2.4-2-any.pkg.tar.xz
-unzip -qq python27-switch.zip -d $DEVKITPRO/portlibs/switch
+unzip -qq python27-switch_test.zip -d $DEVKITPRO/portlibs/switch
 
 rm devkitpro-pkgbuild-helpers-2.2.4-2-any.pkg.tar.xz
-rm python27-switch.zip
+rm python27-switch_test.zip
 
 /bin/bash -c 'sed -i'"'"'.bak'"'"' '"'"'s/set(CMAKE_EXE_LINKER_FLAGS_INIT "/set(CMAKE_EXE_LINKER_FLAGS_INIT "-fPIC /'"'"' $DEVKITPRO/switch.cmake'
 
