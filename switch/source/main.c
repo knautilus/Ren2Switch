@@ -200,7 +200,6 @@ Result createSaveData()
 
 void userAppInit()
 {
-
     // fsdevUnmountAll();
 
     Result rc=0;
@@ -288,7 +287,6 @@ static void on_applet_hook(AppletHookType hook, void *param)
 }
 
 
-
 int main(int argc, char* argv[])
 {
     setenv("MESA_NO_ERROR", "1", 1);
@@ -374,6 +372,10 @@ int main(int argc, char* argv[])
         {NULL, NULL}
     };
 
+    PyImport_ExtendInittab(builtins);
+
+    Py_SetPythonHome("romfs:/Contents/lib.zip");
+
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
 
@@ -388,9 +390,8 @@ int main(int argc, char* argv[])
     }
 
     fclose(sysconfigdata_file);
+
     Py_InitializeEx(0);
-    Py_SetPythonHome("romfs:/Contents/lib.zip");
-    PyImport_ExtendInittab(builtins);
 
     char* pyargs[] = {
         "romfs:/Contents/renpy.py",
@@ -401,7 +402,7 @@ int main(int argc, char* argv[])
 
     int python_result;
 
-    python_result = PyRun_SimpleString("import sys\nsys.path = ['romfs:/Contents/lib.zip']");
+    python_result = PyRun_SimpleString("import sys; sys.path = ['romfs:/Contents/lib.zip']");
 
     if (python_result == -1)
     {
