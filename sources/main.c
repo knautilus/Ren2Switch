@@ -132,7 +132,6 @@ PyMODINIT_FUNC PyInit_renpy_text_ftfont(void);
 PyMODINIT_FUNC PyInit_renpy_text_textsupport(void);
 PyMODINIT_FUNC PyInit_renpy_text_texwrap(void);
 
-PyMODINIT_FUNC PyInit_renpy_compat_dictviews(void);
 PyMODINIT_FUNC PyInit_renpy_gl2_gl2draw(void);
 PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh(void);
 PyMODINIT_FUNC PyInit_renpy_gl2_gl2mesh2(void);
@@ -258,9 +257,11 @@ ConsoleRenderer* getDefaultConsoleRenderer(void)
 }
 
 
-void show_error_and_exit(const char* message)
+void show_error(const char* message, int exit)
 {
-    Py_Finalize();
+    if (exit == 1) {
+        Py_Finalize();
+    }
     char* first_line = (char*)message;
     char* end = strchr(message, '\n');
     if (end != NULL)
@@ -272,7 +273,9 @@ void show_error_and_exit(const char* message)
     ErrorSystemConfig c;
     errorSystemCreate(&c, (const char*)first_line, message);
     errorSystemShow(&c);
-    Py_Exit(1);
+    if (exit == 1) {
+        Py_Exit(1);
+    }
 }
 
 
@@ -377,8 +380,10 @@ int main(int argc, char* argv[])
         {NULL, NULL}
     };
 
+    show_error("before PyImport_ExtendInittab", 0);
     PyImport_ExtendInittab(builtins);
 
+    show_error("before Py_SetPythonHome", 0);
     Py_SetPythonHome(L"romfs:/Contents/lib.zip");
 
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
@@ -386,16 +391,17 @@ int main(int argc, char* argv[])
 
     if (sysconfigdata_file == NULL)
     {
-        show_error_and_exit("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.");
+        show_error("Could not find lib.zip.\n\nPlease ensure that you have extracted the files correctly so that the \"lib.zip\" file is in the same directory as the nsp file.", 1);
     }
 
     if (renpy_file == NULL)
     {
-        show_error_and_exit("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.");
+        show_error("Could not find renpy.py.\n\nPlease ensure that you have extracted the files correctly so that the \"renpy.py\" file is in the same directory as the nsp file.", 1);
     }
 
     fclose(sysconfigdata_file);
 
+    show_error("before Py_InitializeEx", 0);
     Py_InitializeEx(0);
 
     wchar_t* pyargs[] = {
@@ -403,22 +409,24 @@ int main(int argc, char* argv[])
         NULL,
     };
 
+    show_error("before PySys_SetArgvEx", 0);
     PySys_SetArgvEx(1, pyargs, 1);
 
     int python_result;
 
+    show_error("before PyRun_SimpleString", 0);
     python_result = PyRun_SimpleString("import sys; sys.path = ['romfs:/Contents/lib.zip']");
 
     if (python_result == -1)
     {
-        show_error_and_exit("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.");
+        show_error("Could not set the Python path.\n\nThis is an internal error and should not occur during normal usage.", 1);
     }
 
 #define x(lib) \
     { \
         if (PyRun_SimpleString("import " lib) == -1) \
         { \
-            show_error_and_exit("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python2.7\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist."); \
+            show_error("Could not import python library " lib ".\n\nPlease ensure that you have extracted the files correctly so that the \"lib\" folder is in the same directory as the nsp file, and that the \"lib\" folder contains the folder \"python2.7\". \nInside that folder, the file \"" lib ".py\" or folder \"" lib "\" needs to exist.", 1); \
         } \
     }
 
@@ -428,11 +436,12 @@ int main(int argc, char* argv[])
 
 #undef x
 
+    show_error("before PyRun_SimpleFileEx", 0);
     python_result = PyRun_SimpleFileEx(renpy_file, "romfs:/Contents/renpy.py", 1);
 
     if (python_result == -1)
     {
-        show_error_and_exit("An uncaught Python exception occurred during renpy.py execution.\n\nPlease look in the save:// folder for more information about this exception.");
+        show_error("An uncaught Python exception occurred during renpy.py execution.\n\nPlease look in the save:// folder for more information about this exception.", 1);
     }
 
     Py_Exit(0);
