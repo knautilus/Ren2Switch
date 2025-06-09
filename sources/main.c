@@ -380,7 +380,7 @@ int main(int argc, char* argv[])
 
     PyImport_ExtendInittab(builtins);
 
-    Py_SetPythonHome("romfs:/Contents/lib.zip");
+    Py_SetPythonHome(L"romfs:/Contents/lib.zip");
 
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
@@ -399,8 +399,8 @@ int main(int argc, char* argv[])
 
     Py_InitializeEx(0);
 
-    char* pyargs[] = {
-        "romfs:/Contents/renpy.py",
+    wchar_t* pyargs[] = {
+        L"romfs:/Contents/renpy.py",
         NULL,
     };
 
