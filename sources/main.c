@@ -308,7 +308,7 @@ int main(int argc, char* argv[])
 
     static struct _inittab builtins[] = {
 
-        {"_otrhlibnx", PyInit__otrh_libnx},
+        {"_otrhlibnx", PyInit__otrhlibnx},
 
         {"pygame_sdl2.color", PyInit_pygame_sdl2_color},
         {"pygame_sdl2.controller", PyInit_pygame_sdl2_controller},
