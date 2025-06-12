@@ -11,6 +11,42 @@ char python_error_buffer[0x400];
           PyModuleDef_HEAD_INIT, name, doc, -1, methods, }; \
         ob = PyModule_Create(&moduledef);
 
+void
+_PyConfig_InitCompatConfig(PyConfig *config)
+{
+    memset(config, 0, sizeof(*config));
+
+    config->_config_init = 1;
+    config->isolated = -1;
+    config->use_environment = -1;
+    config->dev_mode = -1;
+    config->install_signal_handlers = 1;
+    config->use_hash_seed = -1;
+    config->faulthandler = -1;
+    config->tracemalloc = -1;
+    config->module_search_paths_set = 0;
+    config->parse_argv = 0;
+    config->site_import = -1;
+    config->bytes_warning = -1;
+    config->inspect = -1;
+    config->interactive = -1;
+    config->optimization_level = -1;
+    config->parser_debug= -1;
+    config->write_bytecode = -1;
+    config->verbose = -1;
+    config->quiet = -1;
+    config->user_site_directory = -1;
+    config->configure_c_stdio = 0;
+    config->buffered_stdio = -1;
+    config->_install_importlib = 1;
+    config->check_hash_pycs_mode = NULL;
+    config->pathconfig_warnings = -1;
+    config->_init_main = 1;
+    config->_isolated_interpreter = 0;
+
+    config->_use_peg_parser = 1;
+}
+
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
     u64 total_size = 0;
@@ -309,6 +345,31 @@ int main(int argc, char* argv[])
     Py_DontWriteBytecodeFlag = 1;
     Py_OptimizeFlag = 2;
 
+    PyStatus status;
+    PyConfig config;
+
+    show_error("before _PyConfig_InitCompatConfig", 0);
+    _PyConfig_InitCompatConfig(&config);
+    config.install_signal_handlers = install_sigs;
+    //config.home = L"romfs:/Contents/lib.zip";
+    //config.site_import = 0;
+    //config.use_environment = 0;
+    //config.user_site_directory = 0;
+    //config.write_bytecode = 0;
+    //config.optimization_level = 2;
+    //config.parse_argv = 1;
+    //config.argv = argv_list;
+    //config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    //config.filesystem_encoding = L"utf-8";
+    //config.program_name = L"python3";
+    //config.module_search_paths_set = 1;
+    //
+    //status = PyWideStringList_Append(&config.module_search_paths,
+    //                                 L"romfs:/Contents/lib.zip");
+    //if (PyStatus_Exception(status)) {
+    //    goto exception;
+    //}
+
     static struct _inittab builtins[] = {
 
         {"_otrhlibnx", PyInit__otrhlibnx},
@@ -402,7 +463,13 @@ int main(int argc, char* argv[])
     fclose(sysconfigdata_file);
 
     show_error("before Py_Initialize", 0);
-    Py_Initialize();
+    //Py_Initialize();
+
+    status = Py_InitializeFromConfig(&config);
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
+    PyConfig_Clear(&config);
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
@@ -446,4 +513,16 @@ int main(int argc, char* argv[])
 
     Py_Exit(0);
     return 0;
+
+exception:
+    PyConfig_Clear(&config);
+    if (PyStatus_IsExit(status)) {
+        return status.exitcode;
+    }
+
+    show_error(status.err_msg, 0);
+
+    /* Display the error message and exit the process with
+       non-zero exit code */
+    Py_ExitStatusException(status);
 }
