@@ -401,8 +401,8 @@ int main(int argc, char* argv[])
 
     fclose(sysconfigdata_file);
 
-    show_error("before Py_InitializeEx", 0);
-    Py_InitializeEx(0);
+    show_error("before Py_Initialize", 0);
+    Py_Initialize();
 
     wchar_t* pyargs[] = {
         L"romfs:/Contents/renpy.py",
