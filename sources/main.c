@@ -12,7 +12,7 @@ char python_error_buffer[0x400];
         ob = PyModule_Create(&moduledef);
 
 void
-_PyConfig_InitCompatConfig(PyConfig *config)
+InitMyConfig(PyConfig *config)
 {
     memset(config, 0, sizeof(*config));
 
@@ -348,8 +348,8 @@ int main(int argc, char* argv[])
     PyStatus status;
     PyConfig config;
 
-    show_error("before _PyConfig_InitCompatConfig", 0);
-    _PyConfig_InitCompatConfig(&config);
+    show_error("before InitMyConfig", 0);
+    InitMyConfig(&config);
     config.install_signal_handlers = 0;
     //config.home = L"romfs:/Contents/lib.zip";
     //config.site_import = 0;
