@@ -401,6 +401,12 @@ int main(int argc, char* argv[])
     config.filesystem_encoding = L"utf-8";
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
 
+    status = PyWideStringList_Append(&config.module_search_paths,
+                                     L"romfs:/Contents/lib.zip");
+    if (PyStatus_Exception(status)) {
+        goto exception;
+    }
+
     //config.install_signal_handlers = 0;
 
     //config.home = L"romfs:/Contents/lib.zip";
@@ -413,12 +419,6 @@ int main(int argc, char* argv[])
     //config.argv = argv_list;
     //config.program_name = L"python3";
     //config.module_search_paths_set = 1;
-    //
-    //status = PyWideStringList_Append(&config.module_search_paths,
-    //                                 L"romfs:/Contents/lib.zip");
-    //if (PyStatus_Exception(status)) {
-    //    goto exception;
-    //}
 
     static struct _inittab builtins[] = {
 
