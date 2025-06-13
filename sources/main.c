@@ -398,6 +398,7 @@ int main(int argc, char* argv[])
 
     show_error("before InitMyConfig", 0);
     InitPyConfig(&config);
+    config.module_search_paths_set = 1;
     config.filesystem_encoding = L"utf-8";
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
     config.home = L"romfs:/Contents/lib.zip";
@@ -418,7 +419,6 @@ int main(int argc, char* argv[])
     //config.parse_argv = 1;
     //config.argv = argv_list;
     //config.program_name = L"python3";
-    //config.module_search_paths_set = 1;
 
     static struct _inittab builtins[] = {
 
