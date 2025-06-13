@@ -132,6 +132,7 @@ MyRun_SimpleStringFlags(const char *command, PyCompilerFlags *flags)
         show_error("v is null", 0);
         return -1;
     }
+    show_error("before Py_DECREF", 0);
     Py_DECREF(v);
     return 0;
 }
