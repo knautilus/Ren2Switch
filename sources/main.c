@@ -126,6 +126,7 @@ MyRun_SimpleStringFlags(const char *command, PyCompilerFlags *flags)
         return -1;
     show_error("before PyModule_GetDict", 0);
     d = PyModule_GetDict(m);
+    show_error("before PyRun_StringFlags", 0);
     v = PyRun_StringFlags(command, 257, d, d, flags);
     if (v == NULL) {
         show_error("v is null", 0);
