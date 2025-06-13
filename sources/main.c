@@ -380,7 +380,7 @@ int main(int argc, char* argv[])
     PyConfig config;
 
     show_error("before InitMyConfig", 0);
-    InitDefConfig(&config);
+    InitPyConfig(&config);
     //config.install_signal_handlers = 0;
 
     //config.home = L"romfs:/Contents/lib.zip";
