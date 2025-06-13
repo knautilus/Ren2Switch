@@ -78,6 +78,23 @@ InitPyConfig(PyConfig *config)
     config->parse_argv = 1;
 }
 
+void
+InitIsoConfig(PyConfig *config)
+{
+    InitDefConfig(config);
+
+    config->_config_init = 3;
+    config->isolated = 1;
+    config->use_environment = 0;
+    config->user_site_directory = 0;
+    config->dev_mode = 0;
+    config->install_signal_handlers = 0;
+    config->use_hash_seed = 0;
+    config->faulthandler = 0;
+    config->tracemalloc = 0;
+    config->pathconfig_warnings = 0;
+}
+
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
     u64 total_size = 0;
@@ -380,7 +397,7 @@ int main(int argc, char* argv[])
     PyConfig config;
 
     show_error("before InitMyConfig", 0);
-    InitPyConfig(&config);
+    InitIsoConfig(&config);
     //config.install_signal_handlers = 0;
 
     //config.home = L"romfs:/Contents/lib.zip";
