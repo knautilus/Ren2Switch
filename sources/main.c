@@ -350,7 +350,7 @@ int main(int argc, char* argv[])
 
     show_error("before _PyConfig_InitCompatConfig", 0);
     _PyConfig_InitCompatConfig(&config);
-    config.install_signal_handlers = install_sigs;
+    config.install_signal_handlers = 1;
     //config.home = L"romfs:/Contents/lib.zip";
     //config.site_import = 0;
     //config.use_environment = 0;
@@ -463,7 +463,7 @@ int main(int argc, char* argv[])
     fclose(sysconfigdata_file);
 
     show_error("before Py_Initialize", 0);
-    //Py_Initialize();
+    //Py_InitializeEx(1);
 
     status = Py_InitializeFromConfig(&config);
     if (PyStatus_Exception(status)) {
