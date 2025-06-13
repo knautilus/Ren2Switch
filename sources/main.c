@@ -422,6 +422,7 @@ int main(int argc, char* argv[])
     config.filesystem_encoding = L"utf-8";
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
     config.home = L"romfs:/Contents/lib.zip";
+    config._use_peg_parser = 0;
 
     status = PyWideStringList_Append(&config.module_search_paths,
                                      L"romfs:/Contents/lib.zip");
