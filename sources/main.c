@@ -95,6 +95,25 @@ InitIsoConfig(PyConfig *config)
     config->pathconfig_warnings = 0;
 }
 
+int
+MyRun_SimpleStringFlags(const char *command, PyCompilerFlags *flags)
+{
+    PyObject *m, *d, *v;
+    show_error("before PyImport_AddModule", 0);
+    m = PyImport_AddModule("__main__");
+    if (m == NULL)
+        return -1;
+    show_error("before PyModule_GetDict", 0);
+    d = PyModule_GetDict(m);
+    v = PyRun_StringFlags(command, 257, d, d, flags);
+    if (v == NULL) {
+        show_error("v is null", 0);
+        return -1;
+    }
+    Py_DECREF(v);
+    return 0;
+}
+
 static PyObject* commitsave(PyObject* self, PyObject* args)
 {
     u64 total_size = 0;
@@ -532,7 +551,7 @@ int main(int argc, char* argv[])
     int python_result;
 
     show_error("before PyRun_SimpleString", 0);
-    python_result = PyRun_SimpleString("import sys; sys.path = ['romfs:/Contents/lib.zip']");
+    python_result = MyRun_SimpleStringFlags("import sys; sys.path = ['romfs:/Contents/lib.zip']", NULL);
 
     if (python_result == -1)
     {
