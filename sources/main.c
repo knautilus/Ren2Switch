@@ -397,7 +397,8 @@ int main(int argc, char* argv[])
     PyConfig config;
 
     show_error("before InitMyConfig", 0);
-    InitIsoConfig(&config);
+    InitCompConfig(&config);
+    config.filesystem_encoding = L"utf-8";
     //config.install_signal_handlers = 0;
 
     //config.home = L"romfs:/Contents/lib.zip";
@@ -409,7 +410,6 @@ int main(int argc, char* argv[])
     //config.parse_argv = 1;
     //config.argv = argv_list;
     //config.pythonpath_env = L"romfs:/Contents/lib.zip";
-    //config.filesystem_encoding = L"utf-8";
     //config.program_name = L"python3";
     //config.module_search_paths_set = 1;
     //
