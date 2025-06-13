@@ -398,6 +398,7 @@ int main(int argc, char* argv[])
 
     show_error("before InitMyConfig", 0);
     InitIsoConfig(&config);
+    config.site_import = 0;
     config.module_search_paths_set = 1;
     config.filesystem_encoding = L"utf-8";
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
@@ -411,7 +412,6 @@ int main(int argc, char* argv[])
 
     //config.install_signal_handlers = 0;
 
-    //config.site_import = 0;
     //config.use_environment = 0;
     //config.user_site_directory = 0;
     //config.write_bytecode = 0;
