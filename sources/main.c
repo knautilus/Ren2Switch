@@ -387,11 +387,11 @@ int main(int argc, char* argv[])
     appletLockExit();
     appletHook(&applet_hook_cookie, on_applet_hook, NULL);
 
-    Py_NoSiteFlag = 1;
-    Py_IgnoreEnvironmentFlag = 1;
-    Py_NoUserSiteDirectory = 1;
-    Py_DontWriteBytecodeFlag = 1;
-    Py_OptimizeFlag = 2;
+    //Py_NoSiteFlag = 1;
+    //Py_IgnoreEnvironmentFlag = 1;
+    //Py_NoUserSiteDirectory = 1;
+    //Py_DontWriteBytecodeFlag = 1;
+    //Py_OptimizeFlag = 2;
 
     PyStatus status;
     PyConfig config;
@@ -400,6 +400,7 @@ int main(int argc, char* argv[])
     InitCompConfig(&config);
     config.filesystem_encoding = L"utf-8";
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
+    config.home = L"romfs:/Contents/lib.zip";
 
     status = PyWideStringList_Append(&config.module_search_paths,
                                      L"romfs:/Contents/lib.zip");
@@ -409,7 +410,6 @@ int main(int argc, char* argv[])
 
     //config.install_signal_handlers = 0;
 
-    //config.home = L"romfs:/Contents/lib.zip";
     //config.site_import = 0;
     //config.use_environment = 0;
     //config.user_site_directory = 0;
@@ -494,8 +494,8 @@ int main(int argc, char* argv[])
     show_error("before PyImport_ExtendInittab", 0);
     PyImport_ExtendInittab(builtins);
 
-    show_error("before Py_SetPythonHome", 0);
-    Py_SetPythonHome(L"romfs:/Contents/lib.zip");
+    //show_error("before Py_SetPythonHome", 0);
+    //Py_SetPythonHome(L"romfs:/Contents/lib.zip");
 
     FILE* sysconfigdata_file = fopen("romfs:/Contents/lib.zip", "rb");
     FILE* renpy_file = fopen("romfs:/Contents/renpy.py", "rb");
