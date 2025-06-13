@@ -11,6 +11,27 @@ char python_error_buffer[0x400];
           PyModuleDef_HEAD_INIT, name, doc, -1, methods, }; \
         ob = PyModule_Create(&moduledef);
 
+void show_error(const char* message, int exit)
+{
+    if (exit == 1) {
+        Py_Finalize();
+    }
+    char* first_line = (char*)message;
+    char* end = strchr(message, '\n');
+    if (end != NULL)
+    {
+        first_line = python_error_buffer;
+        memcpy(first_line, message, (end - message) > sizeof(python_error_buffer) ? sizeof(python_error_buffer) : (end - message));
+        first_line[end - message] = '\0';
+    }
+    ErrorSystemConfig c;
+    errorSystemCreate(&c, (const char*)first_line, message);
+    errorSystemShow(&c);
+    if (exit == 1) {
+        Py_Exit(1);
+    }
+}
+
 void
 InitCompConfig(PyConfig *config)
 {
@@ -357,28 +378,6 @@ void userAppExit()
 ConsoleRenderer* getDefaultConsoleRenderer(void)
 {
     return NULL;
-}
-
-
-void show_error(const char* message, int exit)
-{
-    if (exit == 1) {
-        Py_Finalize();
-    }
-    char* first_line = (char*)message;
-    char* end = strchr(message, '\n');
-    if (end != NULL)
-    {
-        first_line = python_error_buffer;
-        memcpy(first_line, message, (end - message) > sizeof(python_error_buffer) ? sizeof(python_error_buffer) : (end - message));
-        first_line[end - message] = '\0';
-    }
-    ErrorSystemConfig c;
-    errorSystemCreate(&c, (const char*)first_line, message);
-    errorSystemShow(&c);
-    if (exit == 1) {
-        Py_Exit(1);
-    }
 }
 
 
