@@ -397,7 +397,7 @@ int main(int argc, char* argv[])
     PyConfig config;
 
     show_error("before InitMyConfig", 0);
-    InitCompConfig(&config);
+    InitPyConfig(&config);
     config.filesystem_encoding = L"utf-8";
     config.pythonpath_env = L"romfs:/Contents/lib.zip";
     config.home = L"romfs:/Contents/lib.zip";
